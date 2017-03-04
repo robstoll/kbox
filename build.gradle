@@ -1,0 +1,50 @@
+buildscript {
+    ext {
+        kbox_version = '0.0.1'
+        assertK_version = '0.1.0'
+        kotlin_version = '1.1.0'
+        mockito_kotlin_version = '1.0.1'
+
+        //spek.gradle
+        jacoco_tool_version = '0.7.6.201602180812'
+        spek_version = '1.1.0-beta3'
+        junit_version = '1.0.0-M3'
+
+        //publish.gradle
+        bintray_version = '1.7.3'
+        publish_artifactId = 'kbox'
+        publish_version = kbox_version
+        publish_description = 'A utility library for Kotlin'
+        publish_vcsUrl = 'https://github.com/robstoll/kbox.git'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply from: './gradle/scripts/spek.gradle'
+apply from: './gradle/scripts/publish.gradle'
+
+repositories {
+    mavenCentral()
+    maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile "ch.tutteli:assertK:$assertK_version"
+    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+}
+
+sourceSets {
+    main.java.srcDirs += 'src'
+    test.java.srcDirs += 'test'
+}
+
+
+
