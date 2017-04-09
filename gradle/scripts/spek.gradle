@@ -4,7 +4,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    println junit_version
     dependencies {
         classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
     }
@@ -13,8 +12,13 @@ apply plugin: 'jacoco'
 apply plugin: JUnitPlatformPlugin
 
 dependencies {
-    testCompile "org.jetbrains.spek:spek-api:$spek_version"
-    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
+    testCompile("org.jetbrains.spek:spek-api:$spek_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    testRuntime("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+        exclude group: 'org.junit.platform'
+        exclude group: 'org.jetbrains.kotlin'
+    }
 }
 
 repositories {
