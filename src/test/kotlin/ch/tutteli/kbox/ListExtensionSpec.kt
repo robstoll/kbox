@@ -1,8 +1,6 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.assertk.assert
-import ch.tutteli.assertk.isEmpty
-import ch.tutteli.assertk.toBe
+import ch.tutteli.atrium.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
