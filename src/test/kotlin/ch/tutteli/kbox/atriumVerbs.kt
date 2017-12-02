@@ -1,24 +1,24 @@
 package ch.tutteli.kbox
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.kbox.AssertionVerb.ASSERT
 import ch.tutteli.kbox.AssertionVerb.EXPECT_THROWN
 
 internal fun <T : Any> assert(subject: T)
-    = AtriumFactory.newCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+internal fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 internal fun <T : Any?> assert(subject: T)
-    = AtriumFactory.newNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun expect(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 
 internal enum class AssertionVerb(override val value: String) : ISimpleTranslatable {
