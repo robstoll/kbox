@@ -1,9 +1,12 @@
 buildscript {
     ext {
-        kbox_version = '0.0.1'
+        kbox_version = '0.0.2-SNAPSHOT'
         atrium_version = '0.4.0'
         kotlin_version = '1.2.0'
         mockito_kotlin_version = '1.0.1'
+        dokka_version = '0.9.14'
+
+        srcKotlin = 'src/main/kotlin'
 
         //spek.gradle
         jacoco_tool_version = '0.7.9'
@@ -23,12 +26,12 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     }
 }
 
 apply plugin: 'kotlin'
 apply from: './gradle/scripts/spek.gradle'
-apply from: './gradle/scripts/publish.gradle'
 
 repositories {
     jcenter()
@@ -41,6 +44,38 @@ dependencies {
     testCompile "ch.tutteli:atrium-spec:$atrium_version"
     testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version"){
         exclude group: 'org.jetbrains.kotlin'
+    }
+}
+
+def projectsWithSources = project
+configure(projectsWithSources) {
+    apply plugin: 'org.jetbrains.dokka'
+
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "$buildDir/kdoc"
+        linkMapping {
+            dir = "$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/$srcKotlin"
+            suffix = '#L'
+        }
+
+        sourceDirs = files()
+    }
+
+    task sourceJar(type: Jar) {
+        from project.sourceSets.main.allSource
+        classifier 'sources'
+    }
+
+    task javadocJar(type: Jar, dependsOn: dokka) {
+        from dokka.outputDirectory
+        classifier = 'javadoc'
+    }
+
+    afterEvaluate {
+        it.ext.publish_artifacts = [sourceJar, javadocJar]
+        apply from: './gradle/scripts/publish.gradle'
     }
 }
 
