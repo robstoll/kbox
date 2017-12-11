@@ -1,23 +1,46 @@
 package ch.tutteli.kbox
 
-import java.util.*
+/**
+ * Joins all elements of this list by calling [append] and separates the elements with the given [separator].
+ */
+inline fun <T> List<T>.joinToString(separator: String, append: (it: T, sb: StringBuilder) -> Unit): String
+    = joinToString(separator, separator, append)
 
-inline fun <T> List<T>.joinToString(separator: String, append: (it: T, sb: StringBuilder) -> Unit) : String {
+/**
+ * Joins all elements of this list by calling [append] and separates the elements with the given [separator] whereas
+ * [lastSeparator] is used to separate the last and the second last element.
+ */
+inline fun <T> List<T>.joinToString(separator: String, lastSeparator: String, append: (it: T, sb: StringBuilder) -> Unit): String {
     val sb = StringBuilder(size * 4)
-    appendToStringBuilder(sb, separator, append)
+    appendToStringBuilder(sb, separator, lastSeparator, append)
     return sb.toString()
 }
 
+/**
+ * Appends all elements of this list to the given [sb] by calling [append] and separates the elements with the given
+ * [separator].
+ */
+inline fun <T> List<T>.appendToStringBuilder(sb: StringBuilder, separator: String, append: (it: T, sb: StringBuilder) -> Unit)
+    = appendToStringBuilder(sb, separator, separator, append)
+
+/**
+ * Appends all elements of this list to the given [sb] by calling [append] and separates the elements with the given
+ * [separator] whereas [lastSeparator] is used to separate the last and the second last element.
+ */
 inline fun <T> List<T>.appendToStringBuilder(
-    sb: StringBuilder, separator: String, append: (it: T, sb: StringBuilder) -> Unit) {
+    sb: StringBuilder, separator: String, lastSeparator: String, append: (it: T, sb: StringBuilder) -> Unit) {
 
     val size = this.size
     if (size > 0) {
         append(this[0], sb)
     }
-    for (i in 1 until size) {
+    for (i in 1 until size - 1) {
         sb.append(separator)
         append(this[i], sb)
+    }
+    if (size > 1) {
+        sb.append(lastSeparator)
+        append(this[size - 1], sb)
     }
 }
 
