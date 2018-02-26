@@ -2,16 +2,16 @@ package ch.tutteli.kbox
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.ReporterBuilder
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.kbox.AssertionVerb.ASSERT
 import ch.tutteli.kbox.AssertionVerb.EXPECT_THROWN
 
 internal fun <T : Any> assert(subject: T)
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
+internal fun <T : Any> assert(subject: T, createAssertions: Assert<T>.() -> Unit)
     = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 internal fun <T : Any?> assert(subject: T)
@@ -21,7 +21,7 @@ internal fun expect(act: () -> Unit)
     = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 
-internal enum class AssertionVerb(override val value: String) : ISimpleTranslatable {
+internal enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),
     EXPECT_THROWN("expect the thrown exception"),
 }
@@ -29,8 +29,12 @@ internal enum class AssertionVerb(override val value: String) : ISimpleTranslata
 internal object AtriumReporterSupplier {
     val REPORTER by lazy {
         ReporterBuilder
+            .withoutTranslations()
             .withDetailedObjectFormatter()
-            .withSameLineAssertionFormatter()
+            .withDefaultAssertionFormatterController()
+            .withDefaultAssertionFormatterFacade()
+            .withTextSameLineAssertionPairFormatter()
+            .withDefaultTextCapabilities()
             .buildOnlyFailureReporter()
     }
 }
