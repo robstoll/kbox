@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kbox_version = '0.1.1-SNAPSHOT'
+        kbox_version = '0.2.0'
         atrium_version = '0.6.0'
         kotlin_version = '1.2.21'
         mockito_kotlin_version = '1.5.0'
@@ -56,7 +56,7 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/v0.2.0/${project.name}/$srcKotlin"
             suffix = '#L'
         }
 
@@ -79,4 +79,30 @@ configure(projectsWithSources) {
     }
 }
 
+/*
+
+Release & deploy a commit
+--------------------------------
+1. change kbox_version in build.gradle to X.Y.Z
+2. update master:
+    a) point to the tag
+        1) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
+        2) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
+    b) commit (modified build.gradle, README.md)
+    c) git tag vX.Y.Z
+    d) git push origin vX.Y.Z
+4. deploy to bintray:
+    a) gr bintrayUpload
+    b) Log in to bintray, check and publish new jars
+5. create release on github
+
+Prepare next dev cycle
+-----------------------
+1. change version in build.gradle to X.Y.Z-SNAPSHOT
+2. point to master
+   a) search for `tag=vX.Y.Z` and replace it with `branch=master`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
+3. commit & push changes
+
+*/
 
