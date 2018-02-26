@@ -1,12 +1,11 @@
-package ch.tutteli.kbox
+package ch.tutteli.atrium
 
-import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.kbox.AssertionVerb.ASSERT
-import ch.tutteli.kbox.AssertionVerb.EXPECT_THROWN
+import ch.tutteli.atrium.AssertionVerb.ASSERT
+import ch.tutteli.atrium.AssertionVerb.EXPECT_THROWN
 
 internal fun <T : Any> assert(subject: T)
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
