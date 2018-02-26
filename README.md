@@ -11,4 +11,9 @@ Current extension functions:
   with the ability to define a different separator for the last separation
   => handy if you want to form sentences like `a, b and c`
 - [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/blob/master/src/main/kotlin/ch/tutteli/kbox/IteratorExtensions.kt#L3)
-  which allows to have a look what the next element is without consuming it.  
+  which allows to have a look what the next element is without consuming it.
+  
+
+# License
+KBox is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0). 
+    
