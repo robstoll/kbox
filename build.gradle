@@ -1,10 +1,10 @@
 buildscript {
     ext {
-        kbox_version = '0.2.0'
+        kbox_version = '0.3.0-SNAPSHOT'
         atrium_version = '0.6.0'
         kotlin_version = '1.2.21'
         mockito_kotlin_version = '1.5.0'
-        dokka_version = '0.9.14'
+        dokka_version = '0.9.16'
 
         srcKotlin = 'src/main/kotlin'
 
@@ -56,7 +56,7 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/v0.2.0/${project.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/$srcKotlin"
             suffix = '#L'
         }
 
@@ -75,7 +75,7 @@ configure(projectsWithSources) {
 
     afterEvaluate {
         it.ext.publish_artifacts = [sourceJar, javadocJar]
-        apply from: './gradle/scripts/publish.gradle'
+        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle"
     }
 }
 
