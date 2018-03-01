@@ -168,8 +168,8 @@ class ListExtensionSpec : Spek({
             }
         }
 
-        on("list with 3 elements, first has list of two int, seond an empty list and third a list with one int") {
-            it("returns list with threee int") {
+        on("list with 3 elements, first has list of two int, second an empty list and third a list with one int") {
+            it("returns list with three int") {
                 val list = listOf(
                     DummyWithList(listOf(1, 2)),
                     DummyWithList(listOf()),

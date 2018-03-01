@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
     }
 }
 apply plugin: 'jacoco'
@@ -27,7 +27,7 @@ dependencies {
 
 
 junitPlatform {
-    platformVersion "$junit_version"
+    platformVersion "$junit_platform_version"
     filters {
         engines {
             include 'spek'
@@ -38,6 +38,10 @@ junitPlatform {
 // adopted from http://stackoverflow.com/questions/39362955/gradle-jacoco-and-junit5
 afterEvaluate {
     def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
+    def reportIndex = junitPlatformTestTask.args.findIndexOf { it=='--reports-dir' }
+    def keep = (0..(junitPlatformTestTask.args.size()-1)) - [reportIndex, reportIndex + 1]
+    junitPlatformTestTask.args = junitPlatformTestTask.args[keep]
+
     jacoco {
         toolVersion = "$jacoco_tool_version"
         applyTo junitPlatformTestTask
@@ -46,13 +50,14 @@ afterEvaluate {
     project.task(type: JacocoReport, 'junitPlatformJacocoReport',
         {
             sourceDirectories = sourceSets.main.allJava.sourceDirectories
-            classDirectories = files(sourceSets.main.output.classesDir)
+            classDirectories = files(sourceSets.main.output.classesDirs)
             executionData junitPlatformTestTask
             reports {
+                csv.enabled = false
                 xml.enabled = true
-                xml.destination "${buildDir}/reports/jacoco/report.xml"
-                html.enabled = true
-                html.destination "${buildDir}/jacoco/"
+                xml.destination file("${buildDir}/reports/jacoco/report.xml")
+                html.enabled = false
+                html.destination file("${buildDir}/reports/jacoco/html/")
             }
         })
     check.dependsOn junitPlatformJacocoReport
