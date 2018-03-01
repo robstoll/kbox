@@ -1,7 +1,7 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/kbox/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/kbox/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/kbox.svg?branch=master)](https://travis-ci.org/robstoll/kbox)
-[![Coverage](https://codecov.io/github/robstoll/kbox/coverage.svg?branch=master)](https://codecov.io/github/robstoll/kbox?branch=master)
+[![Build Status](https://travis-ci.org/robstoll/kbox.svg?branch=v0.3.0)](https://travis-ci.org/robstoll/kbox)
+[![Coverage](https://codecov.io/github/robstoll/kbox/coverage.svg?branch=v0.3.0)](https://codecov.io/github/robstoll/kbox?branch=v0.3.0)
 
 # KBox
 KBox is a very small utility library for Kotlin
