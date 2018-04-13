@@ -27,3 +27,8 @@ inline fun <T> Array<T>.appendToStringBuilder(sb: StringBuilder, separator: Stri
 inline fun <T> Array<T>.appendToStringBuilder(
     sb: StringBuilder, separator: String, lastSeparator: String, append: (it: T, sb: StringBuilder) -> Unit)
     = this.asList().appendToStringBuilder(sb, separator, lastSeparator, append)
+
+/**
+ * Maps the values to [WithIndex], containing the index next to the value itself.
+ */
+fun <T> Array<T>.mapWithIndex(): List<WithIndex<T>> = this.mapIndexed { index, t -> WithIndex(index, t)}
