@@ -46,13 +46,12 @@ object IterableExtensionsSpec : Spek({
         }
     }
 
-    val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int, StringBuilder) -> Unit, Unit> =
-        List<Int>::appendToStringBuilder
+    val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int) -> Unit, Unit> = List<Int>::appendToStringBuilder
     describe("fun ${appendToStringBuilder.name}") {
         given("empty list") {
             it("does not append anything to the given StringBuilder") {
                 val result = StringBuilder()
-                listOf<Int>().asIterable().appendToStringBuilder(result, separator, append)
+                listOf<Int>().asIterable().appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result).isEmpty()
             }
         }
@@ -60,7 +59,7 @@ object IterableExtensionsSpec : Spek({
         given("a list with one item") {
             it("returns a string according to the given append function") {
                 val result = StringBuilder()
-                listOf(1).asIterable().appendToStringBuilder(result, separator, append)
+                listOf(1).asIterable().appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1")
             }
         }
@@ -68,14 +67,14 @@ object IterableExtensionsSpec : Spek({
         given("a list with two items") {
             it("returns a string according to the given append function and uses the separator") {
                 val result = StringBuilder()
-                listOf(1, 2).asIterable().appendToStringBuilder(result, separator, append)
+                listOf(1, 2).asIterable().appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1, a number: 2")
             }
         }
         given("a list with three items") {
             it("returns a string according to the given append function and uses the separator") {
                 val result = StringBuilder()
-                listOf(1, 3, 2).asIterable().appendToStringBuilder(result, separator, append)
+                listOf(1, 3, 2).asIterable().appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1, a number: 3, a number: 2")
             }
         }

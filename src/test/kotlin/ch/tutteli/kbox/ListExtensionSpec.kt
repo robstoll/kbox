@@ -77,12 +77,12 @@ class ListExtensionSpec : Spek({
 
     }
 
-    val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int, StringBuilder) -> Unit, Unit> = List<Int>::appendToStringBuilder
+    val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int) -> Unit, Unit> = List<Int>::appendToStringBuilder
     describe("fun ${appendToStringBuilder.name} without lastSeparator") {
         given("empty list") {
             it("does not append anything to the given StringBuilder") {
                 val result = StringBuilder()
-                listOf<Int>().appendToStringBuilder(result, separator, append)
+                listOf<Int>().appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result).isEmpty()
             }
         }
@@ -90,7 +90,7 @@ class ListExtensionSpec : Spek({
         given("a list with one item") {
             it("returns a string according to the given append function") {
                 val result = StringBuilder()
-                listOf(1).appendToStringBuilder(result, separator, append)
+                listOf(1).appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1")
             }
         }
@@ -98,14 +98,14 @@ class ListExtensionSpec : Spek({
         given("a list with two items") {
             it("returns a string according to the given append function and uses the separator") {
                 val result = StringBuilder()
-                listOf(1, 2).appendToStringBuilder(result, separator, append)
+                listOf(1, 2).appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1, a number: 2")
             }
         }
         given("a list with three items") {
             it("returns a string according to the given append function and uses the separator") {
                 val result = StringBuilder()
-                listOf(1, 3, 2).appendToStringBuilder(result, separator, append)
+                listOf(1, 3, 2).appendToStringBuilder(result, separator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1, a number: 3, a number: 2")
             }
         }
@@ -115,7 +115,7 @@ class ListExtensionSpec : Spek({
         given("empty list") {
             it("does not append anything to the given StringBuilder") {
                 val result = StringBuilder()
-                listOf<Int>().appendToStringBuilder(result, separator, lastSeparator, append)
+                listOf<Int>().appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
                 assert(result).isEmpty()
             }
         }
@@ -123,7 +123,7 @@ class ListExtensionSpec : Spek({
         given("a list with one item") {
             it("returns a string according to the given append function") {
                 val result = StringBuilder()
-                listOf(1).appendToStringBuilder(result, separator, lastSeparator, append)
+                listOf(1).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1")
             }
         }
@@ -131,53 +131,15 @@ class ListExtensionSpec : Spek({
         given("a list with two items") {
             it("returns a string according to the given append function and uses the lastSeparator") {
                 val result = StringBuilder()
-                listOf(1, 2).appendToStringBuilder(result, separator, lastSeparator, append)
+                listOf(1, 2).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1 and a number: 2")
             }
         }
         given("a list with three items") {
             it("returns a string according to the given append function and uses the separator and lastSeparator") {
                 val result = StringBuilder()
-                listOf(1, 3, 2).appendToStringBuilder(result, separator, lastSeparator, append)
+                listOf(1, 3, 2).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1, a number: 3 and a number: 2")
-            }
-        }
-    }
-
-
-    describe("fun flatten") {
-        given("empty list") {
-            it("returns an empty list") {
-                val list = listOf<DummyWithList>()
-                val result = list.flatten(DummyWithList::list)
-                assert(result).toBe(listOf())
-            }
-        }
-        given("list with one element but element has empty list") {
-            it("returns an empty list") {
-                val list = listOf(DummyWithList(listOf()))
-                val result = list.flatten(DummyWithList::list)
-                assert(result).toBe(listOf())
-            }
-        }
-        given("list with one element which has list of two int") {
-            it("returns list with two int") {
-                val list = listOf(DummyWithList(listOf(1, 2)))
-                val result = list.flatten(DummyWithList::list)
-                assert(result).toBe(listOf(1, 2))
-            }
-        }
-
-        given("list with 3 elements, first has list of two int, second an empty list and third a list with one int") {
-            it("returns list with three int") {
-                val list = listOf(
-                    DummyWithList(listOf(1, 2)),
-                    DummyWithList(listOf()),
-                    DummyWithList(listOf(4)))
-                //act
-                val result = list.flatten(DummyWithList::list)
-                //arrange
-                assert(result).toBe(listOf(1, 2, 4))
             }
         }
     }
