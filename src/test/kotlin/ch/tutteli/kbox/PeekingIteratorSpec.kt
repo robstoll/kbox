@@ -9,11 +9,12 @@ import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 
 object PeekingIteratorSpec : Spek({
 
-    context("empty list") {
+    given("empty list") {
         val emptyItr = listOf<Int>().iterator().toPeekingIterator()
         describe("fun peek") {
             it("throws an NoSuchElementException") {
@@ -36,7 +37,7 @@ object PeekingIteratorSpec : Spek({
         }
     }
 
-    context("list with one element") {
+    given("list with one element") {
         describe("fun peek") {
 
             action("calling peek for the first time") {
@@ -64,7 +65,7 @@ object PeekingIteratorSpec : Spek({
         }
     }
 
-    context("list with three elements") {
+    given("list with three elements") {
         describe("fun peek") {
 
             action("calling next") {
