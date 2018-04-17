@@ -28,7 +28,3 @@ inline fun <T> Iterable<T>.appendToStringBuilder(
     }
 }
 
-/**
- * Maps the values to [WithIndex], containing the index next to the value itself.
- */
-fun <T> Iterable<T>.mapWithIndex(): List<WithIndex<T>> = this.mapIndexed { index, t -> WithIndex(index, t) }
