@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kbox_version = '0.5.0-SNAPSHOT'
+        kbox_version = '0.5.0'
         atrium_version = '0.6.0'
         kotlin_version = '1.2.21'
         mockito_kotlin_version = '1.5.0'
@@ -54,7 +54,7 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/v0.5.0/${project.name}/$srcKotlin"
             suffix = '#L'
         }
 
@@ -90,7 +90,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) gr bintrayUpload
+    a) gr clean bintrayUpload
     b) Log in to bintray, check and publish new jars
 5. create release on github
 
