@@ -7,11 +7,27 @@
 KBox is a very small utility library for Kotlin
 
 Current extension functions:
-- [`Array/List.joinToString`](https://github.com/robstoll/kbox/blob/master/src/main/kotlin/ch/tutteli/kbox/ListExtensions.kt#L13)
+- [`Array/List/Iterable.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
+    with the ability to define a different separator for the last separation
+    => handy if you want to form sentences like `a, b and c`
+    
+- [`E.forThisAndEachIn(Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
+  applies the given action to `this` and all elements in Iterable
+  
+- [`Array/List/Iterable.joinToString`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
   with the ability to define a different separator for the last separation
   => handy if you want to form sentences like `a, b and c`
-- [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/blob/master/src/main/kotlin/ch/tutteli/kbox/IteratorExtensions.kt#L3)
+
+- [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
+  maps child-parent relations.
+  
+- [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
+    
+- [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/PeekingIterator.kt)
   which allows to have a look what the next element is without consuming it.
+  
+- [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
+  creates a `List` out of a single `E` and an `Array<E>`.
   
 
 # License
