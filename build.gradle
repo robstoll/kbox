@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kbox_version = '0.4.0'
+        kbox_version = '0.5.0-SNAPSHOT'
         atrium_version = '0.6.0'
         kotlin_version = '1.2.21'
         mockito_kotlin_version = '1.5.0'
@@ -54,7 +54,7 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/0.4.0/${project.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/$srcKotlin"
             suffix = '#L'
         }
 
