@@ -77,6 +77,39 @@ configure(projectsWithSources) {
     }
 }
 
+if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+    configure(projectsWithSources) {
+        def srcModule = "src/module"
+        def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
+        if (moduleInfo.exists()) {
+
+            sourceSets {
+                module {
+                    java {
+                        srcDirs = [srcModule]
+                        compileClasspath = main.compileClasspath
+                        sourceCompatibility = '9'
+                        targetCompatibility = '9'
+                    }
+                }
+                main {
+                    kotlin { srcDirs += [srcModule] }
+                }
+            }
+
+            compileModuleJava.configure {
+                dependsOn compileKotlin
+                destinationDir = compileKotlin.destinationDir
+                doFirst {
+                    options.compilerArgs = ['--module-path', classpath.asPath,]
+                    classpath = files()
+                }
+            }
+            jar.dependsOn compileModuleJava
+        }
+    }
+}
+
 /*
 
 Release & deploy a commit
