@@ -2,7 +2,7 @@ buildscript {
     ext {
         kbox_version = '0.6.0'
         atrium_version = '0.6.0'
-        kotlin_version = '1.2.31'
+        kotlin_version = '1.2.41'
         mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.16'
         tutteli_plugins_version = '0.4.0'
