@@ -106,7 +106,11 @@ object IterableExtensionsSpec : Spek({
         given("a list with three elements") {
             it("returns list with three WithIndex(0..2, element0..2)") {
                 val result = listOf(1, 2, 3).mapWithIndex()
-                assert(result).containsStrictly(WithIndex(0, 1), WithIndex(1, 2), WithIndex(2, 3))
+                assert(result).containsStrictly(
+                    WithIndex(0, 1),
+                    WithIndex(1, 2),
+                    WithIndex(2, 3)
+                )
             }
         }
     }
