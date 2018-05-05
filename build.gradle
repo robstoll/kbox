@@ -54,7 +54,7 @@ configure(commonProjects) {
     }
 }
 
-configure(jvmProjects) { subproject ->
+configure(jvmProjects) { Project subproject ->
     apply plugin: 'kotlin-platform-jvm'
 
 
@@ -64,7 +64,7 @@ configure(jvmProjects) { subproject ->
     }
 }
 
-configure(jsProjects) { subproject ->
+configure(jsProjects) { Project subproject ->
     apply plugin: 'kotlin-platform-js'
 
     dependencies {
@@ -138,7 +138,8 @@ configure(jvmProjects) { subproject ->
 // has to be after the above blocks which define `it.ext.publish_artifacts`
 configure(publishedProjects) { subproject ->
     subproject.ext {
-        publish_artifactId = subproject.name
+        def index = subproject.name.indexOf("-jvm")
+        publish_artifactId = index < 0 ? subproject.name : subproject.name.substring(0, index)
     }
     afterEvaluate {
         apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
