@@ -1,7 +1,5 @@
 package ch.tutteli.kbox
 
-import java.util.*
-
 /**
  * It is assumed that the [Map] represents a child parent relation where this function returns
  * a [LinkedHashSet] with all collected parents.
