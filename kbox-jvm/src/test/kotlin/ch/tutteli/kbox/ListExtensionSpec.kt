@@ -143,6 +143,4 @@ class ListExtensionSpec : Spek({
             }
         }
     }
-}) {
-    private class DummyWithList(val list: List<Int>)
-}
+})
