@@ -1,11 +1,12 @@
 import com.jfrog.bintray.gradle.BintrayPlugin
 
+def publish_version = project.version
+
 logger.info("setting up publish for $project, $publish_groupId:$publish_artifactId:$publish_version")
 logger.info("publish_description: $publish_description")
 logger.info("publish_artifacts: $publish_artifacts\n")
 
 group = publish_groupId
-version = publish_version
 description = publish_description
 
 buildscript {
@@ -22,6 +23,7 @@ buildscript {
         publish_repo = findProperty('publish_repo') ?: 'tutteli-jars'
         publish_pkg_name = findProperty('publish_pkg_name') ?: publish_artifactId
         publish_groupId = findProperty('publish_groupId') ?: 'ch.tutteli'
+        publish_vendor = findProperty('publish_vendor') ?: 'Robert Stoll'
     }
 
     repositories {
@@ -57,7 +59,9 @@ def pomConfig = {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
+            publish_components.each{
+                from it
+            }
             publish_artifacts.each{
                 artifact it
             }
@@ -101,7 +105,7 @@ tasks.withType(Jar) { task ->
         attributes \
             'Implementation-Title': publish_artifactId, \
             'Implementation-Version': publish_version, \
-            'Implementation-Kotlin-Version': kotlin_version, \
-            'Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ')
+            'Implementation-Vendor': publish_vendor, \
+            'Implementation-Kotlin-Version': kotlin_version
     }
 }

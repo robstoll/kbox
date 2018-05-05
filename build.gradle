@@ -1,6 +1,7 @@
+version = "0.7.0-SNAPSHOT"
+
 buildscript {
     ext {
-        kbox_version = '0.6.0'
         atrium_version = '0.6.0'
         kotlin_version = '1.2.41'
         mockito_kotlin_version = '1.5.0'
@@ -12,7 +13,6 @@ buildscript {
         //publish.gradle
         bintray_version = '1.7.3'
         publish_artifactId = 'kbox'
-        publish_version = kbox_version
         publish_description = 'A utility library for Kotlin'
         publish_vcsUrl = 'https://github.com/robstoll/kbox.git'
     }
@@ -24,29 +24,87 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'ch.tutteli.spek'
+apply plugin: 'ch.tutteli.project.utils'
 
-repositories {
-    jcenter()
-}
+subprojects {
+    it.version = rootProject.version
 
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    runtime "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
-    testCompile "ch.tutteli:atrium-spec:$atrium_version"
-    testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version"){
-        exclude group: 'org.jetbrains.kotlin'
+    repositories {
+        jcenter()
     }
 }
 
-def projectsWithSources = project
-configure(projectsWithSources) {
+def commonProjects = prefixedProject('common')
+def jvmProjects = prefixedProject('jvm')
+def jsProjects = prefixedProject('js')
+
+static def getCommonProject(String name, String suffix) {
+    return ":${name.substring(0, name.indexOf(suffix))}-common"
+}
+
+configure(commonProjects) {
+    apply plugin: 'kotlin-platform-common'
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    }
+}
+
+configure(jvmProjects) { subproject ->
+    apply plugin: 'kotlin-platform-jvm'
+
+
+    dependencies {
+        expectedBy project(getCommonProject(subproject.name, '-jvm'))
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    }
+}
+
+configure(jsProjects) { subproject ->
+    apply plugin: 'kotlin-platform-js'
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+        expectedBy project(getCommonProject(subproject.name, '-js'))
+    }
+}
+
+def publishedProjects = subprojects
+configure(publishedProjects) {
+    it.ext.publish_components = []
+    it.ext.publish_artifacts = []
+}
+configure(jvmProjects) {
+    it.ext.publish_components = [components.java]
+}
+configure(publishedProjects - jvmProjects) {
+    afterEvaluate {
+        it.ext.publish_artifacts += [jar]
+    }
+}
+
+configure(jvmProjects) { subproject ->
+    apply plugin: 'ch.tutteli.spek'
+
+    dependencies {
+        runtime "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        testCompile("ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version") {
+            exclude group: 'org.jetbrains.kotlin'
+            exclude group: 'ch.tutteli', module: 'kbox'
+        }
+        testCompile ("ch.tutteli:atrium-spec:$atrium_version"){
+            exclude group: 'org.jetbrains.kotlin'
+            exclude group: 'ch.tutteli', module: 'kbox'
+        }
+        testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+            exclude group: 'org.jetbrains.kotlin'
+        }
+    }
+
     apply plugin: 'org.jetbrains.dokka'
 
     dokka {
@@ -54,7 +112,7 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/v0.6.0/${project.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${subproject.name}/tree/master/${subproject.name}/$srcKotlin"
             suffix = '#L'
         }
 
@@ -62,7 +120,7 @@ configure(projectsWithSources) {
     }
 
     task sourceJar(type: Jar) {
-        from project.sourceSets.main.allSource
+        from subproject.sourceSets.main.allSource
         classifier = 'sources'
     }
 
@@ -73,12 +131,39 @@ configure(projectsWithSources) {
 
     afterEvaluate {
         it.ext.publish_artifacts = [sourceJar, javadocJar]
-        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle"
     }
 }
 
+
+// has to be after the above blocks which define `it.ext.publish_artifacts`
+configure(publishedProjects) { subproject ->
+    subproject.ext {
+        publish_artifactId = subproject.name
+    }
+    afterEvaluate {
+        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
+
+        def includeBuildTime = task('includeBuildTime') {
+            doLast {
+                project.tasks.withType(Jar) { jarTask ->
+                    jarTask.manifest {
+                        attributes('Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'))
+                    }
+                }
+            }
+        }
+
+        task publishBintray {
+            dependsOn includeBuildTime
+            dependsOn bintrayUpload
+            bintrayUpload.mustRunAfter(includeBuildTime)
+        }
+    }
+}
+
+
 if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-    configure(projectsWithSources) {
+    configure(jvmProjects) {
         def srcModule = "src/module"
         def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
         if (moduleInfo.exists()) {
