@@ -4,32 +4,34 @@
 [![Coverage](https://codecov.io/github/robstoll/kbox/coverage.svg?branch=master)](https://codecov.io/github/robstoll/kbox?branch=master)
 
 # KBox
-KBox is a very small utility library for Kotlin
+KBox is a very small but useful utility library for Kotlin.
 
 Current extension functions:
-- [`Array/List/Iterable.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
+- [`Array/List/Iterable.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
     with the ability to define a different separator for the last separation
     => handy if you want to form sentences like `a, b and c`
     
-- [`E.forThisAndEachIn(Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
+- [`E.forThisAndEachIn(Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
   applies the given action to `this` and all elements in Iterable
+
+- [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
+  shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
   
-- [`Array/List/Iterable.joinToString`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
+- [`Array/List/Iterable.joinToString`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
   with the ability to define a different separator for the last separation
   => handy if you want to form sentences like `a, b and c`
 
-- [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
+- [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
   maps child-parent relations.
   
-- [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
+- [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
     
-- [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/PeekingIterator.kt)
+- [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/PeekingIteratorUnsynchronized.kt)
   which allows to have a look what the next element is without consuming it.
   
-- [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/master/src/main/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
+- [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
   creates a `List` out of a single `E` and an `Array<E>`.
   
 
 # License
-KBox is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0). 
-    
+KBox is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0).
