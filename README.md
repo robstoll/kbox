@@ -4,7 +4,7 @@
 [![Coverage](https://codecov.io/github/robstoll/kbox/coverage.svg?branch=master)](https://codecov.io/github/robstoll/kbox?branch=master)
 
 # KBox
-KBox is a very small but useful utility library for Kotlin.
+KBox is a very small but useful utility library for Kotlin (JVM and JS).
 
 Current extension functions:
 - [`Array/List/Iterable.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
@@ -26,6 +26,9 @@ Current extension functions:
 
 - [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
   maps child-parent relations.
+
+- [`Iterator<T>.mapRemaining(WithCounter)`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapRemaining.kt#L9) 
+  maps remaining entries with the help of a transform function (where `mapRemainingWithCounter` passes a counter variable to the transform function).  
   
 - [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
     
