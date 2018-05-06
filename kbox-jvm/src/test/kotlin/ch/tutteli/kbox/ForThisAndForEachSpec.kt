@@ -5,99 +5,91 @@ import ch.tutteli.atrium.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.given
+import org.jetbrains.spek.api.dsl.it
 import kotlin.reflect.KFunction2
 
 object ForThisAndForEachSpec : Spek({
 
     val forThisAndForEachIn: KFunction2<Sequence<Int>, (Int) -> Unit, Unit> = 1::forThisAndForEachIn
 
+    fun t(result: String, vararg arr: Array<Int>)
+        = ForEachInSpec.TestData(result, arr)
+
+
     mapOf(
+        "Array" to { sb: StringBuilder, ints: Array<Int> -> 1.forThisAndForEachIn(ints) { sb.append(it) } },
         "Iterable" to { sb: StringBuilder, ints: Array<Int> -> 1.forThisAndForEachIn(ints.asIterable()) { sb.append(it) } },
         "Sequence" to { sb: StringBuilder,  ints: Array<Int> -> 1.forThisAndForEachIn(ints.asSequence()) { sb.append(it) } }
     ).forEach { (type, function) ->
         describe("1.${forThisAndForEachIn.name} with one $type") {
-            given("empty $type") {
-                val sb = StringBuilder()
-                function(sb, arrayOf())
-                assert(sb.toString()).toBe("1")
-            }
-
-            given("$type with one element") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(2))
-                assert(sb.toString()).toBe("12")
-            }
-
-            given("$type with two element") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(2, 3))
-                assert(sb.toString()).toBe("123")
+            listOf(
+                t("1", arrayOf()),
+                t("12", arrayOf(2)),
+                t("123", arrayOf(2, 3))
+            ).forEach { (result, arrays) ->
+                given(arrays.joinToString { "[" + it.joinToString() + "]" }) {
+                    it("action is append item to StrinBuilder, result is $result") {
+                        val sb = StringBuilder()
+                        function(sb, arrays[0])
+                        assert(sb.toString()).toBe(result)
+                    }
+                }
             }
         }
     }
 
     mapOf(
+        "Array" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> -> 1.forThisAndForEachIn(ints1, ints2) { sb.append(it) } },
         "Iterable" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> -> 1.forThisAndForEachIn(ints1.asIterable(), ints2.asIterable()) { sb.append(it) } },
         "Sequence" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> -> 1.forThisAndForEachIn(ints1.asSequence(), ints2.asSequence()) { sb.append(it) } }
     ).forEach { (type, function) ->
         describe("1.${forThisAndForEachIn.name} with two $type") {
-            given("both empty") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(), arrayOf())
-                assert(sb.toString()).toBe("1")
-            }
-
-            given("first with one element, second empty") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(2), arrayOf())
-                assert(sb.toString()).toBe("12")
-            }
-            given("first empty, second with one element") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(), arrayOf(2))
-                assert(sb.toString()).toBe("12")
-            }
-
-            given("first with one element, second with two elements") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(2), arrayOf(3, 4))
-                assert(sb.toString()).toBe("1234")
+            listOf(
+                t("1", arrayOf(), arrayOf()),
+                t("12", arrayOf(2), arrayOf()),
+                t("12", arrayOf(), arrayOf(2)),
+                t("123", arrayOf(2), arrayOf(3)),
+                t("132", arrayOf(3), arrayOf(2)),
+                t("12345", arrayOf(2, 3), arrayOf(4, 5))
+            ).forEach { (result, arrays) ->
+                given(arrays.joinToString { "[" + it.joinToString() + "]" }) {
+                    it("action is append item to StrinBuilder, result is $result") {
+                        val sb = StringBuilder()
+                        function(sb, arrays[0], arrays[1])
+                        assert(sb.toString()).toBe(result)
+                    }
+                }
             }
         }
     }
 
     mapOf(
+        "Array" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> -> 1.forThisAndForEachIn(ints1, ints2, ints3) { sb.append(it) } },
         "Iterable" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> -> 1.forThisAndForEachIn(ints1.asIterable(), ints2.asIterable(), ints3.asIterable()) { sb.append(it) } },
         "Sequence" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> -> 1.forThisAndForEachIn(ints1.asSequence(), ints2.asSequence(), ints3.asSequence()) { sb.append(it) } }
     ).forEach { (type, function) ->
         describe("1.${forThisAndForEachIn.name} with tree $type") {
-            given("all empty") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(), arrayOf(), arrayOf())
-                assert(sb.toString()).toBe("1")
-            }
-
-            given("first with one element, second empty, third empty") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(2), arrayOf(), arrayOf())
-                assert(sb.toString()).toBe("12")
-            }
-            given("first empty, second with one element, third empty") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(), arrayOf(2), arrayOf())
-                assert(sb.toString()).toBe("12")
-            }
-            given("first empty, second empty, third with one element") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(), arrayOf(), arrayOf(2))
-                assert(sb.toString()).toBe("12")
-            }
-
-            given("first with one element, second with two elements, third with tree element") {
-                val sb = StringBuilder()
-                function(sb, arrayOf(2), arrayOf(3, 4), arrayOf(5, 6, 7))
-                assert(sb.toString()).toBe("1234567")
+            listOf(
+                t("1", arrayOf(), arrayOf(), arrayOf()),
+                t("12", arrayOf(2), arrayOf(), arrayOf()),
+                t("12", arrayOf(), arrayOf(2), arrayOf()),
+                t("12", arrayOf(), arrayOf(), arrayOf(2)),
+                t("123", arrayOf(2), arrayOf(3), arrayOf()),
+                t("123", arrayOf(), arrayOf(2), arrayOf(3)),
+                t("123", arrayOf(2), arrayOf(), arrayOf(3)),
+                t("1324", arrayOf(3), arrayOf(2), arrayOf(4)),
+                t("1234567", arrayOf(2, 3), arrayOf(4, 5), arrayOf(6, 7))
+            ).forEach { (result, arrays) ->
+                given(arrays.joinToString { "[" + it.joinToString() + "]" }) {
+                    it("action is append item to StrinBuilder, result is $result") {
+                        val sb = StringBuilder()
+                        function(sb, arrays[0], arrays[1], arrays[2])
+                        assert(sb.toString()).toBe(result)
+                    }
+                }
             }
         }
     }
-})
+}){
+    data class TestData(val result: String, @Suppress("ArrayInDataClass") val arrays: Array<out Array<Int>>)
+}
