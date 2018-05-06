@@ -90,6 +90,9 @@ configure(publishedProjects - jvmProjects) {
 configure(jvmProjects) { subproject ->
     apply plugin: 'ch.tutteli.spek'
 
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
     dependencies {
         runtime "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
         testCompile("ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version") {
