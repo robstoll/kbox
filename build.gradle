@@ -1,4 +1,4 @@
-version = "0.7.0-SNAPSHOT"
+version = "0.7.0"
 
 buildscript {
     ext {
@@ -200,7 +200,7 @@ if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
 
 Release & deploy a commit
 --------------------------------
-1. change kbox_version in build.gradle to X.Y.Z
+1. change version in build.gradle to X.Y.Z
 2. update master:
     a) point to the tag
         1) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
