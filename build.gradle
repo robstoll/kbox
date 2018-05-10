@@ -12,7 +12,7 @@ buildscript {
 
         //publish.gradle
         bintray_version = '1.7.3'
-        publish_artifactId = 'kbox'
+        publish_pkg_name = rootProject.name
         publish_description = 'A utility library for Kotlin'
         publish_vcsUrl = 'https://github.com/robstoll/kbox.git'
     }
