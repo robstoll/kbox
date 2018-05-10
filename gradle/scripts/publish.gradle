@@ -21,8 +21,8 @@ buildscript {
         publish_dev_email = findProperty('publish_dev_email') ?: 'rstoll@tutteli.ch'
 
         publish_repo = findProperty('publish_repo') ?: 'tutteli-jars'
-        publish_pkg_name = findProperty('publish_pkg_name') ?: publish_artifactId
-        publish_groupId = findProperty('publish_groupId') ?: 'ch.tutteli'
+        publish_pkg_name = findProperty('publish_pkg_name') ?: 'kbox'
+        publish_groupId = findProperty('publish_groupId') ?: 'ch.tutteli.kbox'
         publish_vendor = findProperty('publish_vendor') ?: 'Robert Stoll'
     }
 
