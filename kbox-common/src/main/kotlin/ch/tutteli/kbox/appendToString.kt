@@ -73,3 +73,22 @@ inline fun <T> Iterable<T>.appendToStringBuilder(
     }
 }
 
+/**
+ * Appends all elements of this [Sequence] to the given [sb] by calling [append] and separates the elements with
+ * the given [separator].
+ */
+inline fun <T> Sequence<T>.appendToStringBuilder(
+    sb: StringBuilder,
+    separator: String,
+    append: (it: T) -> Unit
+) {
+    val itr = this.iterator()
+    if (itr.hasNext()) {
+        append(itr.next())
+    }
+    while (itr.hasNext()) {
+        sb.append(separator)
+        append(itr.next())
+    }
+}
+

@@ -16,9 +16,10 @@ object JoinToStringSpec : Spek({
     val joinToString: KFunction3<List<Int>, String, (Int, StringBuilder) -> Unit, String> = Iterable<Int>::joinToString
 
     mapOf(
-        "Iterable" to { ints: Array<Int> -> listOf(*ints).asIterable().joinToString(separator, append) },
+        "Array" to { ints: Array<Int> -> ints.joinToString(separator, append) },
         "List" to { ints: Array<Int> -> listOf(*ints).joinToString(separator, append) },
-        "Array" to { ints: Array<Int> -> ints.joinToString(separator, append) }
+        "Iterable" to { ints: Array<Int> -> listOf(*ints).asIterable().joinToString(separator, append) },
+        "Sequence" to { ints: Array<Int> -> listOf(*ints).asSequence().joinToString(separator, append) }
     ).forEach { (type, function) ->
 
         describe("$type.${joinToString.name}") {

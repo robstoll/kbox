@@ -7,7 +7,7 @@
 KBox is a very small but useful utility library for Kotlin (JVM and JS).
 
 Current extension functions:
-- [`Array/List/Iterable.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
+- [`Array/List/Iterable/Sequence.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
     with the ability to define a different separator for the last separation
     => handy if you want to form sentences like `a, b and c`
 
@@ -20,7 +20,7 @@ Current extension functions:
 - [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
   shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
   
-- [`Array/List/Iterable.joinToString`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
+- [`Array/List/Iterable/Sequence.joinToString`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
   with the ability to define a different separator for the last separation
   => handy if you want to form sentences like `a, b and c`
 

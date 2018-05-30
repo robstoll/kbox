@@ -46,3 +46,12 @@ inline fun <T> Iterable<T>.joinToString(separator: String, append: (it: T, sb: S
     appendToStringBuilder(sb, separator) { append(it, sb) }
     return sb.toString()
 }
+
+/**
+ * Joins all elements of this [Sequence] by calling [append] and separates the elements with the given [separator].
+ */
+inline fun <T> Sequence<T>.joinToString(separator: String, append: (it: T, sb: StringBuilder) -> Unit): String {
+    val sb = StringBuilder()
+    appendToStringBuilder(sb, separator) { append(it, sb) }
+    return sb.toString()
+}

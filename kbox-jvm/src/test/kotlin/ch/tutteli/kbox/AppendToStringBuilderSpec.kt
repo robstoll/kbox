@@ -16,9 +16,10 @@ object AppendToStringBuilderSpec : Spek({
     val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int) -> Unit, Unit> = List<Int>::appendToStringBuilder
 
     mapOf(
-        "Iterable" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).asIterable().appendToStringBuilder(sb, separator) {append(it, sb)} },
+        "Array" to { sb: StringBuilder, ints: Array<Int> -> ints.appendToStringBuilder(sb, separator) {append(it, sb)} },
         "List" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).appendToStringBuilder(sb, separator) {append(it, sb)} },
-        "Array" to { sb: StringBuilder, ints: Array<Int> -> ints.appendToStringBuilder(sb, separator) {append(it, sb)} }
+        "Iterable" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).asIterable().appendToStringBuilder(sb, separator) {append(it, sb)} },
+        "Sequence" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).asSequence().appendToStringBuilder(sb, separator) {append(it, sb)} }
     ).forEach { (type, function) ->
 
         describe("$type.${appendToStringBuilder.name}") {
