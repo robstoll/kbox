@@ -12,9 +12,9 @@ Current extension functions:
     => handy if you want to form sentences like `a, b and c`
 
 - [`forEachIn(Array/Iterable/Sequence<E>, Array/Iterable/Sequence<E>, ..., action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/v0.8.2/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachIn.kt#L6)
-  applies the given action to each entry in the given Iterables.
+  applies the given action to each entry in the given `Iterable`s.
     
-- [`E.forThisAndEachIn(Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/v0.8.2/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
+- [`<E> forElementAndEachIn(E, Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/v0.8.2/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
   applies the given action to `this` and each entry in Iterable
 
 - [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/v0.8.2/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
