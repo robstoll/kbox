@@ -27,7 +27,7 @@ Current extension functions:
 - [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/v0.9.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
   maps child-parent relations.
 
-- [`Iterator<T>.mapRemaining(WithCounter)`](https://github.com/robstoll/kbox/tree/v0.9.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapRemaining.kt#L9) 
+- [`Iterator<T>.mapRemaining/mapRemainingWithCounter`](https://github.com/robstoll/kbox/tree/v0.9.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapRemaining.kt#L9) 
   maps remaining entries with the help of a transform function (where `mapRemainingWithCounter` passes a counter variable to the transform function).  
   
 - [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/v0.9.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
