@@ -1,7 +1,7 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
-import ch.tutteli.atrium.api.cc.en_UK.isEmpty
+import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import ch.tutteli.atrium.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe

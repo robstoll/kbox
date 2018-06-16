@@ -1,6 +1,6 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
