@@ -1,41 +1,28 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerb.EXPECT_THROWN
+import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.reporting.reporter
 
 internal fun <T : Any> assert(subject: T)
-    = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlant(ASSERT, { subject }, reporter)
 
 internal fun <T : Any> assert(subject: T, createAssertions: Assert<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, { subject }, reporter, createAssertions)
 
 internal fun <T : Any?> assert(subject: T)
-    = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT, { subject }, reporter)
 
 internal fun expect(act: () -> Unit)
-    = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, reporter)
 
 
 internal enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),
     EXPECT_THROWN("expect the thrown exception"),
-}
-
-internal object AtriumReporterSupplier {
-    val REPORTER by lazy {
-        ReporterBuilder
-            .withoutTranslations()
-            .withDetailedObjectFormatter()
-            .withDefaultAssertionFormatterController()
-            .withDefaultAssertionFormatterFacade()
-            .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities()
-            .buildOnlyFailureReporter()
-    }
 }
 
 object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(

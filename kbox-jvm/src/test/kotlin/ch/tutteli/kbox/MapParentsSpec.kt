@@ -6,7 +6,7 @@ import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.*
 
-object MapToParentsSpec : Spek({
+object MapParentsSpec : Spek({
 
     fun SpecBody.testNonExistingChild(map: Map<String, String>) {
         on("passing non existing child") {
