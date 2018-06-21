@@ -1,4 +1,4 @@
-version = "0.9.1"
+version = "0.10.0"
 
 buildscript {
     ext {
@@ -119,7 +119,7 @@ configure(jvmProjects) { subproject ->
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${subproject.name}/tree/v0.9.1/${subproject.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${subproject.name}/tree/v0.10.0/${subproject.name}/$srcKotlin"
             suffix = '#L'
         }
 
