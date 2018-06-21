@@ -98,7 +98,7 @@ configure(jvmProjects) { subproject ->
     targetCompatibility = 1.7
 
     dependencies {
-        testCompile("ch.tutteli.atrium:atrium-cc-en_UK-robstoll:$atrium_version") {
+        testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
             exclude group: 'org.jetbrains.kotlin'
             exclude group: 'ch.tutteli', module: 'kbox'
         }
