@@ -69,6 +69,12 @@ configure(jsProjects) { Project subproject ->
         compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
         expectedBy project(getCommonProject(subproject.name, '-js'))
     }
+
+    compileKotlin2Js {
+        kotlinOptions.moduleKind = "umd"
+        kotlinOptions.sourceMap = true
+        kotlinOptions.sourceMapEmbedSources = "always"
+    }
 }
 
 def publishedProjects = subprojects
