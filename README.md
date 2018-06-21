@@ -19,6 +19,8 @@ Current extension functions:
 
 - [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/v0.9.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
   shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
+
+- [Charsequence?.isNotNullAndNotEmpty/isNotNullAndNotBlank](https://github.com/robstoll/kbox/tree/v0.9.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt#L6)  
   
 - [`Array/List/Iterable/Sequence.joinToString`](https://github.com/robstoll/kbox/tree/v0.9.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
   with the ability to define a different separator for the last separation
