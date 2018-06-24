@@ -24,11 +24,14 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "ch.tutteli:tutteli-gradle-project-utils:${gradle.ext.tutteli_plugins_version}"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-spek:${gradle.ext.tutteli_plugins_version}"
     }
 }
 
 apply plugin: 'ch.tutteli.project.utils'
+apply plugin: 'ch.tutteli.kotlin.utils'
+kotlinutils.kotlinVersion = kotlin_version
 
 subprojects {
     it.version = rootProject.version
@@ -38,50 +41,18 @@ subprojects {
     }
 }
 
-def commonProjects = prefixedProject('common')
-def jvmProjects = prefixedProject('jvm')
-def jsProjects = prefixedProject('js')
 
-static def getCommonProject(String name, String suffix) {
-    return ":${name.substring(0, name.indexOf(suffix))}-common"
-}
-
-configure(commonProjects) {
-    apply plugin: 'kotlin-platform-common'
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
-    }
-}
-
-configure(jvmProjects) { Project subproject ->
-    apply plugin: 'kotlin-platform-jvm'
-
-
-    dependencies {
-        expectedBy project(getCommonProject(subproject.name, '-jvm'))
-    }
-}
-
-configure(jsProjects) { Project subproject ->
-    apply plugin: 'kotlin-platform-js'
-
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-        expectedBy project(getCommonProject(subproject.name, '-js'))
-    }
-
-    compileKotlin2Js {
-        kotlinOptions.moduleKind = "umd"
-        kotlinOptions.sourceMap = true
-        kotlinOptions.sourceMapEmbedSources = "always"
-    }
-}
+configureCommonProjects()
+configureJsProjects()
+configureJvmProjects()
 
 def publishedProjects = subprojects
 configure(publishedProjects) {
     it.ext.publish_components = []
     it.ext.publish_artifacts = []
 }
+
+def jvmProjects = getJvmProjects()
 configure(jvmProjects) {
     it.ext.publish_components = [components.java]
 }
