@@ -1,30 +1,24 @@
 version = "0.10.0"
+group = 'ch.tutteli.kbox'
 
 buildscript {
     ext {
         atrium_version = '0.7.0'
         kotlin_version = '1.2.50'
         mockito_kotlin_version = '1.5.0'
-        dokka_version = '0.9.17'
-
-        srcKotlin = 'src/main/kotlin'
-
-        //publish.gradle
-        bintray_version = '1.7.3'
-        publish_pkg_name = rootProject.name
-        publish_description = 'A utility library for Kotlin'
-        publish_vcsUrl = 'https://github.com/robstoll/kbox.git'
     }
 
     repositories {
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
     }
+
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
-        classpath "ch.tutteli:tutteli-gradle-project-utils:${gradle.ext.tutteli_plugins_version}"
+        classpath "ch.tutteli:tutteli-gradle-dokka:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-kotlin-utils:${gradle.ext.tutteli_plugins_version}"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:${gradle.ext.tutteli_plugins_version}"
+        classpath "ch.tutteli:tutteli-gradle-publish:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-spek:${gradle.ext.tutteli_plugins_version}"
     }
 }
@@ -34,11 +28,8 @@ apply plugin: 'ch.tutteli.kotlin.utils'
 kotlinutils.kotlinVersion = kotlin_version
 
 subprojects {
-    it.version = rootProject.version
-
-    repositories {
-        jcenter()
-    }
+    repositories { jcenter() }
+    description = 'A utility library for Kotlin'
 }
 
 
@@ -47,21 +38,8 @@ configureJsProjects()
 configureJvmProjects()
 
 def publishedProjects = subprojects
-configure(publishedProjects) {
-    it.ext.publish_components = []
-    it.ext.publish_artifacts = []
-}
 
 def jvmProjects = getJvmProjects()
-configure(jvmProjects) {
-    it.ext.publish_components = [components.java]
-}
-configure(publishedProjects - jvmProjects) {
-    afterEvaluate {
-        it.ext.publish_artifacts += [jar]
-    }
-}
-
 configure(jvmProjects) { subproject ->
     apply plugin: 'ch.tutteli.spek'
 
@@ -69,75 +47,25 @@ configure(jvmProjects) { subproject ->
     targetCompatibility = 1.7
 
     dependencies {
-        testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
-            exclude group: 'org.jetbrains.kotlin'
-            exclude group: 'ch.tutteli', module: 'kbox'
+        testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", excluding {
+            kotlin()
+            kbox()
         }
-        testCompile ("ch.tutteli.atrium:atrium-spec:$atrium_version") {
-            exclude group: 'org.jetbrains.kotlin'
-            exclude group: 'ch.tutteli', module: 'kbox'
+        testCompile "ch.tutteli.atrium:atrium-spec:$atrium_version", excluding {
+            kotlin()
+            kbox()
             exclude group: 'ch.tutteli.atrium'
         }
-        testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
-            exclude group: 'org.jetbrains.kotlin'
-        }
+        testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", excludeKotlin
     }
 
-    apply plugin: 'org.jetbrains.dokka'
-
-    dokka {
-        outputFormat = 'html'
-        outputDirectory = "$buildDir/kdoc"
-        linkMapping {
-            dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${subproject.name}/tree/v0.10.0/${subproject.name}/$srcKotlin"
-            suffix = '#L'
-        }
-
-        sourceDirs = files()
-    }
-
-    task sourceJar(type: Jar) {
-        from subproject.sourceSets.main.allSource
-        classifier = 'sources'
-    }
-
-    task javadocJar(type: Jar, dependsOn: dokka) {
-        from dokka.outputDirectory
-        classifier = 'javadoc'
-    }
-
-    afterEvaluate {
-        it.ext.publish_artifacts = [sourceJar, javadocJar]
-    }
+    apply plugin: 'ch.tutteli.dokka'
 }
 
 
 // has to be after the above blocks which define `it.ext.publish_artifacts`
 configure(publishedProjects) { subproject ->
-    subproject.ext {
-        def index = subproject.name.indexOf("-jvm")
-        publish_artifactId = index < 0 ? subproject.name : subproject.name.substring(0, index)
-    }
-    afterEvaluate {
-        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
-
-        def includeBuildTime = task('includeBuildTime') {
-            doLast {
-                project.tasks.withType(Jar) { jarTask ->
-                    jarTask.manifest {
-                        attributes('Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'))
-                    }
-                }
-            }
-        }
-
-        task publishBintray {
-            dependsOn includeBuildTime
-            dependsOn bintrayUpload
-            bintrayUpload.mustRunAfter(includeBuildTime)
-        }
-    }
+    apply plugin: 'ch.tutteli.publish'
 }
 
 
@@ -187,7 +115,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) gr clean publishBintray
+    a) gr clean publishToBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
 
