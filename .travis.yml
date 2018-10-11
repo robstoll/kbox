@@ -19,7 +19,7 @@ script:
       if [ $TRAVIS_JDK_VERSION == oraclejdk8 ]; then
           sonar-scanner \
               -Dsonar.projectKey=robstoll_kbox \
-              -Dsonar.projectVersion=0.10.0 \
+              -Dsonar.projectVersion=0.11.0-SNAPSHOT \
               -Dsonar.kotlin.detekt.reportPaths=build/detekt/detekt-checkstyle.xml \
               -Dsonar.sources="\
                   kbox-common/src/main/kotlin,\
