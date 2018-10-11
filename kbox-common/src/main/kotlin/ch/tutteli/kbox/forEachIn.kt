@@ -1,3 +1,4 @@
+@file:Suppress("MethodOverloading")
 package ch.tutteli.kbox
 
 /**

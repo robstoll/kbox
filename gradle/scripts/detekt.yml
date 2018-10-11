@@ -2,7 +2,7 @@ autoCorrect: false
 failFast: true
 
 build:
-    maxIssues: 25
+    maxIssues: 3
     weights:
         complexity: 2
         style: 0.5

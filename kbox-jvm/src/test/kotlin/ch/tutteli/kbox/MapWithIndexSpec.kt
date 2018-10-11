@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import ch.tutteli.atrium.assert
 
-object MapWithIndex: Spek({
+object MapWithIndexSpec: Spek({
     val mapWithIndex = List<Float>::mapWithIndex.name
 
     mapOf(

@@ -18,15 +18,21 @@ fun <T> Map<T, T>.mapParents(child: T, failIfCyclic: Boolean = false): LinkedHas
     val set = linkedSetOf<T>()
     var parent = this[child]
     while (parent != null) {
-        if (parent == child || set.contains(parent)) {
-            if (failIfCyclic) {
-                val steps = if (set.isEmpty()) "->" else set.joinToString(" -> ", prefix = "-> ", postfix = " ->")
-                throw IllegalStateException("cycle detected: $child $steps $parent")
-            }
-            break
-        }
+        if (hasCycle(parent, child, set, failIfCyclic)) break
         set.add(parent)
         parent = this[parent]
     }
     return set
+}
+
+private fun <T> hasCycle(parent: T, child: T, set: LinkedHashSet<T>, failIfCyclic: Boolean): Boolean {
+    return if (parent == child || set.contains(parent)) {
+        if (failIfCyclic) {
+            val steps = if (set.isEmpty()) "->" else set.joinToString(" -> ", prefix = "-> ", postfix = " ->")
+            throw IllegalStateException("cycle detected: $child $steps $parent")
+        }
+        true
+    } else {
+        false
+    }
 }

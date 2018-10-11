@@ -1,3 +1,6 @@
+@file:Suppress("MethodOverloading"
+//TODO remove once https://github.com/arturbosch/detekt/issues/1238 is fixed
+)
 package ch.tutteli.kbox
 
 /**
