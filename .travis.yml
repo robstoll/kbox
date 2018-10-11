@@ -14,7 +14,10 @@ before_install:
 install: true
 
 script:
-  - ./gr -i build detekt
+  - ./gr -i build detektCheck
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
   - |
       if [ $TRAVIS_JDK_VERSION == oraclejdk8 ]; then
           sonar-scanner \
@@ -27,9 +30,6 @@ script:
                   kbox-jvm/src/main/kotlin" \
               -Dsonar.tests=kbox-jvm/src/test/kotlin
       fi
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
