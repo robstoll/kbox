@@ -125,7 +125,7 @@ if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
 
 Release & deploy a commit
 --------------------------------
-1. change version in build.gradle to X.Y.Z
+1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
 2. update master:
     a) point to the tag
         1) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
@@ -140,10 +140,10 @@ Release & deploy a commit
 
 Prepare next dev cycle
 -----------------------
-1. change version in build.gradle to X.Y.Z-SNAPSHOT
-2. point to master
+1. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
    b) search for `tree/vX.Y.Z` and replace it with `tree/master`
+2. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
 3. commit & push changes
 
 */
