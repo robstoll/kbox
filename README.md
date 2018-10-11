@@ -1,9 +1,7 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/kbox/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/kbox/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/kbox.svg?tag=v0.10.0.0)](https://travis-ci.org/robstoll/kbox)
-<!-- too many inline functions, have to wait for jacoco update:
-  [![Coverage](https://codecov.io/github/robstoll/kbox/coverage.svg?tag=v0.10.0)](https://codecov.io/github/robstoll/kbox?tag=v0.10.0) 
--->
+[![Build Status Travis](https://travis-ci.org/robstoll/kbox.svg?tag=v0.10.0.0)](https://travis-ci.org/robstoll/kbox)
+[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/3kyk0fl90eb243ot/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/kbox/branch/master)
 
 # KBox
 KBox is a very small but useful utility library for Kotlin (JVM and JS).
