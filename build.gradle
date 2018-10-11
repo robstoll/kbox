@@ -36,7 +36,7 @@ apply plugin: "io.gitlab.arturbosch.detekt"
 detekt {
     version = detekt_version
     defaultProfile {
-        filters = ".*/resources/.*,.*kbox/.*/build/.*"
+        filters = ".*/resources/.*,.*$rootProject.name/.*/build/.*"
         output = "$rootProject.buildDir/detekt"
         config = file("$rootProject.projectDir/gradle/scripts/detekt.yml")
     }
