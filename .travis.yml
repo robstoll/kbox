@@ -20,6 +20,7 @@ script:
           sonar-scanner \
               -Dsonar.projectKey=robstoll_kbox \
               -Dsonar.projectVersion=0.10.0 \
+              -Dsonar.kotlin.detekt.reportPaths=build/detekt/detekt-checkstyle.xml \
               -Dsonar.sources="\
                   kbox-common/src/main/kotlin,\
                   kbox-js/src/main/kotlin,\

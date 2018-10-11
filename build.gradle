@@ -6,6 +6,9 @@ buildscript {
         atrium_version = '0.7.0'
         kotlin_version = '1.2.50'
         mockito_kotlin_version = '1.5.0'
+
+        // detekt/sonarcloud
+        detekt_version = '1.0.0.RC8'
     }
 
     repositories {
@@ -20,12 +23,28 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-project-utils:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-publish:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-spek:${gradle.ext.tutteli_plugins_version}"
+        classpath "gradle.plugin.io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
     }
 }
 
 apply plugin: 'ch.tutteli.project.utils'
 apply plugin: 'ch.tutteli.kotlin.utils'
 kotlinutils.kotlinVersion = kotlin_version
+
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+detekt {
+    version = detekt_version
+    defaultProfile {
+        filters = ".*/resources/.*,.*kbox/.*/build/.*"
+        output = "$rootProject.buildDir/detekt"
+        config = file("$rootProject.projectDir/gradle/scripts/detekt.yml")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
 
 subprojects {
     repositories { jcenter() }
