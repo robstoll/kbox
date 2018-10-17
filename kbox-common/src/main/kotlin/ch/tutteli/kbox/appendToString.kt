@@ -94,4 +94,3 @@ inline fun <T> Sequence<T>.appendToStringBuilder(
         append(itr.next())
     }
 }
-

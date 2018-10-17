@@ -32,7 +32,6 @@ apply plugin: 'ch.tutteli.kotlin.utils'
 kotlinutils.kotlinVersion = kotlin_version
 
 apply plugin: "io.gitlab.arturbosch.detekt"
-
 detekt {
     version = detekt_version
     defaultProfile {
