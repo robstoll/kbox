@@ -61,9 +61,6 @@ def jvmProjects = getJvmProjects()
 configure(jvmProjects) { subproject ->
     apply plugin: 'ch.tutteli.spek'
 
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
-
     dependencies {
         testCompile "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", excluding {
             kotlin()
@@ -84,40 +81,6 @@ configure(jvmProjects) { subproject ->
 // has to be after the above blocks which define `it.ext.publish_artifacts`
 configure(publishedProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
-}
-
-
-if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-    configure(jvmProjects) {
-        def srcModule = "src/module"
-        def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
-        if (moduleInfo.exists()) {
-
-            sourceSets {
-                module {
-                    java {
-                        srcDirs = [srcModule]
-                        compileClasspath = main.compileClasspath
-                        sourceCompatibility = '9'
-                        targetCompatibility = '9'
-                    }
-                }
-                main {
-                    kotlin { srcDirs += [srcModule] }
-                }
-            }
-
-            compileModuleJava.configure {
-                dependsOn compileKotlin
-                destinationDir = compileKotlin.destinationDir
-                doFirst {
-                    options.compilerArgs = ['--module-path', classpath.asPath,]
-                    classpath = files()
-                }
-            }
-            jar.dependsOn compileModuleJava
-        }
-    }
 }
 
 /*
