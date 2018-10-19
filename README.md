@@ -19,6 +19,9 @@ Current extension functions:
 - [`<E> forElementAndEachIn(E, Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
   applies the given action to `this` and each entry in Iterable
 
+- [`Iterable<T>.forEachRemaining()`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachRemaining.kt#L9)
+  shortcut for `while(hasNext()) yourLambda(next())`
+
 - [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
   shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
 
