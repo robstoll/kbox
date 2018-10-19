@@ -7,9 +7,8 @@ package ch.tutteli.kbox
  * @return A [List] of the mapped remaining values.
  */
 fun <T, R> Iterator<T>.mapRemaining(transform: (T) -> R): List<R> {
-
     val mutableList = mutableListOf<R>()
-    forEachRemaining { transform(it) }
+    forEachRemaining { mutableList.add(transform(it)) }
     return mutableList
 }
 
@@ -24,7 +23,7 @@ fun <T, R> Iterator<T>.mapRemainingWithCounter(transform: (index: Int, T) -> R):
     val mutableList = mutableListOf<R>()
     var counter = 0
     forEachRemaining {
-        transform(counter, it)
+        mutableList.add(transform(counter, it))
         ++counter
     }
     return mutableList
