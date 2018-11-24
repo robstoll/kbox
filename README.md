@@ -1,6 +1,6 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/kbox/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/kbox/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status Travis](https://travis-ci.org/robstoll/kbox.svg?tag=v0.11.1)](https://travis-ci.org/robstoll/kbox)
+[![Build Status Travis](https://travis-ci.org/robstoll/kbox.svg?tag=v0.12.0)](https://travis-ci.org/robstoll/kbox)
 [![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/3kyk0fl90eb243ot/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/kbox/branch/master)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_kbox&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_kbox)
 
@@ -9,40 +9,40 @@
 KBox is a very small but useful utility library for Kotlin (JVM and JS).
 
 Current extension functions:
-- [`Array/List/Iterable/Sequence.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
+- [`Array/List/Iterable/Sequence.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
     with the ability to define a different separator for the last separation
     => handy if you want to form sentences like `a, b and c`
 
-- [`forEachIn(Array/Iterable/Sequence<E>, Array/Iterable/Sequence<E>, ..., action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachIn.kt#L6)
+- [`forEachIn(Array/Iterable/Sequence<E>, Array/Iterable/Sequence<E>, ..., action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachIn.kt#L6)
   applies the given action to each entry in the given `Iterable`s.
     
-- [`<E> forElementAndEachIn(E, Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
+- [`<E> forElementAndEachIn(E, Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
   applies the given action to `this` and each entry in Iterable
 
-- [`Iterable<T>.forEachRemaining()`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachRemaining.kt#L9)
+- [`Iterable<T>.forEachRemaining()`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachRemaining.kt#L9)
   shortcut for `while(hasNext()) yourLambda(next())`
 
-- [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
+- [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
   shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
 
-- [Charsequence?.isNotNullAndNotEmpty/isNotNullAndNotBlank](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt#L6)  
+- [Charsequence?.isNotNullAndNotEmpty/isNotNullAndNotBlank](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt#L6)  
   
-- [`Array/List/Iterable/Sequence.joinToString`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
+- [`Array/List/Iterable/Sequence.joinToString`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
   with the ability to define a different separator for the last separation
   => handy if you want to form sentences like `a, b and c`
 
-- [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
+- [`Map<T, T>.mapParents`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapParents.kt#L13) 
   maps child-parent relations.
 
-- [`Iterator<T>.mapRemaining/mapRemainingWithCounter`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapRemaining.kt#L9) 
+- [`Iterator<T>.mapRemaining/mapRemainingWithCounter`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapRemaining.kt#L9) 
   maps remaining entries with the help of a transform function (where `mapRemainingWithCounter` passes a counter variable to the transform function).  
   
-- [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
+- [`Array/Iterable/Sequence.mapWithIndex`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/mapWithIndex.kt#L11)
     
-- [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/PeekingIteratorUnsynchronized.kt)
+- [`Iterator.toPeekingIterator()`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/PeekingIteratorUnsynchronized.kt)
   which allows to have a look what the next element is without consuming it.
   
-- [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/=v0.11.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
+- [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
   creates a `List` out of a single `E` and an `Array<E>`.
   
 
