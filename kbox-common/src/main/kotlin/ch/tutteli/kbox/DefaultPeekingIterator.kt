@@ -1,13 +1,19 @@
 package ch.tutteli.kbox
 
 /**
- * An unsynchronized version of [PeekingIterator], meaning it is not thread-safe.
+ * An [Iterator] which provides the [peek] function in addition.
  */
-class UnsynchronizedPeekingIterator<out T>(private val itr: Iterator<T>) : PeekingIterator<T> {
-    private var peek: T? = null
+class DefaultPeekingIterator<out T>(private val itr: Iterator<T>) : PeekingIterator<T> {
+    @Suppress(
+        "UnusedPrivateMember"
+        //TODO remove once https://github.com/arturbosch/detekt/issues/1235 is fixed
+    )
 
+    private var peek: T? = null
+    @JvmSynchronized
     override fun hasNext() = peek != null || itr.hasNext()
 
+    @JvmSynchronized
     override fun next(): T {
         val peeked = peek
         return if (peeked != null) {
@@ -18,6 +24,7 @@ class UnsynchronizedPeekingIterator<out T>(private val itr: Iterator<T>) : Peeki
         }
     }
 
+    @JvmSynchronized
     override fun peek(): T {
         if (peek == null) {
             peek = itr.next()
