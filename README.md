@@ -6,7 +6,7 @@
 
 
 # KBox
-KBox is a very small but useful utility library for Kotlin (JVM and JS).
+KBox is a very small but useful utility library for Kotlin (JVM, Android and JS).
 
 Current extension functions:
 - [`Array/List/Iterable/Sequence.appendtoStringBuilder`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/appendToString.kt#L37)
@@ -44,7 +44,21 @@ Current extension functions:
   
 - [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
   creates a `List` out of a single `E` and an `Array<E>`.
-  
+
+# Installation
+
+KBox is pusblished to [bintray](https://bintray.com/robstoll/tutteli-jars/kbox) and jcenter. 
+Following an example if you use gradle:
+
+```
+repositories { jcenter() }
+dependencies {
+    compile 'ch.tutteli.kbox:kbox:0.12.0'
+}
+```
+
+accordingly you can use `kbox-js` or `kbox-android` as artifactId instead of `kbox`.
+
 
 # License
 KBox is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0).
