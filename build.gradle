@@ -19,6 +19,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "ch.tutteli:tutteli-gradle-dokka:${gradle.ext.tutteli_plugins_version}"
+        classpath("ch.tutteli:tutteli-gradle-kotlin-module-info:$gradle.ext.tutteli_plugins_version")
         classpath "ch.tutteli:tutteli-gradle-kotlin-utils:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-project-utils:${gradle.ext.tutteli_plugins_version}"
         classpath "ch.tutteli:tutteli-gradle-publish:${gradle.ext.tutteli_plugins_version}"
@@ -54,11 +55,16 @@ subprojects {
 configureCommonProjects()
 configureJsProjects()
 configureJvmProjects()
+configureAndroidProjects()
 
 def publishedProjects = subprojects
 
-def jvmProjects = getJvmProjects()
-configure(jvmProjects) { subproject ->
+configure(getJvmProjects()){
+    apply plugin: 'ch.tutteli.kotlin.module.info'
+}
+
+def jvmLikeProjects = getJvmProjects() + getAndroidProjects()
+configure(jvmLikeProjects) { subproject ->
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
