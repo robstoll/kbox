@@ -1,3 +1,8 @@
+@file:Suppress(
+    "UnusedImports"
+    //TODO remove once we update to detekt RC10 or newer, the type alias is the problem
+)
+
 package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
