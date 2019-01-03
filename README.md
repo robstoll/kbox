@@ -16,7 +16,7 @@ Current extension functions:
 - [`forEachIn(Array/Iterable/Sequence<E>, Array/Iterable/Sequence<E>, ..., action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachIn.kt#L6)
   applies the given action to each entry in the given `Iterable`s.
     
-- [`<E> forElementAndEachIn(E, Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
+- [`<E> forElementAndEachIn(E, Array/Iterable/Sequence<E>, action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forThisAndForEach.kt#L6)
   applies the given action to `this` and each entry in Iterable
 
 - [`Iterable<T>.forEachRemaining()`](https://github.com/robstoll/kbox/tree/=v0.12.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachRemaining.kt#L9)

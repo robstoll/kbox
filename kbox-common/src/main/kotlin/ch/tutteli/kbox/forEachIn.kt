@@ -4,7 +4,7 @@ package ch.tutteli.kbox
 /**
  * Applies [action] to each entry in [arr1] and in [arr2].
  */
-inline fun <T> forEachIn(arr1: Array<T>, arr2: Array<T>, action: (T) -> Unit) {
+inline fun <T> forEachIn(arr1: Array<out T>, arr2: Array<out T>, action: (T) -> Unit) {
     arr1.forEach(action)
     arr2.forEach(action)
 }
@@ -12,7 +12,7 @@ inline fun <T> forEachIn(arr1: Array<T>, arr2: Array<T>, action: (T) -> Unit) {
 /**
  * Applies [action] to each entry in [arr1], [arr2] and in [arr3].
  */
-inline fun <T> forEachIn(arr1: Array<T>, arr2: Array<T>, arr3: Array<T>, action: (T) -> Unit) {
+inline fun <T> forEachIn(arr1: Array<out T>, arr2: Array<out T>, arr3: Array<out T>, action: (T) -> Unit) {
     arr1.forEach(action)
     arr2.forEach(action)
     arr3.forEach(action)
@@ -21,7 +21,7 @@ inline fun <T> forEachIn(arr1: Array<T>, arr2: Array<T>, arr3: Array<T>, action:
 /**
  * Applies [action] to each entry in [arr1], [arr2], [arr3] and to each entry of [Array] in [arrays].
  */
-inline fun <T> forEachIn(arr1: Array<T>, arr2: Array<T>, arr3: Array<T>, vararg arrays: Array<T>, action: (T) -> Unit) {
+inline fun <T> forEachIn(arr1: Array<out T>, arr2: Array<out T>, arr3: Array<out T>, vararg arrays: Array<out T>, action: (T) -> Unit) {
     arr1.forEach(action)
     arr2.forEach(action)
     arr3.forEach(action)

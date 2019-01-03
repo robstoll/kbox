@@ -2,17 +2,17 @@
 package ch.tutteli.kbox
 
 /**
- * Applies [action] to `this` and to each entry in [iterable].
+ * Applies [action] to `this` and to each entry in [arr].
  */
-inline fun <E> forElementAndForEachIn(element: E, iterable: Array<E>, action: (E) -> Unit) {
+inline fun <E> forElementAndForEachIn(element: E, arr: Array<out E>, action: (E) -> Unit) {
     action(element)
-    iterable.forEach(action)
+    arr.forEach(action)
 }
 
 /**
  * Applies [action] to `this` and to each entry in [arr1] and in [arr2].
  */
-inline fun <E> forElementAndForEachIn(element: E, arr1: Array<E>, arr2: Array<E>, action: (E) -> Unit) {
+inline fun <E> forElementAndForEachIn(element: E, arr1: Array<out E>, arr2: Array<out E>, action: (E) -> Unit) {
     action(element)
     forEachIn(arr1, arr2, action)
 }
@@ -20,7 +20,7 @@ inline fun <E> forElementAndForEachIn(element: E, arr1: Array<E>, arr2: Array<E>
 /**
  * Applies [action] to `this` and to each entry in [arr1], [arr2] and each entry of [Iterable] in [arrays].
  */
-inline fun <E> forElementAndForEachIn(element: E, arr1: Array<E>, arr2: Array<E>, vararg arrays: Array<E>, action: (E) -> Unit) {
+inline fun <E> forElementAndForEachIn(element: E, arr1: Array<out E>, arr2: Array<out E>, vararg arrays: Array<out E>, action: (E) -> Unit) {
     action(element)
     forEachIn(arr1, arr2, action)
     arrays.forEach { it.forEach(action) }
