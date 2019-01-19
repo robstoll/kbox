@@ -5,7 +5,7 @@
 
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import ch.tutteli.atrium.assert
 import org.jetbrains.spek.api.Spek
@@ -44,7 +44,7 @@ object ForEachRemainingSpec : Spek({
                 itr.next()
                 val result = mutableListOf<Int>()
                 itr.foreachRemaining { result.add(it) }
-                assert(result).containsStrictly(2)
+                assert(result).containsExactly(2)
             }
         }
 
@@ -54,7 +54,7 @@ object ForEachRemainingSpec : Spek({
                 itr.next()
                 val result = mutableListOf<Int>()
                 itr.foreachRemaining { result.add(it) }
-                assert(result).containsStrictly(2, 4)
+                assert(result).containsExactly(2, 4)
             }
         }
     }

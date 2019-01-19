@@ -35,14 +35,14 @@ object MapParentsSpec : Spek({
         on("passing child") {
             it("returns set with the parent") {
                 val result = map.mapParents(child)
-                assert(result).containsStrictly(parent)
+                assert(result).containsExactly(parent)
             }
         }
 
         on("passing parent") {
             it("returns an empty set") {
                 val result = map.mapParents(child)
-                assert(result).containsStrictly(parent)
+                assert(result).containsExactly(parent)
             }
         }
     }
@@ -54,14 +54,14 @@ object MapParentsSpec : Spek({
         on("passing child") {
             it("returns set with the parent and grandparent") {
                 val result = map.mapParents(child)
-                assert(result).containsStrictly(parent, grandparent)
+                assert(result).containsExactly(parent, grandparent)
             }
         }
 
         on("passing parent") {
             it("returns set with the grandparent") {
                 val result = map.mapParents(parent)
-                assert(result).containsStrictly(grandparent)
+                assert(result).containsExactly(grandparent)
             }
         }
 
@@ -81,14 +81,14 @@ object MapParentsSpec : Spek({
         on("passing child 1") {
             it("returns set only with related parent") {
                 val result = map.mapParents(child)
-                assert(result).containsStrictly(parent)
+                assert(result).containsExactly(parent)
             }
         }
 
         on("passing child 2") {
             it("returns set only with related parent") {
                 val result = map.mapParents(grandparent)
-                assert(result).containsStrictly(parent)
+                assert(result).containsExactly(parent)
             }
         }
     }
@@ -134,14 +134,14 @@ object MapParentsSpec : Spek({
             on("passing child") {
                 it("returns parent") {
                     val result = map.mapParents(child)
-                    assert(result).containsStrictly(parent)
+                    assert(result).containsExactly(parent)
                 }
             }
 
             on("passing parent") {
                 it("returns child") {
                     val result = map.mapParents(parent)
-                    assert(result).containsStrictly(child)
+                    assert(result).containsExactly(child)
                 }
             }
         }
@@ -182,21 +182,21 @@ object MapParentsSpec : Spek({
             on("passing child") {
                 it("returns parent and grandparent") {
                     val result = map.mapParents(child)
-                    assert(result).containsStrictly(parent, grandparent)
+                    assert(result).containsExactly(parent, grandparent)
                 }
             }
 
             on("passing parent") {
                 it("returns grandparent and child") {
                     val result = map.mapParents(parent)
-                    assert(result).containsStrictly(grandparent, child)
+                    assert(result).containsExactly(grandparent, child)
                 }
             }
 
             on("passing grandparent") {
                 it("returns child and parent") {
                     val result = map.mapParents(grandparent)
-                    assert(result).containsStrictly(child, parent)
+                    assert(result).containsExactly(child, parent)
                 }
             }
         }

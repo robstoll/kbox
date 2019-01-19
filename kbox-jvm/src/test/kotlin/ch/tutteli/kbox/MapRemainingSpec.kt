@@ -1,6 +1,6 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import ch.tutteli.atrium.assert
 import org.jetbrains.spek.api.Spek
@@ -37,7 +37,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2).iterator()
                 itr.next()
                 val result = itr.mapRemaining { it + 1 }
-                assert(result).containsStrictly(3)
+                assert(result).containsExactly(3)
             }
         }
 
@@ -46,7 +46,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2, 4).iterator()
                 itr.next()
                 val result = itr.mapRemaining { it + 1 }
-                assert(result).containsStrictly(3, 5)
+                assert(result).containsExactly(3, 5)
             }
         }
     }
@@ -73,7 +73,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2).iterator()
                 itr.next()
                 val result = itr.mapRemainingWithCounter { counter, it -> it + counter }
-                assert(result).containsStrictly(2)
+                assert(result).containsExactly(2)
             }
         }
 
@@ -82,7 +82,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2, 4).iterator()
                 itr.next()
                 val result = itr.mapRemainingWithCounter { counter, it -> it + counter }
-                assert(result).containsStrictly(2, 5)
+                assert(result).containsExactly(2, 5)
             }
         }
 

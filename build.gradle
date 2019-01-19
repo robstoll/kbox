@@ -3,7 +3,7 @@ group = 'ch.tutteli.kbox'
 
 buildscript {
     ext {
-        atrium_version = '0.7.0'
+        atrium_version = '0.8.0-alpha'
         kotlin_version = '1.2.50'
         mockito_kotlin_version = '1.5.0'
 

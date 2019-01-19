@@ -1,6 +1,6 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -28,20 +28,20 @@ object MapWithIndexSpec: Spek({
             given("a list with one element") {
                 it("returns list WithIndex(0, element0)") {
                     val result = function(arrayOf(1))
-                    assert(result).containsStrictly(WithIndex(0, 1))
+                    assert(result).containsExactly(WithIndex(0, 1))
                 }
             }
 
             given("a list with two elements") {
                 it("returns list WithIndex(0, element0) and WithIndex(1, element1") {
                     val result = function(arrayOf(1, 2))
-                    assert(result).containsStrictly(WithIndex(0, 1), WithIndex(1, 2))
+                    assert(result).containsExactly(WithIndex(0, 1), WithIndex(1, 2))
                 }
             }
             given("a list with three elements") {
                 it("returns list with three WithIndex(0..2, element0..2)") {
                     val result = function(arrayOf(1, 2, 3))
-                    assert(result).containsStrictly(
+                    assert(result).containsExactly(
                         WithIndex(0, 1),
                         WithIndex(1, 2),
                         WithIndex(2, 3)
