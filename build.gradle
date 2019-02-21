@@ -8,7 +8,7 @@ buildscript {
         mockito_kotlin_version = '1.5.0'
 
         // detekt/sonarcloud
-        detekt_version = '1.0.0-RC12'
+        detekt_version = '1.0.0-RC14'
     }
 
     repositories {
@@ -34,24 +34,24 @@ kotlinutils.kotlinVersion = kotlin_version
 
 repositories {
     mavenCentral()
+    jcenter()
+}
+apply plugin: "io.gitlab.arturbosch.detekt"
+detekt {
+    version = detekt_version
+    failFast = true
+    input = files(rootProject.projectDir)
+    filters = ".*/resources/.*,.*$rootProject.name/.*/build/.*"
+    config = files("$rootProject.projectDir/gradle/scripts/detekt.yml")
+    reports {
+        xml.enabled = true
+    }
 }
 
 subprojects {
     repositories { jcenter() }
     description = 'A utility library for Kotlin'
-
-    apply plugin: "io.gitlab.arturbosch.detekt"
-    detekt {
-        version = detekt_version
-        filters = ".*/resources/.*"
-        config = files("$rootProject.projectDir/gradle/scripts/detekt.yml")
-        reports {
-            xml.enabled = true
-            html.enabled = true
-        }
-    }
 }
-
 
 configureCommonProjects()
 configureJsProjects()
