@@ -1,5 +1,4 @@
 autoCorrect: false
-failFast: true
 
 build:
     maxIssues: 3
@@ -35,6 +34,10 @@ potential-bugs:
     UnsafeCast:
         active: false
 
+performance:
+    ArrayPrimitive:
+        active: false
+
 style:
     DataClassContainsFunctions:
         active: false
@@ -53,4 +56,8 @@ style:
     UnnecessaryParentheses:
         active: false
     WildcardImport:
+        active: false
+    EqualsOnSignatureLine:
+        active: false
+    ExplicitItLambdaParameter:
         active: false
