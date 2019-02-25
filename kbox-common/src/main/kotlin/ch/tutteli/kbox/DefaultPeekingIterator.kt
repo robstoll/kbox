@@ -4,10 +4,6 @@ package ch.tutteli.kbox
  * An [Iterator] which provides the [peek] function in addition.
  */
 class DefaultPeekingIterator<out T>(private val itr: Iterator<T>) : PeekingIterator<T> {
-    @Suppress(
-        "UnusedPrivateMember"
-        //TODO remove once https://github.com/arturbosch/detekt/issues/1235 is fixed
-    )
 
     private var peek: T? = null
     @JvmSynchronized

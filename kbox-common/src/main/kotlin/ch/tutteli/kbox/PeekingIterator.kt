@@ -17,13 +17,9 @@ interface PeekingIterator<out T> : Iterator<T> {
     companion object
 }
 
-@Suppress(
-    "UnusedPrivateMember"
-    //TODO remove once https://github.com/arturbosch/detekt/issues/1235 is fixed
-)
-    /**
-     * Platform independent method which creates a [PeekingIterator] based on a given [itr].
-     */
+/**
+ * Platform independent method which creates a [PeekingIterator] based on a given [itr].
+ */
 fun <T> PeekingIterator.Companion.create(itr: Iterator<T>): PeekingIterator<T> = DefaultPeekingIterator(itr)
 
 /**

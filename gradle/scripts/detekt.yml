@@ -1,5 +1,4 @@
 autoCorrect: false
-failFast: true
 
 build:
     maxIssues: 3
@@ -19,6 +18,7 @@ test-pattern: # Configure exclusions for test sources
     - 'FunctionMinLength'
     - 'UndocumentedPublicClass'
     - 'UndocumentedPublicFunction'
+    - 'ArrayPrimitive'
 
 complexity:
     ComplexInterface:
@@ -53,4 +53,8 @@ style:
     UnnecessaryParentheses:
         active: false
     WildcardImport:
+        active: false
+    EqualsOnSignatureLine:
+        active: false
+    ExplicitItLambdaParameter:
         active: false
