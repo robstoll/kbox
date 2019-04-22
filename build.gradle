@@ -3,7 +3,7 @@ group = 'ch.tutteli.kbox'
 
 buildscript {
     ext {
-        atrium_version = '0.8.0-beta'
+        atrium_version = '0.8.0-RC1'
         kotlin_version = '1.2.50'
         mockito_kotlin_version = '1.5.0'
 
@@ -107,8 +107,6 @@ configure(jvmLikeProjects) { subproject ->
     apply plugin: 'ch.tutteli.dokka'
 }
 
-
-// has to be after the above blocks which define `it.ext.publish_artifacts`
 configure(publishedProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 }
