@@ -12,7 +12,7 @@ object IsNotNullAndNotSpec : Spek({
             Triple("null", null, false),
             Triple("empty String", "", false),
             Triple("empty StringBuilder", StringBuilder(), false),
-            Triple("String \"   \"", StringBuilder("hello"), true),
+            Triple("String \"   \"", "   ", true),
             Triple("StringBuilder \"   \"", StringBuilder("   "), true),
             Triple("String \"hello\"", "hello", true),
             Triple("StringBuilder \"hello\"", StringBuilder("hello"), true)
@@ -28,7 +28,7 @@ object IsNotNullAndNotSpec : Spek({
             Triple("null", null, false),
             Triple("empty String", "", false),
             Triple("empty StringBuilder", StringBuilder(), false),
-            Triple("String \"   \"", StringBuilder("   "), false),
+            Triple("String \"   \"", "   ", false),
             Triple("StringBuilder \"   \"", StringBuilder("   "), false),
             Triple("String \"hello\"", "hello", true),
             Triple("StringBuilder \"hello\"", StringBuilder("hello"), true)

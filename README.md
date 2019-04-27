@@ -13,6 +13,9 @@ Current extension functions:
     with the ability to define a different separator for the last separation
     => handy if you want to form sentences like `a, b and c`
 
+- [`CharSequence.blankToNull`](https://github.com/robstoll/kbox/tree/v0.12.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/blanktoNull.kt#L7)
+  returns the same `CharSequence` if not blank, `null` otherwise
+
 - [`forEachIn(Array/Iterable/Sequence<E>, Array/Iterable/Sequence<E>, ..., action: (E) -> Unit)`](https://github.com/robstoll/kbox/tree/v0.12.1/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachIn.kt#L6)
   applies the given action to each entry in the given `Iterable`s.
     
