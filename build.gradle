@@ -38,7 +38,6 @@ repositories {
 }
 apply plugin: "io.gitlab.arturbosch.detekt"
 detekt {
-    version = detekt_version
     failFast = true
     input = files(rootProject.projectDir)
     filters = ".*/resources/.*,.*$rootProject.name/.*/build/.*"
