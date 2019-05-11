@@ -4,7 +4,7 @@ group = 'ch.tutteli.kbox'
 buildscript {
     ext {
         atrium_version = '0.8.0-RC1'
-        kotlin_version = '1.2.50'
+        kotlin_version = '1.3.31'
         mockito_kotlin_version = '1.5.0'
 
         // detekt/sonarcloud
