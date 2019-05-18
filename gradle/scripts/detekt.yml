@@ -9,16 +9,17 @@ build:
 test-pattern: # Configure exclusions for test sources
     active: true
     patterns: #Test file regexes
-    - '.*(/|\\)test(/|\\).*'
+        - '.*(/|\\)test(/|\\).*'
     exclude-rule-sets:
-    - 'ignoreDefaultBehaviour'
+        - 'ignoreDefaultBehaviour'
     exclude-rules:
-    - 'StringLiteralDuplication'
-    - 'SpreadOperator'
-    - 'FunctionMinLength'
-    - 'UndocumentedPublicClass'
-    - 'UndocumentedPublicFunction'
-    - 'ArrayPrimitive'
+        - 'ArrayPrimitive'
+        - 'FunctionMinLength'
+        - 'LateinitUsage'
+        - 'StringLiteralDuplication'
+        - 'SpreadOperator'
+        - 'UndocumentedPublicClass'
+        - 'UndocumentedPublicFunction'
 
 complexity:
     ComplexInterface:

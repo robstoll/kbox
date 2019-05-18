@@ -2,11 +2,10 @@ package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assert
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction3
+
 
 object ForElementAndForEachSpec : Spek({
 
@@ -28,7 +27,7 @@ object ForElementAndForEachSpec : Spek({
                 t("12", arrayOf(2)),
                 t("123", arrayOf(2, 3))
             ).forEach { (result, arrays) ->
-                given(arrays.joinToString { "[" + it.joinToString() + "]" }) {
+                context(arrays.joinToString { "[" + it.joinToString() + "]" }) {
                     it("action is append item to StrinBuilder, result is $result") {
                         val sb = StringBuilder()
                         function(sb, arrays[0])
@@ -53,7 +52,7 @@ object ForElementAndForEachSpec : Spek({
                 t("132", arrayOf(3), arrayOf(2)),
                 t("12345", arrayOf(2, 3), arrayOf(4, 5))
             ).forEach { (result, arrays) ->
-                given(arrays.joinToString { "[" + it.joinToString() + "]" }) {
+                context(arrays.joinToString { "[" + it.joinToString() + "]" }) {
                     it("action is append item to StrinBuilder, result is $result") {
                         val sb = StringBuilder()
                         function(sb, arrays[0], arrays[1])
@@ -81,7 +80,7 @@ object ForElementAndForEachSpec : Spek({
                 t("1324", arrayOf(3), arrayOf(2), arrayOf(4)),
                 t("1234567", arrayOf(2, 3), arrayOf(4, 5), arrayOf(6, 7))
             ).forEach { (result, arrays) ->
-                given(arrays.joinToString { "[" + it.joinToString() + "]" }) {
+                context(arrays.joinToString { "[" + it.joinToString() + "]" }) {
                     it("action is append item to StrinBuilder, result is $result") {
                         val sb = StringBuilder()
                         function(sb, arrays[0], arrays[1], arrays[2])

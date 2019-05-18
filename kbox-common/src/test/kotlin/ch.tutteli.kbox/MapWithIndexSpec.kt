@@ -2,11 +2,9 @@ package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
 import ch.tutteli.atrium.assert
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object MapWithIndexSpec: Spek({
     val mapWithIndex = List<Float>::mapWithIndex.name
@@ -18,27 +16,27 @@ object MapWithIndexSpec: Spek({
     ).forEach { (type, function) ->
 
         describe("$type.$mapWithIndex") {
-            given("empty list") {
+            context("empty list") {
                 it("returns an empty list") {
                     val result = function(arrayOf())
                     assert(result).isEmpty()
                 }
             }
 
-            given("a list with one element") {
+            context("a list with one element") {
                 it("returns list WithIndex(0, element0)") {
                     val result = function(arrayOf(1))
                     assert(result).containsExactly(WithIndex(0, 1))
                 }
             }
 
-            given("a list with two elements") {
+            context("a list with two elements") {
                 it("returns list WithIndex(0, element0) and WithIndex(1, element1") {
                     val result = function(arrayOf(1, 2))
                     assert(result).containsExactly(WithIndex(0, 1), WithIndex(1, 2))
                 }
             }
-            given("a list with three elements") {
+            context("a list with three elements") {
                 it("returns list with three WithIndex(0..2, element0..2)") {
                     val result = function(arrayOf(1, 2, 3))
                     assert(result).containsExactly(

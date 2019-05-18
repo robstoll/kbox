@@ -2,8 +2,8 @@ package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assert
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 object IsNotNullAndNotSpec : Spek({
 
@@ -17,7 +17,7 @@ object IsNotNullAndNotSpec : Spek({
             Triple("String \"hello\"", "hello", true),
             Triple("StringBuilder \"hello\"", StringBuilder("hello"), true)
         ).forEach { (description, value, expected) ->
-            test("given $description, expect $expected") {
+            it("given $description, expect $expected") {
                 assert(value.isNotNullAndNotEmpty()).toBe(expected)
             }
         }
@@ -33,7 +33,7 @@ object IsNotNullAndNotSpec : Spek({
             Triple("String \"hello\"", "hello", true),
             Triple("StringBuilder \"hello\"", StringBuilder("hello"), true)
         ).forEach { (description, value, expected) ->
-            test("given $description, expect $expected") {
+            it("given $description, expect $expected") {
                 assert(value.isNotNullAndNotBlank()).toBe(expected)
             }
         }

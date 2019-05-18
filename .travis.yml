@@ -27,7 +27,7 @@ script:
                 kbox-common/src/main/kotlin,\
                 kbox-js/src/main/kotlin,\
                 kbox-jvm/src/main/kotlin" \
-            -Dsonar.tests=kbox-jvm/src/test/kotlin
+            -Dsonar.tests=kbox-common/src/test/kotlin
     fi
 
 after_success:

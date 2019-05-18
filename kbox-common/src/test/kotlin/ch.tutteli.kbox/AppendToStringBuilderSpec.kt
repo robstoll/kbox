@@ -3,10 +3,8 @@ package ch.tutteli.kbox
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assert
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction4
 
 object AppendToStringBuilderSpec : Spek({
@@ -23,7 +21,7 @@ object AppendToStringBuilderSpec : Spek({
     ).forEach { (type, function) ->
 
         describe("$type.${appendToStringBuilder.name}") {
-            given("empty $type") {
+            context("empty $type") {
                 it("does not append anything to the given StringBuilder") {
                     val result = StringBuilder()
                     function(result, arrayOf())
@@ -31,7 +29,7 @@ object AppendToStringBuilderSpec : Spek({
                 }
             }
 
-            given("$type with one item") {
+            context("$type with one item") {
                 it("returns a string according to the given append function") {
                     val result = StringBuilder()
                     function(result, arrayOf(1))
@@ -39,14 +37,14 @@ object AppendToStringBuilderSpec : Spek({
                 }
             }
 
-            given("$type with two items") {
+            context("$type with two items") {
                 it("returns a string according to the given append function and uses the separator") {
                     val result = StringBuilder()
                     function(result, arrayOf(1, 2))
                     assert(result.toString()).toBe("a number: 1, a number: 2")
                 }
             }
-            given("$type with three items") {
+            context("$type with three items") {
                 it("returns a string according to the given append function and uses the separator") {
                     val result = StringBuilder()
                     function(result, arrayOf(1, 3, 2))
@@ -58,7 +56,7 @@ object AppendToStringBuilderSpec : Spek({
 
     val lastSeparator = " and "
     describe("List.${appendToStringBuilder.name} with lastSeparator") {
-        given("empty list") {
+        context("empty list") {
             it("does not append anything to the given StringBuilder") {
                 val result = StringBuilder()
                 listOf<Int>().appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
@@ -66,7 +64,7 @@ object AppendToStringBuilderSpec : Spek({
             }
         }
 
-        given("a list with one item") {
+        context("a list with one item") {
             it("returns a string according to the given append function") {
                 val result = StringBuilder()
                 listOf(1).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
@@ -74,14 +72,14 @@ object AppendToStringBuilderSpec : Spek({
             }
         }
 
-        given("a list with two items") {
+        context("a list with two items") {
             it("returns a string according to the given append function and uses the lastSeparator") {
                 val result = StringBuilder()
                 listOf(1, 2).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
                 assert(result.toString()).toBe("a number: 1 and a number: 2")
             }
         }
-        given("a list with three items") {
+        context("a list with three items") {
             it("returns a string according to the given append function and uses the separator and lastSeparator") {
                 val result = StringBuilder()
                 listOf(1, 3, 2).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}

@@ -3,10 +3,8 @@ package ch.tutteli.kbox
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assert
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction3
 
 object JoinToStringSpec : Spek({
@@ -23,27 +21,27 @@ object JoinToStringSpec : Spek({
     ).forEach { (type, function) ->
 
         describe("$type.${joinToString.name}") {
-            given("empty $type") {
+            context("empty $type") {
                 it("returns an empty string") {
                     val result = function(arrayOf())
                     assert(result).isEmpty()
                 }
             }
 
-            given("$type with one item") {
+            context("$type with one item") {
                 it("returns a string according to the given append function") {
                     val result = function(arrayOf(1))
                     assert(result).toBe("a number: 1")
                 }
             }
 
-            given("$type with two items") {
+            context("$type with two items") {
                 it("returns a string according to the given append function and uses the separator") {
                     val result = function(arrayOf(1, 2))
                     assert(result).toBe("a number: 1, a number: 2")
                 }
             }
-            given("$type with three items") {
+            context("$type with three items") {
                 it("returns a string according to the given append function and uses the separator") {
                     val result = function(arrayOf(1, 2, 3))
                     assert(result).toBe("a number: 1, a number: 2, a number: 3")
@@ -55,27 +53,27 @@ object JoinToStringSpec : Spek({
 
     val lastSeparator = " and "
     describe("List.${joinToString.name} with lastSeparator") {
-        given("empty list") {
+        context("empty list") {
             it("returns an empty string") {
                 val result = listOf<Int>().joinToString(separator, lastSeparator, append)
                 assert(result).isEmpty()
             }
         }
 
-        given("a list with one item") {
+        context("a list with one item") {
             it("returns a string according to the given append function") {
                 val result = listOf(1).joinToString(separator, lastSeparator, append)
                 assert(result).toBe("a number: 1")
             }
         }
 
-        given("a list with two items") {
+        context("a list with two items") {
             it("returns a string according to the given append function and uses the lastSeparator") {
                 val result = listOf(1, 2).joinToString(separator, lastSeparator, append)
                 assert(result).toBe("a number: 1 and a number: 2")
             }
         }
-        given("a list with three items") {
+        context("a list with three items") {
             it("returns a string according to the given append function and uses the separator as well as the lastSeparator") {
                 val result = listOf(1, 2, 3).joinToString(separator, lastSeparator, append)
                 assert(result).toBe("a number: 1, a number: 2 and a number: 3")
