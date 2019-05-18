@@ -1,7 +1,7 @@
 package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.assert
+import ch.tutteli.kbox.atrium.assert
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction3

@@ -1,10 +1,10 @@
 @file:Suppress("MatchingDeclarationName")
-package ch.tutteli.atrium
+package ch.tutteli.kbox.atrium
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.AssertionVerb.ASSERT
-import ch.tutteli.atrium.AssertionVerb.EXPECT_THROWN
+import ch.tutteli.kbox.atrium.AssertionVerb.ASSERT
+import ch.tutteli.kbox.atrium.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.reporter

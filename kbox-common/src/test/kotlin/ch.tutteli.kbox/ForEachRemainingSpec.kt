@@ -2,7 +2,7 @@ package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
-import ch.tutteli.atrium.assert
+import ch.tutteli.kbox.atrium.assert
 import kotlin.reflect.KFunction2
 import ch.tutteli.kbox.forEachRemaining as foreachRemaining //otherwise we use jdk8
 import org.spekframework.spek2.Spek
