@@ -15,9 +15,10 @@ before_install:
 install: true
 
 script:
-  - ./gr -i build detekt
+  - ./gr -i build
   - |
     if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+        gr detekt
         sonar-scanner \
             -Dsonar.projectVersion=0.13.0 \
             -Dsonar.projectKey=robstoll_kbox \
