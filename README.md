@@ -1,6 +1,6 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/kbox/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/kbox/_latestVersion)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status Travis](https://travis-ci.org/robstoll/kbox.svg?tag=v0.13.0)](https://travis-ci.org/robstoll/kbox)
+[![Build Status Travis](https://travis-ci.org/robstoll/kbox.svg?branch=v0.13.0)](https://travis-ci.org/robstoll/kbox)
 [![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/3kyk0fl90eb243ot/branch/master?svg=true)](https://ci.appveyor.com/project/robstoll/kbox/branch/master)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=robstoll_kbox&metric=alert_status)](https://sonarcloud.io/dashboard?id=robstoll_kbox)
 
@@ -56,7 +56,7 @@ Following an example if you use gradle:
 ```
 repositories { jcenter() }
 dependencies {
-    compile 'ch.tutteli.kbox:kbox:0.12.0'
+    implementation 'ch.tutteli.kbox:kbox:0.13.0'
 }
 ```
 
@@ -64,4 +64,4 @@ accordingly you can use `kbox-js` or `kbox-android` as artifactId instead of `kb
 
 
 # License
-KBox is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0).
+KBox is licensed under [Apache 2.0](http://opensource.org/licenses/Apache2.0).
