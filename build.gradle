@@ -68,8 +68,9 @@ configure(getCommonProjects()) {
         }
         testImplementation "org.spekframework.spek2:spek-dsl-metadata:$spek_version"
     }
-    compileKotlinCommon {
-        kotlinOptions.allWarningsAsErrors = true
+    //TODO delete (true is default) as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
+    compileTestKotlinCommon{
+        kotlinOptions.allWarningsAsErrors = false
     }
 }
 configure(getJsProjects()) {
@@ -79,22 +80,10 @@ configure(getJsProjects()) {
             kbox()
         }
     }
-    compileKotlin2Js {
-        kotlinOptions.allWarningsAsErrors = true
-    }
-    compileTestKotlin2Js{
-        kotlinOptions.allWarningsAsErrors = true
-    }
 }
 
 configure(getJvmProjects()){
     apply plugin: 'ch.tutteli.kotlin.module.info'
-    compileKotlin {
-        kotlinOptions.allWarningsAsErrors = true
-    }
-    compileTestKotlin{
-        kotlinOptions.allWarningsAsErrors = true
-    }
 }
 
 def jvmLikeProjects = getJvmProjects() + getAndroidProjects()
