@@ -1,3 +1,4 @@
+//TODO remove as soon as https://github.com/spekframework/spek/issues/706 is fixed
 @file:Suppress("UNUSED_PARAMETER")
 
 package org.spekframework.spek2.style.specification
