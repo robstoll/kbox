@@ -125,7 +125,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) gr clean publishToBintray
+    a) ./gr clean publishToBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
 
