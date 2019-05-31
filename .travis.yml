@@ -18,11 +18,11 @@ script:
   - ./gr -i build
   - |
     if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-        gr detekt
+        ./gr detekt
         sonar-scanner \
             -Dsonar.projectVersion=0.13.0 \
             -Dsonar.projectKey=robstoll_kbox \
-            -Dsonar.kotlin.detekt.reportPaths=build/detekt/detekt-checkstyle.xml \
+            -Dsonar.kotlin.detekt.reportPaths=build/reports/detekt/detekt.xml \
             -Dsonar.sources="\
                 kbox-android/src/main/kotlin, \
                 kbox-common/src/main/kotlin,\
