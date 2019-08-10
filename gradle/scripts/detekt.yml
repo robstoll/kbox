@@ -6,20 +6,11 @@ build:
         complexity: 2
         style: 0.5
 
-test-pattern: # Configure exclusions for test sources
-    active: true
-    patterns: #Test file regexes
-        - '.*(/|\\)test(/|\\).*'
-    exclude-rule-sets:
-        - 'ignoreDefaultBehaviour'
-    exclude-rules:
-        - 'ArrayPrimitive'
-        - 'FunctionMinLength'
-        - 'LateinitUsage'
-        - 'StringLiteralDuplication'
-        - 'SpreadOperator'
-        - 'UndocumentedPublicClass'
-        - 'UndocumentedPublicFunction'
+comments:
+    UndocumentedPublicClass:
+        excludes: "**/src/test/**"
+    UndocumentedPublicFunction:
+        excludes: "**/src/test/**"
 
 complexity:
     ComplexInterface:
@@ -29,12 +20,27 @@ complexity:
         ignoreSimpleWhenEntries: true
     LongParameterList:
         threshold: 7
+    StringLiteralDuplication:
+        excludes: "**/src/test/**"
+
     TooManyFunctions:
         ignorePrivate: true
+
+naming:
+    FunctionMinLength:
+        excludes: "**/src/test/**"
+
+performance:
+    ArrayPrimitive:
+        excludes: "**/src/test/**"
+    SpreadOperator:
+        excludes: "**/src/test/**"
 
 potential-bugs:
     UnsafeCast:
         active: false
+    LateinitUsage:
+        excludes: "**/src/test/**"
 
 style:
     DataClassContainsFunctions:

@@ -25,6 +25,7 @@ class DefaultPeekingIterator<out T : Any>(private val itr: Iterator<T>) : Peekin
         if (peek == null) {
             peek = itr.next()
         }
+        @Suppress("UseCheckOrError")
         return peek ?: throw IllegalStateException(
             "Either the given Iterator returned null or this class was accessed concurrently (it is not thread safe)."
         )

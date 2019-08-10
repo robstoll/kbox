@@ -25,6 +25,7 @@ fun <T> Map<T, T>.mapParents(child: T, failIfCyclic: Boolean = false): LinkedHas
     return set
 }
 
+@Suppress("UseCheckOrError")
 private fun <T> hasCycle(parent: T, child: T, set: LinkedHashSet<T>, failIfCyclic: Boolean): Boolean {
     return if (parent == child || set.contains(parent)) {
         if (failIfCyclic) {
