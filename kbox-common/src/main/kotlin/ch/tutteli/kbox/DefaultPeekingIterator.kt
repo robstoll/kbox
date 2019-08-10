@@ -3,7 +3,7 @@ package ch.tutteli.kbox
 /**
  * An [Iterator] which provides the [peek] function in addition.
  */
-class DefaultPeekingIterator<out T>(private val itr: Iterator<T>) : PeekingIterator<T> {
+class DefaultPeekingIterator<out T : Any>(private val itr: Iterator<T>) : PeekingIterator<T> {
 
     private var peek: T? = null
     @JvmSynchronized

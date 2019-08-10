@@ -3,7 +3,7 @@ package ch.tutteli.kbox
 /**
  * An [Iterator] which provides the [peek] function in addition.
  */
-interface PeekingIterator<out T> : Iterator<T> {
+interface PeekingIterator<out T : Any> : Iterator<T> {
     /**
      * Returns the [next] element without consuming it.
      * @return the [next] element without consuming it
@@ -20,10 +20,10 @@ interface PeekingIterator<out T> : Iterator<T> {
 /**
  * Platform independent method which creates a [PeekingIterator] based on a given [itr].
  */
-fun <T> PeekingIterator.Companion.create(itr: Iterator<T>): PeekingIterator<T> = DefaultPeekingIterator(itr)
+fun <T : Any> PeekingIterator.Companion.create(itr: Iterator<T>): PeekingIterator<T> = DefaultPeekingIterator(itr)
 
 /**
  * Wraps this [Iterator] into a [PeekingIterator] and returns it.
  * @return The newly created [PeekingIterator].
  */
-fun <T> Iterator<T>.toPeekingIterator() = PeekingIterator.create(this)
+fun <T : Any> Iterator<T>.toPeekingIterator() = PeekingIterator.create(this)
