@@ -9,7 +9,7 @@ buildscript {
         spek_version = '2.0.6'
 
         // detekt/sonarcloud
-        detekt_version = '1.0.0'
+        detekt_version = '1.0.1'
     }
 
     repositories {
