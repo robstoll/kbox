@@ -17,7 +17,12 @@ before_install:
 install: true
 
 script:
-  - ./gr -i build
+  - |
+    if [ "$TRAVIS_JDK_VERSION" != openjdk11 ]; then
+        ./gr buildAllJvm buildAllAndroid
+    else
+        ./gr build
+    fi
   - |
     if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
         ./gr detekt
