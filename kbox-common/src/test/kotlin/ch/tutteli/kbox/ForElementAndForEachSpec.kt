@@ -6,20 +6,27 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction3
 
-
 object ForElementAndForEachSpec : Spek({
 
-    val t : (Int, Sequence<Int>, (Int) -> Unit) -> Unit = ::forElementAndForEachIn
-    val forThisAndForEachIn: KFunction3<Int, Sequence<Int>, (Int) -> Unit, Unit> = t as KFunction3<Int, Sequence<Int>, (Int) -> Unit, Unit>
+    val t: (Int, Sequence<Int>, (Int) -> Unit) -> Unit = ::forElementAndForEachIn
+    val forThisAndForEachIn: KFunction3<Int, Sequence<Int>, (Int) -> Unit, Unit> =
+        t as KFunction3<Int, Sequence<Int>, (Int) -> Unit, Unit>
 
-    fun t(result: String, vararg arr: Array<Int>)
-        = ForEachInSpec.TestData(result, arr)
+    fun t(result: String, vararg arr: Array<Int>) = ForEachInSpec.TestData(result, arr)
 
 
     mapOf(
         "Array" to { sb: StringBuilder, ints: Array<Int> -> forElementAndForEachIn(1, ints) { sb.append(it) } },
-        "Iterable" to { sb: StringBuilder, ints: Array<Int> -> forElementAndForEachIn(1, ints.asIterable()) { sb.append(it) } },
-        "Sequence" to { sb: StringBuilder,  ints: Array<Int> -> forElementAndForEachIn(1, ints.asSequence()) { sb.append(it) } }
+        "Iterable" to { sb: StringBuilder, ints: Array<Int> ->
+            forElementAndForEachIn(1, ints.asIterable()) {
+                sb.append(it)
+            }
+        },
+        "Sequence" to { sb: StringBuilder, ints: Array<Int> ->
+            forElementAndForEachIn(1, ints.asSequence()) {
+                sb.append(it)
+            }
+        }
     ).forEach { (type, function) ->
         describe("1.${forThisAndForEachIn.name} with one $type") {
             listOf(
@@ -39,9 +46,15 @@ object ForElementAndForEachSpec : Spek({
     }
 
     mapOf(
-        "Array" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> -> forElementAndForEachIn(1, ints1, ints2) { sb.append(it) } },
-        "Iterable" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> -> forElementAndForEachIn(1, ints1.asIterable(), ints2.asIterable()) { sb.append(it) } },
-        "Sequence" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> -> forElementAndForEachIn(1, ints1.asSequence(), ints2.asSequence()) { sb.append(it) } }
+        "Array" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> ->
+            forElementAndForEachIn(1, ints1, ints2) { sb.append(it) }
+        },
+        "Iterable" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> ->
+            forElementAndForEachIn(1, ints1.asIterable(), ints2.asIterable()) { sb.append(it) }
+        },
+        "Sequence" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int> ->
+            forElementAndForEachIn(1, ints1.asSequence(), ints2.asSequence()) { sb.append(it) }
+        }
     ).forEach { (type, function) ->
         describe("1.${forThisAndForEachIn.name} with two $type") {
             listOf(
@@ -64,9 +77,15 @@ object ForElementAndForEachSpec : Spek({
     }
 
     mapOf(
-        "Array" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> -> forElementAndForEachIn(1, ints1, ints2, ints3) { sb.append(it) } },
-        "Iterable" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> -> forElementAndForEachIn(1, ints1.asIterable(), ints2.asIterable(), ints3.asIterable()) { sb.append(it) } },
-        "Sequence" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> -> forElementAndForEachIn(1, ints1.asSequence(), ints2.asSequence(), ints3.asSequence()) { sb.append(it) } }
+        "Array" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> ->
+            forElementAndForEachIn(1, ints1, ints2, ints3) { sb.append(it) }
+        },
+        "Iterable" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> ->
+            forElementAndForEachIn(1, ints1.asIterable(), ints2.asIterable(), ints3.asIterable()) { sb.append(it) }
+        },
+        "Sequence" to { sb: StringBuilder, ints1: Array<Int>, ints2: Array<Int>, ints3: Array<Int> ->
+            forElementAndForEachIn(1, ints1.asSequence(), ints2.asSequence(), ints3.asSequence()) { sb.append(it) }
+        }
     ).forEach { (type, function) ->
         describe("1.${forThisAndForEachIn.name} with tree $type") {
             listOf(
@@ -90,6 +109,6 @@ object ForElementAndForEachSpec : Spek({
             }
         }
     }
-}){
+}) {
     data class TestData(val result: String, @Suppress("ArrayInDataClass") val arrays: Array<out Array<Int>>)
 }

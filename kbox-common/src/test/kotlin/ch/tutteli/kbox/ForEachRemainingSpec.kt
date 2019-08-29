@@ -3,11 +3,10 @@ package ch.tutteli.kbox
 import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.isEmpty
 import ch.tutteli.kbox.atrium.assert
-import kotlin.reflect.KFunction2
-import ch.tutteli.kbox.forEachRemaining as foreachRemaining //otherwise we use jdk8
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-
+import kotlin.reflect.KFunction2
+import ch.tutteli.kbox.forEachRemaining as foreachRemaining
 
 object ForEachRemainingSpec : Spek({
     val forEachRemainingFun: KFunction2<Iterator<Int>, (Int) -> Unit, Unit> = Iterator<Int>::foreachRemaining

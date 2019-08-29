@@ -6,12 +6,12 @@ import ch.tutteli.kbox.atrium.assert
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-object MapWithIndexSpec: Spek({
+object MapWithIndexSpec : Spek({
     val mapWithIndex = List<Float>::mapWithIndex.name
 
     mapOf(
         "Array" to { ints: Array<Int> -> ints.mapWithIndex() },
-        "Iterable" to { ints: Array<Int> -> listOf(*ints).asIterable().mapWithIndex()  },
+        "Iterable" to { ints: Array<Int> -> listOf(*ints).asIterable().mapWithIndex() },
         "Sequence" to { ints: Array<Int> -> listOf(*ints).asSequence().mapWithIndex().toList() }
     ).forEach { (type, function) ->
 

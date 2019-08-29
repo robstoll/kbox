@@ -8,16 +8,29 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction4
 
 object AppendToStringBuilderSpec : Spek({
-    val append: (it: Int, sb: StringBuilder) -> Unit = { it, sb -> sb.append("a number: $it") }
+    val append: (i: Int, sb: StringBuilder) -> Unit = { i, sb -> sb.append("a number: $i") }
     val separator = ", "
 
-    val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int) -> Unit, Unit> = List<Int>::appendToStringBuilder
+    val appendToStringBuilder: KFunction4<List<Int>, StringBuilder, String, (Int) -> Unit, Unit> =
+        List<Int>::appendToStringBuilder
 
     mapOf(
-        "Array" to { sb: StringBuilder, ints: Array<Int> -> ints.appendToStringBuilder(sb, separator) {append(it, sb)} },
-        "List" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).appendToStringBuilder(sb, separator) {append(it, sb)} },
-        "Iterable" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).asIterable().appendToStringBuilder(sb, separator) {append(it, sb)} },
-        "Sequence" to { sb: StringBuilder, ints: Array<Int> -> listOf(*ints).asSequence().appendToStringBuilder(sb, separator) {append(it, sb)} }
+        "Array" to { sb: StringBuilder, ints: Array<Int> ->
+            ints.appendToStringBuilder(sb, separator) {
+                append(it, sb)
+            }
+        },
+        "List" to { sb: StringBuilder, ints: Array<Int> ->
+            listOf(*ints).appendToStringBuilder(sb, separator) {
+                append(it, sb)
+            }
+        },
+        "Iterable" to { sb: StringBuilder, ints: Array<Int> ->
+            listOf(*ints).asIterable().appendToStringBuilder(sb, separator) { append(it, sb) }
+        },
+        "Sequence" to { sb: StringBuilder, ints: Array<Int> ->
+            listOf(*ints).asSequence().appendToStringBuilder(sb, separator) { append(it, sb) }
+        }
     ).forEach { (type, function) ->
 
         describe("$type.${appendToStringBuilder.name}") {
@@ -59,7 +72,7 @@ object AppendToStringBuilderSpec : Spek({
         context("empty list") {
             it("does not append anything to the given StringBuilder") {
                 val result = StringBuilder()
-                listOf<Int>().appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
+                listOf<Int>().appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
                 assert(result).isEmpty()
             }
         }
@@ -67,7 +80,7 @@ object AppendToStringBuilderSpec : Spek({
         context("a list with one item") {
             it("returns a string according to the given append function") {
                 val result = StringBuilder()
-                listOf(1).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
+                listOf(1).appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
                 assert(result.toString()).toBe("a number: 1")
             }
         }
@@ -75,14 +88,14 @@ object AppendToStringBuilderSpec : Spek({
         context("a list with two items") {
             it("returns a string according to the given append function and uses the lastSeparator") {
                 val result = StringBuilder()
-                listOf(1, 2).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
+                listOf(1, 2).appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
                 assert(result.toString()).toBe("a number: 1 and a number: 2")
             }
         }
         context("a list with three items") {
             it("returns a string according to the given append function and uses the separator and lastSeparator") {
                 val result = StringBuilder()
-                listOf(1, 3, 2).appendToStringBuilder(result, separator, lastSeparator) {append(it, result)}
+                listOf(1, 3, 2).appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
                 assert(result.toString()).toBe("a number: 1, a number: 3 and a number: 2")
             }
         }

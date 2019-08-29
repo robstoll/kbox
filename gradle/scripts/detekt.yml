@@ -55,13 +55,8 @@ style:
         active: false
     OptionalUnit:
         active: false
-    SpacingBetweenPackageAndImports:
-        active: false
     UnnecessaryParentheses:
         active: false
     WildcardImport:
         active: false
-    EqualsOnSignatureLine:
-        active: false
-    ExplicitItLambdaParameter:
-        active: false
+

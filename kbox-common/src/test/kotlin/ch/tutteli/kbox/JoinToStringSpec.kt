@@ -8,7 +8,7 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction3
 
 object JoinToStringSpec : Spek({
-    val append: (it: Int, sb: StringBuilder) -> Unit = { it, sb -> sb.append("a number: $it") }
+    val append: (i: Int, sb: StringBuilder) -> Unit = { i, sb -> sb.append("a number: $i") }
     val separator = ", "
 
     val joinToString: KFunction3<List<Int>, String, (Int, StringBuilder) -> Unit, String> = Iterable<Int>::joinToString

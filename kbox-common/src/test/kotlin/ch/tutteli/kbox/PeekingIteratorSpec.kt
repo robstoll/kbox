@@ -42,12 +42,10 @@ object PeekingIteratorSpec : Spek({
                 val itr by memoized(CachingMode.SCOPE) { listOf(obj).iterator().toPeekingIterator() }
                 lateinit var result: Any
                 it("returns the element") {
-                    println("first time")
                     result = itr.peek()
                     assert(result).isSameAs(obj)
                 }
                 it("calling it a second time still returns the same element") {
-                    println("second time")
                     val result2 = itr.peek()
                     assert(result2).isSameAs(obj)
                 }
