@@ -45,6 +45,8 @@ potential-bugs:
 style:
     DataClassContainsFunctions:
         active: false
+    ExplicitItLambdaParameter:
+        active: false
     MagicNumber:
         active: false
     MandatoryBracesIfStatements:

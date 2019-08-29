@@ -6,7 +6,6 @@ import ch.tutteli.kbox.atrium.assert
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-@Suppress("ExplicitItLambdaParameter" /* remove once https://github.com/arturbosch/detekt/issues/1858 is fixed */)
 object MapRemainingSpec : Spek({
     //TODO use function reference as soon as https://youtrack.jetbrains.com/issue/KT-24279 is fixed
 //    val mapRemainingFun : KFunction2<Iterator<Int>, (Int) -> Int, List<Int>> = Iterator<Int>::mapRemaining
