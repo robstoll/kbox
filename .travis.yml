@@ -19,13 +19,12 @@ install: true
 script:
   - |
     if [ "$TRAVIS_JDK_VERSION" != openjdk11 ]; then
-        ./gr buildAllJvm buildAllAndroid
+        ./gr buildAllJvm buildAllAndroid detekt
     else
-        ./gr build
+        ./gr build detekt
     fi
   - |
-    if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-        ./gr detekt
+    if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == openjdk11 ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
         sonar-scanner \
             -Dsonar.projectVersion=0.13.0 \
             -Dsonar.projectKey=robstoll_kbox \
