@@ -14,10 +14,9 @@ package ch.tutteli.kbox
  *
  * @return The result of the [thenBlock] or the [elseBlock].
  */
-inline fun <E, R> List<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBlock: () -> R): R = when {
-    index < size -> thenBlock()
-    else -> elseBlock()
-}
+inline fun <E, R> List<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBlock: () -> R): R =
+    if (index < size) thenBlock()
+    else elseBlock()
 
 /**
  * Checks if the given [index] is within the bound of this [List] ([index] < [List.size]) and correspondingly
@@ -33,7 +32,6 @@ inline fun <E, R> List<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBloc
  *
  * @return The result of the [thenBlock] or the [elseBlock].
  */
-inline fun <E, R> Array<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBlock: () -> R): R = when {
-    index < size -> thenBlock()
-    else -> elseBlock()
-}
+inline fun <E, R> Array<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBlock: () -> R): R =
+    if (index < size) thenBlock()
+    else elseBlock()
