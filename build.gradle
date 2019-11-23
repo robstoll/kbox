@@ -1,4 +1,4 @@
-version = "0.13.0"
+version = "0.14.0"
 group = 'ch.tutteli.kbox'
 
 buildscript {
@@ -125,7 +125,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) ./gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"9" && CI=true ./gr clean publishToBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
 
