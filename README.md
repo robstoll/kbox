@@ -25,7 +25,7 @@ Current extension functions:
 - [`Iterable<T>.forEachRemaining()`](https://github.com/robstoll/kbox/tree/v0.13.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/forEachRemaining.kt#L9)
   shortcut for `while(hasNext()) yourLambda(next())`
 
-- [Array/List.ifWithingBound](https://github.com/robstoll/kbox/tree/v0.13.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
+- [Array/List.ifWithinBound](https://github.com/robstoll/kbox/tree/v0.13.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
   shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
 
 - [Charsequence?.isNotNullAndNotEmpty/isNotNullAndNotBlank](https://github.com/robstoll/kbox/tree/v0.13.0/kbox-common/src/main/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt#L6)  
