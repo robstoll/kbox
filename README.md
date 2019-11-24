@@ -50,8 +50,8 @@ Current extension functions:
 
 # Installation
 
-KBox is pusblished to [bintray](https://bintray.com/robstoll/tutteli-jars/kbox) and jcenter. 
-Following an example if you use gradle:
+KBox is pusblished to maven central, jcenter and [bintray](https://bintray.com/robstoll/tutteli-jars/kbox). 
+Following an example if you use gradle and jcenter:
 
 ```
 repositories { jcenter() }
