@@ -13,15 +13,15 @@ addons:
             secure: $SONAR_TOKEN
 
 before_install:
- - chmod +x gr
+ - chmod +x ./gradlew
 install: true
 
 script:
   - |
     if [ "$TRAVIS_JDK_VERSION" != openjdk11 ]; then
-        ./gr buildAllJvm buildAllAndroid detekt
+        ./gradlew buildAllJvm buildAllAndroid detekt
     else
-        ./gr build detekt
+        ./gradlew build detekt
     fi
   - |
     if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == openjdk11 ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
