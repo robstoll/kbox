@@ -9,7 +9,7 @@ buildscript {
         spek_version = '2.0.9'
 
         // gradle plugins
-        tutteli_plugins_version='0.31.2'
+        tutteli_plugins_version='0.32.0'
         detekt_version = '1.4.0'
     }
 
