@@ -24,7 +24,7 @@ script:
         ./gradlew build detekt
     fi
   - |
-    if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == openjdk11 ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+    if [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$TRAVIS_JDK_VERSION" == openjdk11 ]; then
         sonar-scanner \
             -Dsonar.projectVersion=0.14.1 \
             -Dsonar.projectKey=robstoll_kbox \
