@@ -1,4 +1,4 @@
-version = "0.14.1"
+version = "0.14.2"
 group = 'ch.tutteli.kbox'
 
 buildscript {
@@ -124,7 +124,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gradlew clean publishToBintray
+    a) java -version 2>&1 | grep "version \"11" && CI=true ./gradlew clean publishToBintray
     b) Log in to bintray, check that there are 36 artifacts and publish them
     c) synchronise to maven central
 5. create release on github
