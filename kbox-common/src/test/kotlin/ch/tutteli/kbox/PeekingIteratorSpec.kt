@@ -1,10 +1,9 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_GB.isSameAs
-import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.kbox.atrium.assert
-import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.describe
@@ -15,16 +14,16 @@ object PeekingIteratorSpec : Spek({
         val emptyItr = listOf<Int>().iterator().toPeekingIterator()
         describe("fun peek") {
             it("throws an NoSuchElementException") {
-                expect {
+                assert {
                     emptyItr.peek()
-                }.toThrow<NoSuchElementException> {}
+                }.toThrow<NoSuchElementException>()
             }
         }
         describe("fun next") {
             it("throws an NoSuchElementException") {
-                expect {
+                assert {
                     emptyItr.next()
-                }.toThrow<NoSuchElementException> {}
+                }.toThrow<NoSuchElementException>()
             }
         }
         describe("fun hasNext") {
@@ -97,9 +96,9 @@ object PeekingIteratorSpec : Spek({
                     assert(itr.hasNext()).toBe(false)
                 }
                 it("calling peek throws an NoSuchElementException") {
-                    expect {
+                    assert {
                         itr.peek()
-                    }.toThrow<NoSuchElementException> {}
+                    }.toThrow<NoSuchElementException>()
                 }
             }
         }

@@ -1,8 +1,7 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.kbox.atrium.assert
-import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
@@ -117,7 +116,7 @@ object MapParentsSpec : Spek({
 
                 context("passing child") {
                     it("throws an IllegalStateException showing the cycle child -> child") {
-                        expect {
+                        assert {
                             map.mapParents(child, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
                             message { contains("$child -> $child") }
@@ -155,7 +154,7 @@ object MapParentsSpec : Spek({
 
                 context("passing child") {
                     it("throws an IllegalStateException showing the cycle child -> parent -> child") {
-                        expect {
+                        assert {
                             map.mapParents(child, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
                             message { contains("$child -> $parent -> $child") }
@@ -165,7 +164,7 @@ object MapParentsSpec : Spek({
 
                 context("passing parent") {
                     it("throws an IllegalStateException showing the cycle parent -> child -> parent") {
-                        expect {
+                        assert {
                             map.mapParents(parent, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
                             message { contains("$parent -> $child -> $parent") }
@@ -210,7 +209,7 @@ object MapParentsSpec : Spek({
 
                 context("passing child") {
                     it("throws an IllegalStateException showing the cycle child -> parent -> grandparent -> child") {
-                        expect {
+                        assert {
                             map.mapParents(child, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
                             message { contains("$child -> $parent -> $grandparent -> $child") }
@@ -220,7 +219,7 @@ object MapParentsSpec : Spek({
 
                 context("passing parent") {
                     it("throws an IllegalStateException showing the cycle parent -> grandparent -> child -> parent") {
-                        expect {
+                        assert {
                             map.mapParents(parent, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
                             message { contains("$parent -> $grandparent -> $child -> $parent") }
@@ -230,7 +229,7 @@ object MapParentsSpec : Spek({
 
                 context("passing grandparent") {
                     it("throws an IllegalStateException showing the cycle grandparent -> child -> parent -> grandparent") {
-                        expect {
+                        assert {
                             map.mapParents(grandparent, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
                             message { contains("$grandparent -> $child -> $parent -> $grandparent") }
