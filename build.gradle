@@ -10,7 +10,7 @@ buildscript {
 
         // gradle plugins
         tutteli_plugins_version='0.33.0'
-        detekt_version = '1.7.4'
+        detekt_version = '1.8.0'
     }
 
     repositories {
