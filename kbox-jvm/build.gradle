@@ -1,0 +1,18 @@
+description = "A utility library for Kotlin for the JVM platform"
+
+apply plugin: 'ch.tutteli.spek'
+spek.version = spek_version
+
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", excluding {
+        kotlin()
+        kbox()
+    }
+    testImplementation "ch.tutteli.atrium:atrium-spec:$atrium_version", excluding {
+        kotlin()
+        kbox()
+        exclude group: 'ch.tutteli.atrium'
+    }
+}
+
+apply plugin: 'ch.tutteli.dokka'

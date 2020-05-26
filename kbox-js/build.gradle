@@ -1,0 +1,9 @@
+description = "A utility library for Kotlin for the JS platform"
+
+dependencies {
+    testImplementation "ch.tutteli.atrium:atrium-cc-en_GB-robstoll-js:$atrium_version", excluding {
+        kotlin()
+        kbox()
+    }
+    testImplementation "org.spekframework.spek2:spek-dsl-js:$spek_version"
+}

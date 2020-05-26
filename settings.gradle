@@ -16,5 +16,4 @@ include {
     _ common
     _ jvm
     _ js
-    _ android
 }
