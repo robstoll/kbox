@@ -8,11 +8,6 @@ dependencies {
         kotlin()
         kbox()
     }
-    testImplementation "ch.tutteli.atrium:atrium-spec:$atrium_version", excluding {
-        kotlin()
-        kbox()
-        exclude group: 'ch.tutteli.atrium'
-    }
 }
 
 apply plugin: 'ch.tutteli.dokka'
