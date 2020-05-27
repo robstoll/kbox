@@ -29,7 +29,6 @@ script:
             -Dsonar.projectKey=robstoll_kbox \
             -Dsonar.kotlin.detekt.reportPaths=build/reports/detekt/detekt.xml \
             -Dsonar.sources="\
-                kbox-android/src/main/kotlin, \
                 kbox-common/src/main/kotlin,\
                 kbox-js/src/main/kotlin,\
                 kbox-jvm/src/main/kotlin" \
