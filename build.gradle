@@ -53,11 +53,17 @@ configureJsProjects()
 configureJvmProjects()
 configureAndroidProjects()
 
+configure(getJvmProjects()) {
+    apply plugin: 'ch.tutteli.kotlin.module.info'
+
+    apply plugin: 'ch.tutteli.spek'
+    spek.version = spek_version
+    apply plugin: 'ch.tutteli.dokka'
+}
+
 subprojects { subproject ->
     repositories { jcenter() }
-    subproject.afterEvaluate {
-        subproject.apply plugin: 'ch.tutteli.publish'
-    }
+    apply plugin: 'ch.tutteli.publish'
 }
 
 /*
