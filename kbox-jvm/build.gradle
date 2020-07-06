@@ -7,7 +7,7 @@ apply plugin: 'ch.tutteli.spek'
 spek.version = spek_version
 
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version", excluding {
+    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version", excluding {
         kotlin()
         kbox()
     }
