@@ -55,7 +55,9 @@ configureAndroidProjects()
 
 subprojects { subproject ->
     repositories { jcenter() }
-    apply plugin: 'ch.tutteli.publish'
+    subproject.afterEvaluate {
+        subproject.apply plugin: 'ch.tutteli.publish'
+    }
 }
 
 /*
