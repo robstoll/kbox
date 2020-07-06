@@ -1,4 +1,4 @@
-version = "0.16.0-SNAPSHOT"
+version = "0.15.1"
 group = 'ch.tutteli.kbox'
 
 buildscript {
