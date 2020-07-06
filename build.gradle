@@ -1,4 +1,4 @@
-version = "0.15.0"
+version = "0.16.0-SNAPSHOT"
 group = 'ch.tutteli.kbox'
 
 buildscript {
@@ -9,7 +9,7 @@ buildscript {
         spek_version = '2.0.11'
 
         // gradle plugins
-        tutteli_plugins_version='0.33.1'
+        tutteli_plugins_version = '0.33.1'
         detekt_version = '1.10.0'
     }
 
@@ -64,25 +64,22 @@ Release & deploy a commit
 --------------------------------
 1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
 2. update master:
-    a) point to the tag
-        1) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
-        2) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
+    a) point to the tag, search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
     b) commit (modified .travis.yml, build.gradle, README.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
-    a) java -version 2>&1 | grep "version \"11" && CI=true ./gradlew clean publishToBintray
-    b) Log in to bintray, check that there are 36 artifacts and publish them
+    a) java -version 2>&1 | grep "version \"9" && CI=true ./gradlew clean publishToBintray
+    b) Log in to bintray, check that there are 24 artifacts and publish them
     c) synchronise to maven central
 5. create release on github
 
 Prepare next dev cycle
 -----------------------
-1. point to master
-   a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
-2. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
-3. commit & push changes
+1. point to master, search for `tree/vX.Y.Z` and replace it with `tree/master`
+2. Replace badges
+3. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
+4. commit & push changes
 
 */
 
