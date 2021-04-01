@@ -1,7 +1,7 @@
 description = "A utility library for Kotlin for the common platform"
 
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-cc-en_GB-robstoll-common:$atrium_version", excluding {
+    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB-common:$atrium_version", excluding {
         kotlin()
         kbox()
     }
