@@ -9,7 +9,7 @@
 
 <!-- for a specific release -->
 <!--
-[![Download](https://img.shields.io/badge/Download-0.16.0-SNAPSHOT-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/kbox/0.16.0-SNAPSHOT "Download 0.15atrium.0 from Bintray")
+[![Download](https://img.shields.io/badge/Download-0.15.1-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/kbox/0.16.0-SNAPSHOT "Download 0.15.1 from Bintray")
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 -->
 
@@ -67,7 +67,7 @@ Following an example if you use gradle and jcenter:
 ```
 repositories { jcenter() }
 dependencies {
-    implementation 'ch.tutteli.kbox:kbox:0.16.0-SNAPSHOT'
+    implementation 'ch.tutteli.kbox:kbox:0.15.1'
 }
 ```
 
