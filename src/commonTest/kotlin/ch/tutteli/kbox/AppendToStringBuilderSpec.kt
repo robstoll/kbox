@@ -1,6 +1,7 @@
 package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.kbox.atrium.assert
 import org.spekframework.spek2.Spek
@@ -38,7 +39,7 @@ object AppendToStringBuilderSpec : Spek({
                 it("does not append anything to the given StringBuilder") {
                     val result = StringBuilder()
                     function(result, arrayOf())
-                    assert(result).isEmpty()
+                    assert(result).isNotEmpty()
                 }
             }
 
