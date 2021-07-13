@@ -19,36 +19,22 @@ complexity:
         ignoreSingleWhenExpression: true
         ignoreSimpleWhenEntries: true
     LongParameterList:
-        threshold: 7
-    StringLiteralDuplication:
-        excludes: "**/src/test/**"
+        functionThreshold: 7
 
     TooManyFunctions:
         ignorePrivate: true
-
-naming:
-    FunctionMinLength:
-        excludes: "**/src/test/**"
 
 performance:
     ArrayPrimitive:
         excludes: "**/src/test/**"
     SpreadOperator:
-        excludes: "**/src/test/**"
+        excludes: [ "**/src/test/**" ]
 
 potential-bugs:
     UnsafeCast:
         active: false
-    LateinitUsage:
-        excludes: "**/src/test/**"
 
 style:
-    DataClassContainsFunctions:
-        active: false
-    ExplicitItLambdaParameter:
-        active: false
-    MagicNumber:
-        active: false
     MandatoryBracesIfStatements:
         active: false
     MaxLineLength:
@@ -61,4 +47,7 @@ style:
         active: false
     WildcardImport:
         active: false
+    ExplicitItLambdaParameter:
+        excludes: "**/src/test/**"
+
 

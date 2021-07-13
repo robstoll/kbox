@@ -33,6 +33,7 @@ inline fun <T> List<T>.joinToString(
     lastSeparator: String,
     append: (it: T, sb: StringBuilder) -> Unit
 ): String {
+
     val sb = StringBuilder(size * 4)
     appendToStringBuilder(sb, separator, lastSeparator) { append(it, sb) }
     return sb.toString()
