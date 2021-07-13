@@ -3,7 +3,7 @@ group = 'ch.tutteli.kbox'
 
 buildscript {
     ext {
-        kotlin_version = '1.4.32'
+        kotlin_version = '1.5.21'
 
         atrium_version = '0.16.0'
         spek_version = '2.0.15'
