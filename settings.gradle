@@ -13,7 +13,7 @@ apply plugin: 'ch.tutteli.settings'
 
 //noinspection GroovyAssignabilityCheck
 include {
-    _ common
-    _ jvm
-    _ js
+    _ 'common'
+    _ 'jvm'
+    _ 'js'
 }
