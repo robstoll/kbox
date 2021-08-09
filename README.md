@@ -1,6 +1,6 @@
 <!-- for master -->
 
-[![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/kbox/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/kbox/_latestVersion)
+[![Download](https://img.shields.io/badge/Download-0.15.1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.kbox/kbox/0.15.1/jar)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 [![Build Status Ubuntu](https://github.com/robstoll/kbox/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/kbox/actions?query=workflow%3AUbuntu+branch%3Amaster)
 [![Build Status Windows](https://github.com/robstoll/kbox/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/kbox/actions?query=workflow%3AWindows+branch%3Amaster)
@@ -9,7 +9,7 @@
 
 <!-- for a specific release -->
 <!--
-[![Download](https://img.shields.io/badge/Download-0.15.1-%23007ec6)](https://bintray.com/robstoll/tutteli-jars/kbox/0.16.0-SNAPSHOT "Download 0.15.1 from Bintray")
+[![Download](https://img.shields.io/badge/Download-0.15.1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.kbox/kbox/0.15.1/jar)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 -->
 
@@ -36,7 +36,7 @@ Current extension functions:
 - [Array/List.ifWithinBound](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/ifWithinBound.kt#L13)
   shortcut for `if(index < size){ thenBlock() } else { elseBlock() }` 
 
-- [Charsequence?.isNotNullAndNotEmpty/isNotNullAndNotBlank](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt#L6)  
+- [CharSequence?.isNotNullAndNotEmpty/isNotNullAndNotBlank](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt#L6)  
   
 - [`Array/List/Iterable/Sequence.joinToString`](https://github.com/robstoll/kbox/tree/master/kbox-common/src/main/kotlin/ch/tutteli/kbox/joinToString.kt#L31)
   with the ability to define a different separator for the last separation
@@ -61,13 +61,12 @@ Moreover, the following function might come in handy for you as well:
 
 # Installation
 
-KBox is pusblished to maven central, jcenter and [bintray](https://bintray.com/robstoll/tutteli-jars/kbox). 
-Following an example if you use gradle and jcenter:
+KBox is published to maven central.
 
 ```
-repositories { jcenter() }
+repositories { mavenCentral() }
 dependencies {
-    implementation 'ch.tutteli.kbox:kbox:0.15.1'
+    implementation("ch.tutteli.kbox:kbox:0.15.1")
 }
 ```
 
