@@ -70,7 +70,12 @@ dependencies {
 }
 ```
 
-Accordingly, you can use `kbox-js` or `kbox-common` as artifactId instead of `kbox`.
+Accordingly, you can use `kbox-js` as artifactId instead of `kbox-jvm`
+(or simply `kbox` in case of a MPP project in commonMain).
+
+# Documentation
+
+Visit [https://robstoll.github.io/kbox/kdoc](https://robstoll.github.io/kbox/kdoc/).
 
 
 # License

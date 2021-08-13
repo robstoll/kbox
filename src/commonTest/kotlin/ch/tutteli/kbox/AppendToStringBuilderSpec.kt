@@ -1,12 +1,18 @@
 package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.kbox.atrium.assert
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction4
 
+val a = 1
+
+/**
+ * bla
+ */
 object AppendToStringBuilderSpec : Spek({
     val append: (i: Int, sb: StringBuilder) -> Unit = { i, sb -> sb.append("a number: $i") }
     val separator = ", "

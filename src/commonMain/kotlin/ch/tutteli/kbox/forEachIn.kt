@@ -1,4 +1,5 @@
 @file:Suppress("MethodOverloading")
+
 package ch.tutteli.kbox
 
 /**
@@ -21,7 +22,13 @@ inline fun <T> forEachIn(arr1: Array<out T>, arr2: Array<out T>, arr3: Array<out
 /**
  * Applies [action] to each entry in [arr1], [arr2], [arr3] and to each entry of [Array] in [arrays].
  */
-inline fun <T> forEachIn(arr1: Array<out T>, arr2: Array<out T>, arr3: Array<out T>, vararg arrays: Array<out T>, action: (T) -> Unit) {
+inline fun <T> forEachIn(
+    arr1: Array<out T>,
+    arr2: Array<out T>,
+    arr3: Array<out T>,
+    vararg arrays: Array<out T>,
+    action: (T) -> Unit
+) {
     arr1.forEach(action)
     arr2.forEach(action)
     arr3.forEach(action)
@@ -47,9 +54,16 @@ inline fun <T> forEachIn(iterable1: Iterable<T>, iterable2: Iterable<T>, iterabl
 }
 
 /**
- * Applies [action] to each entry in [iterable1], [iterable2], [iterable3] and to each entry of [Iterable] in [iterables].
+ * Applies [action] to each entry in [iterable1], [iterable2], [iterable3] and
+ * to each entry of [Iterable] in [iterables].
  */
-inline fun <T> forEachIn(iterable1: Iterable<T>, iterable2: Iterable<T>, iterable3: Iterable<T>, vararg iterables: Iterable<T>, action: (T) -> Unit) {
+inline fun <T> forEachIn(
+    iterable1: Iterable<T>,
+    iterable2: Iterable<T>,
+    iterable3: Iterable<T>,
+    vararg iterables: Iterable<T>,
+    action: (T) -> Unit
+) {
     iterable1.forEach(action)
     iterable2.forEach(action)
     iterable3.forEach(action)
@@ -75,9 +89,16 @@ inline fun <T> forEachIn(sequence1: Sequence<T>, sequence2: Sequence<T>, sequenc
 }
 
 /**
- * Applies [action] to each entry in [sequence1], [sequence2], [sequence3] and to each entry of [Sequence] in [sequences].
+ * Applies [action] to each entry in [sequence1], [sequence2], [sequence3] and
+ * to each entry of [Sequence] in [sequences].
  */
-inline fun <T> forEachIn(sequence1: Sequence<T>, sequence2: Sequence<T>, sequence3: Sequence<T>, vararg sequences: Sequence<T>, action: (T) -> Unit) {
+inline fun <T> forEachIn(
+    sequence1: Sequence<T>,
+    sequence2: Sequence<T>,
+    sequence3: Sequence<T>,
+    vararg sequences: Sequence<T>,
+    action: (T) -> Unit
+) {
     sequence1.forEach(action)
     sequence2.forEach(action)
     sequence3.forEach(action)
