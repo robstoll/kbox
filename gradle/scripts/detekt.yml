@@ -4,50 +4,22 @@ build:
         complexity: 3
         style: 1
 
-comments:
-    UndocumentedPublicClass:
-        excludes: "**/src/test/**"
-    UndocumentedPublicFunction:
-        excludes: "**/src/test/**"
-    AbsentOrWrongFileLicense:
-        active: false
-
 complexity:
-    ComplexInterface:
-        threshold: 15
-    ComplexMethod:
-        ignoreSingleWhenExpression: true
-        ignoreSimpleWhenEntries: true
-    LongParameterList:
-        functionThreshold: 7
-
     TooManyFunctions:
-        ignorePrivate: true
+        active: false
 
 performance:
     ArrayPrimitive:
         excludes: "**/src/test/**"
     SpreadOperator:
-        excludes: [ "**/src/test/**" ]
-
-potential-bugs:
-    UnsafeCast:
         active: false
 
 style:
     MandatoryBracesIfStatements:
         active: false
-    MaxLineLength:
-        active: false
-    OptionalWhenBraces:
-        active: false
+    #    OptionalWhenBraces:
+    #        active: false
     OptionalUnit:
         active: false
-    UnnecessaryParentheses:
-        active: false
-    WildcardImport:
-        active: false
-    ExplicitItLambdaParameter:
-        excludes: "**/src/test/**"
-
-
+#    WildcardImport:
+#        active: false

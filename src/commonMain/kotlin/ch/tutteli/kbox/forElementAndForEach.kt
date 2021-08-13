@@ -1,4 +1,5 @@
 @file:Suppress("MethodOverloading")
+
 package ch.tutteli.kbox
 
 /**
@@ -20,7 +21,13 @@ inline fun <E> forElementAndForEachIn(element: E, arr1: Array<out E>, arr2: Arra
 /**
  * Applies [action] to `this` and to each entry in [arr1], [arr2] and each entry of [Iterable] in [arrays].
  */
-inline fun <E> forElementAndForEachIn(element: E, arr1: Array<out E>, arr2: Array<out E>, vararg arrays: Array<out E>, action: (E) -> Unit) {
+inline fun <E> forElementAndForEachIn(
+    element: E,
+    arr1: Array<out E>,
+    arr2: Array<out E>,
+    vararg arrays: Array<out E>,
+    action: (E) -> Unit
+) {
     action(element)
     forEachIn(arr1, arr2, action)
     arrays.forEach { it.forEach(action) }
@@ -46,7 +53,13 @@ inline fun <E> forElementAndForEachIn(element: E, iterable1: Iterable<E>, iterab
 /**
  * Applies [action] to `this` and to each entry in [iterable1], [iterable2] and each entry of [Iterable] in [iterables].
  */
-inline fun <E> forElementAndForEachIn(element: E, iterable1: Iterable<E>, iterable2: Iterable<E>, vararg iterables: Iterable<E>, action: (E) -> Unit) {
+inline fun <E> forElementAndForEachIn(
+    element: E,
+    iterable1: Iterable<E>,
+    iterable2: Iterable<E>,
+    vararg iterables: Iterable<E>,
+    action: (E) -> Unit
+) {
     action(element)
     forEachIn(iterable1, iterable2, action)
     iterables.forEach { it.forEach(action) }
@@ -69,9 +82,16 @@ inline fun <E> forElementAndForEachIn(element: E, sequence1: Sequence<E>, sequen
 }
 
 /**
- * Applies [action] to `this` and to each entry in in  [sequence1], [sequence2] and each entry of [Sequence] in [sequences].
+ * Applies [action] to `this` and to each entry in [sequence1], [sequence2] and
+ * each entry of [Sequence] in [sequences].
  */
-inline fun <E> forElementAndForEachIn(element: E, sequence1: Sequence<E>, sequence2: Sequence<E>, vararg sequences: Sequence<E>, action: (E) -> Unit) {
+inline fun <E> forElementAndForEachIn(
+    element: E,
+    sequence1: Sequence<E>,
+    sequence2: Sequence<E>,
+    vararg sequences: Sequence<E>,
+    action: (E) -> Unit
+) {
     action(element)
     forEachIn(sequence1, sequence2, action)
     sequences.forEach { it.forEach(action) }

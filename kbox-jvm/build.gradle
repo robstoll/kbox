@@ -1,8 +1,0 @@
-description = "A utility library for Kotlin for the JVM platform"
-
-dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version", excluding {
-        kotlin()
-        kbox()
-    }
-}
