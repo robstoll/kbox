@@ -18,4 +18,4 @@ jobs:
           distribution: 'adopt'
           java-version: ${{ matrix.java_version }}
       - name: build without detekt
-        run: ./gradlew build -x detekt
+        run: ./gradlew build -x allDetekt -x detekt

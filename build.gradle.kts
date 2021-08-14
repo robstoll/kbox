@@ -13,7 +13,7 @@ buildscript {
 plugins {
     kotlin("multiplatform") version "1.5.21"
     id("org.jetbrains.dokka") version "1.5.0"
-    val tutteliGradleVersion = "4.0.1"
+    val tutteliGradleVersion = "4.0.2"
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
@@ -180,8 +180,13 @@ project.afterEvaluate {
                 property("sonar.organization", "robstoll-github")
                 property("sonar.projectKey", "robstoll_${rootProject.name}")
                 property("sonar.projectVersion", rootProject.version)
-                property("sonar.sources", "src/main/kotlin")
-                property("sonar.tests", "src/test/kotlin")
+                property(
+                    "sonar.sources",
+                    kotlin.sourceSets.filter { it.name.endsWith("Main") }.joinToString(",") { "src/${it.name}" }
+                )
+                property("sonar.tests",
+                    kotlin.sourceSets.filter { it.name.endsWith("Test") }.joinToString(",") { "src/${it.name}" }
+                )
                 property("sonar.coverage", "jacoco.xmlReportPaths=build/reports/jacoco/report.xml")
                 property("sonar.verbose", "true")
             }
