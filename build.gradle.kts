@@ -144,6 +144,9 @@ project.afterEvaluate {
                 dependsOn(it)
             }
         }
+        tasks.named("check").configure {
+            dependsOn(allDetekt)
+        }
         detektTasks.forEach {
             val reportXml = it.reportXml()
             it.doLast {
