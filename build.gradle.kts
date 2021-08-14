@@ -173,6 +173,13 @@ project.afterEvaluate {
             }
         }
 
+        fun sonarqubeSourceSets(endsWith: String) : String =
+            kotlin.sourceSets.asSequence()
+                .filter { it.name.endsWith(endsWith) }
+                .map { "src/${it.name}" }
+                .filter { file(it).exists() }
+                .joinToString(",")
+
         // here due to detekt
         sonarqube {
             properties {
@@ -180,13 +187,8 @@ project.afterEvaluate {
                 property("sonar.organization", "robstoll-github")
                 property("sonar.projectKey", "robstoll_${rootProject.name}")
                 property("sonar.projectVersion", rootProject.version)
-                property(
-                    "sonar.sources",
-                    kotlin.sourceSets.filter { it.name.endsWith("Main") }.joinToString(",") { "src/${it.name}" }
-                )
-                property("sonar.tests",
-                    kotlin.sourceSets.filter { it.name.endsWith("Test") }.joinToString(",") { "src/${it.name}" }
-                )
+                property("sonar.sources", sonarqubeSourceSets("Main"))
+                property("sonar.tests", sonarqubeSourceSets("Test"))
                 property("sonar.coverage", "jacoco.xmlReportPaths=build/reports/jacoco/report.xml")
                 property("sonar.verbose", "true")
             }
