@@ -1,9 +1,9 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBeTheInstance
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.lifecycle.CachingMode
 import org.spekframework.spek2.style.specification.describe
@@ -14,21 +14,21 @@ object PeekingIteratorSpec : Spek({
         val emptyItr = listOf<Int>().iterator().toPeekingIterator()
         describe("fun peek") {
             it("throws an NoSuchElementException") {
-                assert {
+                expect {
                     emptyItr.peek()
                 }.toThrow<NoSuchElementException>()
             }
         }
         describe("fun next") {
             it("throws an NoSuchElementException") {
-                assert {
+                expect {
                     emptyItr.next()
                 }.toThrow<NoSuchElementException>()
             }
         }
         describe("fun hasNext") {
             it("returns false") {
-                assert(emptyItr.hasNext()).toBe(false)
+                expect(emptyItr.hasNext()).toEqual(false)
             }
         }
     }
@@ -42,20 +42,20 @@ object PeekingIteratorSpec : Spek({
                 lateinit var result: Any
                 it("returns the element") {
                     result = itr.peek()
-                    assert(result).isSameAs(obj)
+                    expect(result).toBeTheInstance(obj)
                 }
                 it("calling it a second time still returns the same element") {
                     val result2 = itr.peek()
-                    assert(result2).isSameAs(obj)
+                    expect(result2).toBeTheInstance(obj)
                 }
                 it("calling hasNext returns true") {
-                    assert(itr.hasNext()).toBe(true)
+                    expect(itr.hasNext()).toEqual(true)
                 }
                 it("calling next returns the same element") {
-                    assert(itr.next()).isSameAs(obj)
+                    expect(itr.next()).toBeTheInstance(obj)
                 }
                 it("calling then hasNext returns false") {
-                    assert(itr.hasNext()).toBe(false)
+                    expect(itr.hasNext()).toEqual(false)
                 }
             }
         }
@@ -71,32 +71,32 @@ object PeekingIteratorSpec : Spek({
                 val itr by memoized(CachingMode.SCOPE) { listOf(first, second, third).iterator().toPeekingIterator() }
 
                 it("it returns the first element") {
-                    assert(itr.next()).isSameAs(first)
+                    expect(itr.next()).toBeTheInstance(first)
                 }
                 it("calling peek returns the second element") {
-                    assert(itr.peek()).isSameAs(second)
+                    expect(itr.peek()).toBeTheInstance(second)
                 }
                 it("calling it peek again still returns the second element") {
-                    assert(itr.peek()).isSameAs(second)
+                    expect(itr.peek()).toBeTheInstance(second)
                 }
                 it("calling next returns the second element") {
-                    assert(itr.next()).isSameAs(second)
+                    expect(itr.next()).toBeTheInstance(second)
                 }
                 it("calling hasNext returns true") {
-                    assert(itr.hasNext()).toBe(true)
+                    expect(itr.hasNext()).toEqual(true)
                 }
                 it("calling peek returns the third element") {
-                    assert(itr.peek()).isSameAs(third)
+                    expect(itr.peek()).toBeTheInstance(third)
                 }
 
                 it("calling next returns the third element") {
-                    assert(itr.next()).isSameAs(third)
+                    expect(itr.next()).toBeTheInstance(third)
                 }
                 it("calling then hasNext returns false") {
-                    assert(itr.hasNext()).toBe(false)
+                    expect(itr.hasNext()).toEqual(false)
                 }
                 it("calling peek throws an NoSuchElementException") {
-                    assert {
+                    expect {
                         itr.peek()
                     }.toThrow<NoSuchElementException>()
                 }

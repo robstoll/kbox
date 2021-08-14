@@ -1,7 +1,7 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -16,19 +16,19 @@ object IfWithinBoundSpec : Spek({
         describe("$type.ifWithinBound") {
             context("index less than size") {
                 it("executes thenBlock") {
-                    assert(ifWithinBound(0)).toBe(1)
+                    expect(ifWithinBound(0)).toEqual(1)
                 }
             }
 
             context("index same as size") {
                 it("executes elseBlock") {
-                    assert(ifWithinBound(1)).toBe(2)
+                    expect(ifWithinBound(1)).toEqual(2)
                 }
             }
 
             context("index greater than size") {
                 it("executes elseBlock") {
-                    assert(ifWithinBound(2)).toBe(2)
+                    expect(ifWithinBound(2)).toEqual(2)
                 }
             }
         }

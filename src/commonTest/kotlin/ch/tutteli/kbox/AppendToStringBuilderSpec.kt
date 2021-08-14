@@ -1,18 +1,12 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction4
 
-val a = 1
-
-/**
- * bla
- */
 object AppendToStringBuilderSpec : Spek({
     val append: (i: Int, sb: StringBuilder) -> Unit = { i, sb -> sb.append("a number: $i") }
     val separator = ", "
@@ -44,7 +38,7 @@ object AppendToStringBuilderSpec : Spek({
                 it("does not append anything to the given StringBuilder") {
                     val result = StringBuilder()
                     function(result, arrayOf())
-                    assert(result).isEmpty()
+                    expect(result).toBeEmpty()
                 }
             }
 
@@ -52,7 +46,7 @@ object AppendToStringBuilderSpec : Spek({
                 it("returns a string according to the given append function") {
                     val result = StringBuilder()
                     function(result, arrayOf(1))
-                    assert(result.toString()).toBe("a number: 1")
+                    expect(result.toString()).toEqual("a number: 1")
                 }
             }
 
@@ -60,14 +54,14 @@ object AppendToStringBuilderSpec : Spek({
                 it("returns a string according to the given append function and uses the separator") {
                     val result = StringBuilder()
                     function(result, arrayOf(1, 2))
-                    assert(result.toString()).toBe("a number: 1, a number: 2")
+                    expect(result.toString()).toEqual("a number: 1, a number: 2")
                 }
             }
             context("$type with three items") {
                 it("returns a string according to the given append function and uses the separator") {
                     val result = StringBuilder()
                     function(result, arrayOf(1, 3, 2))
-                    assert(result.toString()).toBe("a number: 1, a number: 3, a number: 2")
+                    expect(result.toString()).toEqual("a number: 1, a number: 3, a number: 2")
                 }
             }
         }
@@ -79,7 +73,7 @@ object AppendToStringBuilderSpec : Spek({
             it("does not append anything to the given StringBuilder") {
                 val result = StringBuilder()
                 listOf<Int>().appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -87,7 +81,7 @@ object AppendToStringBuilderSpec : Spek({
             it("returns a string according to the given append function") {
                 val result = StringBuilder()
                 listOf(1).appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
-                assert(result.toString()).toBe("a number: 1")
+                expect(result.toString()).toEqual("a number: 1")
             }
         }
 
@@ -95,14 +89,14 @@ object AppendToStringBuilderSpec : Spek({
             it("returns a string according to the given append function and uses the lastSeparator") {
                 val result = StringBuilder()
                 listOf(1, 2).appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
-                assert(result.toString()).toBe("a number: 1 and a number: 2")
+                expect(result.toString()).toEqual("a number: 1 and a number: 2")
             }
         }
         context("a list with three items") {
             it("returns a string according to the given append function and uses the separator and lastSeparator") {
                 val result = StringBuilder()
                 listOf(1, 3, 2).appendToStringBuilder(result, separator, lastSeparator) { append(it, result) }
-                assert(result.toString()).toBe("a number: 1, a number: 3 and a number: 2")
+                expect(result.toString()).toEqual("a number: 1, a number: 3 and a number: 2")
             }
         }
     }

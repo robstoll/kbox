@@ -1,8 +1,8 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
-import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
+import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -17,7 +17,7 @@ object MapRemainingSpec : Spek({
         context("empty iterator") {
             it("returns an empty List") {
                 val result = listOf<Int>().iterator().mapRemaining { it + 1 }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -26,7 +26,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1).iterator()
                 itr.next()
                 val result = itr.mapRemaining { it + 1 }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -35,7 +35,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2).iterator()
                 itr.next()
                 val result = itr.mapRemaining { it + 1 }
-                assert(result).containsExactly(3)
+                expect(result).toContainExactly(3)
             }
         }
 
@@ -44,7 +44,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2, 4).iterator()
                 itr.next()
                 val result = itr.mapRemaining { it + 1 }
-                assert(result).containsExactly(3, 5)
+                expect(result).toContainExactly(3, 5)
             }
         }
     }
@@ -53,7 +53,7 @@ object MapRemainingSpec : Spek({
         context("empty iterator") {
             it("returns an empty List") {
                 val result = listOf<Int>().iterator().mapRemainingWithCounter { counter, it -> it + counter }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -62,7 +62,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1).iterator()
                 itr.next()
                 val result = itr.mapRemainingWithCounter { counter, it -> it + counter }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -71,7 +71,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2).iterator()
                 itr.next()
                 val result = itr.mapRemainingWithCounter { counter, it -> it + counter }
-                assert(result).containsExactly(2)
+                expect(result).toContainExactly(2)
             }
         }
 
@@ -80,7 +80,7 @@ object MapRemainingSpec : Spek({
                 val itr = listOf(1, 2, 4).iterator()
                 itr.next()
                 val result = itr.mapRemainingWithCounter { counter, it -> it + counter }
-                assert(result).containsExactly(2, 5)
+                expect(result).toContainExactly(2, 5)
             }
         }
 

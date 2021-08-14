@@ -1,7 +1,7 @@
 package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
@@ -12,7 +12,7 @@ object MapParentsSpec : Spek({
         context("passing non existing child") {
             it("returns an empty set") {
                 val result = map.mapParents("a")
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
     }
@@ -22,7 +22,7 @@ object MapParentsSpec : Spek({
         context("empty map") {
             it("returns an empty set") {
                 val result = mapOf<String, String>().mapParents("a")
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
         val child = "child"
@@ -37,14 +37,14 @@ object MapParentsSpec : Spek({
             context("passing child") {
                 it("returns set with the parent") {
                     val result = map.mapParents(child)
-                    assert(result).containsExactly(parent)
+                    expect(result).toContainExactly(parent)
                 }
             }
 
             context("passing parent") {
                 it("returns an empty set") {
                     val result = map.mapParents(child)
-                    assert(result).containsExactly(parent)
+                    expect(result).toContainExactly(parent)
                 }
             }
         }
@@ -56,21 +56,21 @@ object MapParentsSpec : Spek({
             context("passing child") {
                 it("returns set with the parent and grandparent") {
                     val result = map.mapParents(child)
-                    assert(result).containsExactly(parent, grandparent)
+                    expect(result).toContainExactly(parent, grandparent)
                 }
             }
 
             context("passing parent") {
                 it("returns set with the grandparent") {
                     val result = map.mapParents(parent)
-                    assert(result).containsExactly(grandparent)
+                    expect(result).toContainExactly(grandparent)
                 }
             }
 
             context("passing grandparent") {
                 it("returns empty set") {
                     val result = map.mapParents(grandparent)
-                    assert(result).isEmpty()
+                    expect(result).toBeEmpty()
                 }
             }
         }
@@ -83,14 +83,14 @@ object MapParentsSpec : Spek({
             context("passing child 1") {
                 it("returns set only with related parent") {
                     val result = map.mapParents(child)
-                    assert(result).containsExactly(parent)
+                    expect(result).toContainExactly(parent)
                 }
             }
 
             context("passing child 2") {
                 it("returns set only with related parent") {
                     val result = map.mapParents(grandparent)
-                    assert(result).containsExactly(parent)
+                    expect(result).toContainExactly(parent)
                 }
             }
         }
@@ -105,7 +105,7 @@ object MapParentsSpec : Spek({
                 context("passing child") {
                     it("returns an empty set") {
                         val result = map.mapParents(child)
-                        assert(result).isEmpty()
+                        expect(result).toBeEmpty()
                     }
                 }
             }
@@ -116,10 +116,10 @@ object MapParentsSpec : Spek({
 
                 context("passing child") {
                     it("throws an IllegalStateException showing the cycle child -> child") {
-                        assert {
+                        expect {
                             map.mapParents(child, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
-                            message { contains("$child -> $child") }
+                            message { toContain("$child -> $child") }
                         }
                     }
                 }
@@ -136,14 +136,14 @@ object MapParentsSpec : Spek({
                 context("passing child") {
                     it("returns parent") {
                         val result = map.mapParents(child)
-                        assert(result).containsExactly(parent)
+                        expect(result).toContainExactly(parent)
                     }
                 }
 
                 context("passing parent") {
                     it("returns child") {
                         val result = map.mapParents(parent)
-                        assert(result).containsExactly(child)
+                        expect(result).toContainExactly(child)
                     }
                 }
             }
@@ -154,20 +154,20 @@ object MapParentsSpec : Spek({
 
                 context("passing child") {
                     it("throws an IllegalStateException showing the cycle child -> parent -> child") {
-                        assert {
+                        expect {
                             map.mapParents(child, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
-                            message { contains("$child -> $parent -> $child") }
+                            message { toContain("$child -> $parent -> $child") }
                         }
                     }
                 }
 
                 context("passing parent") {
                     it("throws an IllegalStateException showing the cycle parent -> child -> parent") {
-                        assert {
+                        expect {
                             map.mapParents(parent, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
-                            message { contains("$parent -> $child -> $parent") }
+                            message { toContain("$parent -> $child -> $parent") }
                         }
                     }
                 }
@@ -184,21 +184,21 @@ object MapParentsSpec : Spek({
                 context("passing child") {
                     it("returns parent and grandparent") {
                         val result = map.mapParents(child)
-                        assert(result).containsExactly(parent, grandparent)
+                        expect(result).toContainExactly(parent, grandparent)
                     }
                 }
 
                 context("passing parent") {
                     it("returns grandparent and child") {
                         val result = map.mapParents(parent)
-                        assert(result).containsExactly(grandparent, child)
+                        expect(result).toContainExactly(grandparent, child)
                     }
                 }
 
                 context("passing grandparent") {
                     it("returns child and parent") {
                         val result = map.mapParents(grandparent)
-                        assert(result).containsExactly(child, parent)
+                        expect(result).toContainExactly(child, parent)
                     }
                 }
             }
@@ -209,30 +209,30 @@ object MapParentsSpec : Spek({
 
                 context("passing child") {
                     it("throws an IllegalStateException showing the cycle child -> parent -> grandparent -> child") {
-                        assert {
+                        expect {
                             map.mapParents(child, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
-                            message { contains("$child -> $parent -> $grandparent -> $child") }
+                            message { toContain("$child -> $parent -> $grandparent -> $child") }
                         }
                     }
                 }
 
                 context("passing parent") {
                     it("throws an IllegalStateException showing the cycle parent -> grandparent -> child -> parent") {
-                        assert {
+                        expect {
                             map.mapParents(parent, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
-                            message { contains("$parent -> $grandparent -> $child -> $parent") }
+                            message { toContain("$parent -> $grandparent -> $child -> $parent") }
                         }
                     }
                 }
 
                 context("passing grandparent") {
                     it("throws an IllegalStateException showing the cycle grandparent -> child -> parent -> grandparent") {
-                        assert {
+                        expect {
                             map.mapParents(grandparent, failIfCyclic = true)
                         }.toThrow<IllegalStateException> {
-                            message { contains("$grandparent -> $child -> $parent -> $grandparent") }
+                            message { toContain("$grandparent -> $child -> $parent -> $grandparent") }
                         }
                     }
                 }

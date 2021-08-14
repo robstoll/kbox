@@ -1,8 +1,8 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
-import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
+import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction2
@@ -17,7 +17,7 @@ object ForEachRemainingSpec : Spek({
             it("returns an empty list") {
                 val result = mutableListOf<Int>()
                 listOf<Int>().iterator().foreachRemaining { result.add(it) }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -27,7 +27,7 @@ object ForEachRemainingSpec : Spek({
                 itr.next()
                 val result = mutableListOf<Int>()
                 itr.foreachRemaining { result.add(it) }
-                assert(result).isEmpty()
+                expect(result).toBeEmpty()
             }
         }
 
@@ -37,7 +37,7 @@ object ForEachRemainingSpec : Spek({
                 itr.next()
                 val result = mutableListOf<Int>()
                 itr.foreachRemaining { result.add(it) }
-                assert(result).containsExactly(2)
+                expect(result).toContainExactly(2)
             }
         }
 
@@ -47,7 +47,7 @@ object ForEachRemainingSpec : Spek({
                 itr.next()
                 val result = mutableListOf<Int>()
                 itr.foreachRemaining { result.add(it) }
-                assert(result).containsExactly(2, 4)
+                expect(result).toContainExactly(2, 4)
             }
         }
     }

@@ -1,7 +1,7 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KFunction3
@@ -38,7 +38,7 @@ object ForElementAndForEachSpec : Spek({
                     it("action is append item to StrinBuilder, result is $result") {
                         val sb = StringBuilder()
                         function(sb, arrays[0])
-                        assert(sb.toString()).toBe(result)
+                        expect(sb.toString()).toEqual(result)
                     }
                 }
             }
@@ -69,7 +69,7 @@ object ForElementAndForEachSpec : Spek({
                     it("action is append item to StrinBuilder, result is $result") {
                         val sb = StringBuilder()
                         function(sb, arrays[0], arrays[1])
-                        assert(sb.toString()).toBe(result)
+                        expect(sb.toString()).toEqual(result)
                     }
                 }
             }
@@ -103,7 +103,7 @@ object ForElementAndForEachSpec : Spek({
                     it("action is append item to StrinBuilder, result is $result") {
                         val sb = StringBuilder()
                         function(sb, arrays[0], arrays[1], arrays[2])
-                        assert(sb.toString()).toBe(result)
+                        expect(sb.toString()).toEqual(result)
                     }
                 }
             }

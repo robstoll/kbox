@@ -1,7 +1,7 @@
 package ch.tutteli.kbox
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.kbox.atrium.assert
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -18,7 +18,7 @@ object IsNotNullAndNotSpec : Spek({
             Triple("StringBuilder \"hello\"", StringBuilder("hello"), true)
         ).forEach { (description, value, expected) ->
             it("given $description, expect $expected") {
-                assert(value.isNotNullAndNotEmpty()).toBe(expected)
+                expect(value.isNotNullAndNotEmpty()).toEqual(expected)
             }
         }
     }
@@ -34,7 +34,7 @@ object IsNotNullAndNotSpec : Spek({
             Triple("StringBuilder \"hello\"", StringBuilder("hello"), true)
         ).forEach { (description, value, expected) ->
             it("given $description, expect $expected") {
-                assert(value.isNotNullAndNotBlank()).toBe(expected)
+                expect(value.isNotNullAndNotBlank()).toEqual(expected)
             }
         }
     }

@@ -21,12 +21,11 @@ plugins {
     id("org.sonarqube") version "3.3"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
+val atriumVersion by extra("0.17.0-RC1")
+val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
     .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
-
-val atriumVersion by extra("0.16.0")
-val spekVersion by extra("2.0.15")
 
 repositories { mavenCentral() }
 
