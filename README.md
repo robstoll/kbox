@@ -66,7 +66,7 @@ KBox is published to maven central.
 ```
 repositories { mavenCentral() }
 dependencies {
-    implementation("ch.tutteli.kbox:kbox:0.15.1")
+    implementation("ch.tutteli.kbox:kbox-jvm:0.15.1")
 }
 ```
 
