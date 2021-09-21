@@ -100,7 +100,7 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
         val src = "src/${sourceSet.name}/kotlin"
         sourceLink {
             localDirectory.set(file(src))
-            remoteUrl.set(URL("https://github.com/robstoll/${rootProject.name}/blob/master/$src"))
+            remoteUrl.set(URL("https://github.com/robstoll/${rootProject.name}/blob/main/$src"))
             remoteLineSuffix.set("#L")
         }
     }
@@ -203,8 +203,8 @@ project.afterEvaluate {
 Release & deploy a commit
 --------------------------------
 1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
-2. update master:
-    a) point to the tag, search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
+2. update main:
+    a) point to the tag, search for `tree/main` and replace it with `tree/vX.Y.Z` (README.md)
     b) commit (modified .travis.yml, build.gradle, README.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
@@ -216,7 +216,7 @@ Release & deploy a commit
 
 Prepare next dev cycle
 -----------------------
-1. point to master, search for `tree/vX.Y.Z` and replace it with `tree/master`
+1. point to main, search for `tree/vX.Y.Z` and replace it with `tree/main`
 2. Replace badges
 3. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
 4. commit & push changes
