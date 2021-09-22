@@ -13,7 +13,8 @@ buildscript {
 plugins {
     kotlin("multiplatform") version "1.5.31"
     id("org.jetbrains.dokka") version "1.5.30"
-    val tutteliGradleVersion = "4.0.2"
+    val tutteliGradleVersion = "4.1.0"
+    id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
@@ -87,33 +88,6 @@ kotlin {
                 )
             }
         }
-    }
-}
-
-val docsDir = projectDir.resolve("docs/kdoc")
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
-    // custom output directory
-    outputDirectory.set(docsDir)
-
-    dokkaSourceSets.configureEach {
-        val sourceSet = this
-        val src = "src/${sourceSet.name}/kotlin"
-        sourceLink {
-            localDirectory.set(file(src))
-            remoteUrl.set(URL("https://github.com/robstoll/${rootProject.name}/blob/main/$src"))
-            remoteLineSuffix.set("#L")
-        }
-    }
-}
-
-val dokka = tasks.register("dokka") {
-    dependsOn(tasks.dokkaHtml)
-}
-tasks.register<Jar>("javaDoc") {
-    archiveClassifier.set("javadoc")
-    dependsOn(dokka)
-    doFirst {
-        from(docsDir)
     }
 }
 
