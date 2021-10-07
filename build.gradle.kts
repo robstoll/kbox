@@ -1,4 +1,3 @@
-import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -12,6 +11,8 @@ buildscript {
 
 plugins {
     kotlin("multiplatform") version "1.5.31"
+    // apply dokka plugin before, as tutteli's dokka plugin might use an older version.
+    // This way this one takes precedence
     id("org.jetbrains.dokka") version "1.5.31"
     val tutteliGradleVersion = "4.1.0"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
@@ -173,27 +174,77 @@ project.afterEvaluate {
 }
 
 /*
-
 Release & deploy a commit
 --------------------------------
-1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
+1. generate dokka
+a) gr dokka
+b) check if output/links are still good (use intellij's http server via -> right click -> open in -> browser)
+
 2. update main:
-    a) point to the tag, search for `tree/main` and replace it with `tree/vX.Y.Z` (README.md)
-    b) commit (modified .travis.yml, build.gradle, README.md)
-    c) git tag vX.Y.Z
-    d) git push origin vX.Y.Z
-4. deploy to bintray:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gradlew clean publishToBintray
-    b) Log in to bintray, check that there are 26 artifacts and publish them
-    c) synchronise to maven central
-5. create release on github
+
+Either use the following commands or the manual steps below
+
+export KBOX_PREVIOUS_VERSION=0.15.1
+export KBOX_VERSION=0.16.0
+find ./ -name "*.md" | xargs perl -0777 -i \
+   -pe "s@$KBOX_PREVIOUS_VERSION@$KBOX_VERSION@g;" \
+   -pe "s@tree/v$KBOX_PREVIOUS_VERSION@tree/v$KBOX_VERSION@g;"
+perl -0777 -i \
+  -pe "s@$KBOX_PREVIOUS_VERSION@$KBOX_VERSION@g;" \
+  -pe "s/rootProject.version = \"$KBOX_VERSION-SNAPSHOT\"/rootProject.version = \"$KBOX_VERSION\"/;" \
+  ./build.gradle.kts
+perl -0777 -i \
+  -pe "s@$KBOX_PREVIOUS_VERSION@$KBOX_VERSION@g;" \
+  -pe 's/(<!-- for main -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# KBox)/$1<!--\n$2-->$3\n$4\n$5/;' \
+  ./README.md
+git commit -a -m "v$KBOX_VERSION"
+git tag "v$KBOX_VERSION"
+
+alternatively the manual steps:
+  a) search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
+  b) adjust badges in readme
+  c) commit (modified build.gradle and README.md)
+
+3. prepare release on github
+   a) git tag vX.Y.Z
+   b) git push origin vX.Y.Z
+
+3. deploy to maven central:
+(assumes you have an alias named gr pointing to ./gradlew)
+    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToSonatype closeAndReleaseSonatypeStagingRepository
+    b) Log into https://oss.sonatype.org/#stagingRepositories
+    c) check if staging repo is ok
+    d) gr closeAndReleaseSonatypeStagingRepository (currently fails with `No staging repository with name sonatype created` needs to be done manually via Nexus gui)
+
+4. create release on github
 
 Prepare next dev cycle
 -----------------------
+
+
+export KBOX_VERSION=0.16.0
+export KBOX_NEXT_VERSION=0.17.0
+find ./ -name "*.md" | xargs perl -0777 -i \
+   -pe "s@tree/v$KBOX_VERSION@tree/v1.4.7@g;";
+perl -0777 -i \
+  -pe "s/rootProject.version = \"$KBOX_VERSION\"/rootProject.version = \"$KBOX_NEXT_VERSION-SNAPSHOT\"/;" \
+  -pe "s/KBOX_VERSION=$KBOX_VERSION/KBOX_VERSION=$KBOX_NEXT_VERSION/;" \
+  ./build.gradle.kts
+perl -0777 -i \
+  -pe 's/(<!-- for main -->\n)<!--\n([\S\s]*?)-->(\n<!-- for a specific release -->)\n([\S\s]*?)\n(\n# Niok)/$1\n$2$3\n<!--$4-->\n$5/;' \
+  ./README.md
+git commit -a -m "prepare dev cycle of $KBOX_NEXT_VERSION"
+
+alternatively the manual steps:
+1. point to main
+   a) search for `tag=vX.Y.Z` and replace it with `branch=main`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/main
+2. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
+3. commit & push changes
+
 1. point to main, search for `tree/vX.Y.Z` and replace it with `tree/main`
 2. Replace badges
 3. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
 4. commit & push changes
 
 */
-
