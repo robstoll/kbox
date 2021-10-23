@@ -4,7 +4,7 @@ import java.nio.file.StandardCopyOption
 
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
-    rootProject.version = "0.16.0-SNAPSHOT"
+    rootProject.version = "0.16.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin "
 }
@@ -176,15 +176,11 @@ project.afterEvaluate {
 /*
 Release & deploy a commit
 --------------------------------
-1. generate dokka
-a) gr dokka
-b) check if output/links are still good (use intellij's http server via -> right click -> open in -> browser)
-
-2. update main:
+1. update main:
 
 Either use the following commands or the manual steps below
 
-export KBOX_PREVIOUS_VERSION=0.15.1
+export KBOX_PREVIOUS_VERSION=0.16.0
 export KBOX_VERSION=0.16.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$KBOX_PREVIOUS_VERSION@$KBOX_VERSION@g;" \
@@ -197,17 +193,20 @@ perl -0777 -i \
   -pe "s@$KBOX_PREVIOUS_VERSION@$KBOX_VERSION@g;" \
   -pe 's/(<!-- for main -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# KBox)/$1<!--\n$2-->$3\n$4\n$5/;' \
   ./README.md
-git commit -a -m "v$KBOX_VERSION"
-git tag "v$KBOX_VERSION"
 
 alternatively the manual steps:
   a) search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
   b) adjust badges in readme
   c) commit (modified build.gradle and README.md)
 
+2. generate dokka
+  a) gr dokka
+  b) check if output/links are still good (use intellij's http server via -> right click -> open in -> browser)
+
 3. prepare release on github
-   a) git tag vX.Y.Z
-   b) git push origin vX.Y.Z
+   a) git commit -a -m "v$KBOX_VERSION"
+   b) git tag "v$KBOX_VERSION"
+   c) git push origin "v$KBOX_VERSION"
 
 3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
