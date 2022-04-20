@@ -12,7 +12,7 @@ buildscript {
 
 plugins {
     kotlin("multiplatform") version "1.6.21"
-    id("org.jetbrains.dokka") version "1.6.10"
+    id("org.jetbrains.dokka") version "1.6.20"
     val tutteliGradleVersion = "4.2.1"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
