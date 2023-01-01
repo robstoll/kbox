@@ -10,7 +10,7 @@ package ch.tutteli.kbox
  *
  * @param index The index which is used for the bound check.
  * @param thenBlock The block which is executed if the [index] is within the bound.
- * @param elseBlock The block which is executed if the [index] is outside of the bound.
+ * @param elseBlock The block which is executed if the [index] is outside the bound.
  *
  * @return The result of the [thenBlock] or the [elseBlock].
  */
@@ -28,7 +28,7 @@ inline fun <E, R> List<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBloc
  *
  * @param index The index which is used for the bound check.
  * @param thenBlock The block which is executed if the [index] is within the bound.
- * @param elseBlock The block which is executed if the [index] is outside of the bound.
+ * @param elseBlock The block which is executed if the [index] is outside the bound.
  *
  * @return The result of the [thenBlock] or the [elseBlock].
  */

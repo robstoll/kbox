@@ -22,7 +22,8 @@ plugins {
     id("org.sonarqube") version "3.5.0.2730"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
-val atriumVersion by extra("0.17.0-RC1")
+//TODO update to newer version once we drop support for jdk 1.6
+val atriumVersion by extra("0.17.0")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
@@ -61,24 +62,19 @@ kotlin {
             exclude(group = "org.jetbrains.kotlin")
         }
 
-        val commonMain by getting
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test"))
                 implementation("ch.tutteli.atrium:atrium-fluent-en_GB-common:$atriumVersion", excludeKboxAndKotlin)
             }
         }
-        val jvmMain by getting
         val jvmTest by getting {
             dependencies {
                 implementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atriumVersion", excludeKboxAndKotlin)
             }
         }
-        val jsMain by getting
         val jsTest by getting {
             dependencies {
-                implementation(kotlin("test-js"))
 
                 implementation(
                     "ch.tutteli.atrium:atrium-fluent-en_GB-js:$atriumVersion"
