@@ -23,7 +23,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 //TODO update to newer version once we drop support for jdk 1.6
-val atriumVersion by extra("0.17.0")
+val atriumVersion by extra("0.18.0")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
