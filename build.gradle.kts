@@ -11,9 +11,9 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.6.21"
+    kotlin("multiplatform") version "1.7.21"
     id("org.jetbrains.dokka") version "1.7.20"
-    val tutteliGradleVersion = "4.2.1"
+    val tutteliGradleVersion = "4.5.1"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
@@ -22,8 +22,7 @@ plugins {
     id("org.sonarqube") version "3.5.0.2730"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
-//TODO update to newer version once we drop support for jdk 1.6
-val atriumVersion by extra("0.17.0")
+val atriumVersion by extra("0.18.0")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
@@ -35,8 +34,7 @@ kotlin {
     jvm {
         withJava()
         compilations.all {
-            //TODO change to jdk 11 with 1.0.0
-            kotlinOptions.jvmTarget = "1.6"
+            kotlinOptions.jvmTarget = "11"
         }
     }
     js(LEGACY) { nodejs() }
@@ -45,13 +43,8 @@ kotlin {
         compilations.all {
 
             kotlinOptions {
-                //TODO change to 1.5 with 1.0.0
-                // so that consumers of this library using 1.3 are still happy, we don't use specific features of 1.5
-                apiVersion = "1.4"
-                languageVersion = "1.4"
-
-                //TODO activate again with 1.0.0
-//                allWarningsAsErrors = true
+                apiVersion = "1.5"
+                languageVersion = "1.5"
             }
         }
     }
