@@ -1,4 +1,3 @@
-import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -83,81 +82,77 @@ kotlin {
 detekt {
     allRules = true
     config = files("${rootProject.projectDir}/gradle/scripts/detekt.yml")
-    reports {
-        xml.enabled = true
-        html.enabled = false
-        sarif.enabled = false
-        txt.enabled = false
+}
+
+val detektTasks = tasks.withType<io.gitlab.arturbosch.detekt.Detekt>()
+
+fun Task.reportXml(): Path {
+    val fileName = if (name == "detekt") "detekt" else name.substring("detekt".length)
+    return project.buildDir.resolve("reports/detekt/$fileName.xml").toPath()
+}
+
+// not provided by detekt itself so far, might change in the future
+val allDetekt = tasks.register("allDetekt") {
+    detektTasks.forEach {
+        it.reports {
+            xml.required.set(true)
+            html.required.set(false)
+            txt.required.set(false)
+            sarif.required.set(false)
+            md.required.set(false)
+        }
+        dependsOn(it)
+    }
+}
+tasks.named("check").configure {
+    dependsOn(allDetekt)
+}
+detektTasks.forEach {
+    val reportXml = it.reportXml()
+    it.doLast {
+        // necessary as currently detekt writes main.xml for each platform and overrides when doing so
+        Files.move(
+            project.buildDir.resolve("reports/detekt/main.xml").toPath(),
+            reportXml,
+            StandardCopyOption.REPLACE_EXISTING
+        )
+    }
+    // as we change name of the output file, we need to let gradle know about it
+    it.outputs.file(reportXml)
+}
+tasks.named("sonarqube").configure {
+    dependsOn(allDetekt)
+    doFirst {
+        sonarqube {
+            properties {
+                val reportPaths = detektTasks
+                    .map { it.reportXml() }
+                    .filter { Files.exists(it) }
+                    .joinToString(",")
+                property("sonar.kotlin", "detekt.reportPaths=$reportPaths")
+            }
+        }
     }
 }
 
-project.afterEvaluate {
-    project.afterEvaluate {
+fun sonarqubeSourceSets(endsWith: String): String =
+    kotlin.sourceSets.asSequence()
+        .filter { it.name.endsWith(endsWith) }
+        .map { "src/${it.name}" }
+        .filter { file(it).exists() }
+        .joinToString(",")
 
-        val detektTasks = tasks.filterIsInstance<io.gitlab.arturbosch.detekt.Detekt>()
-
-        fun Task.reportXml(): Path {
-            val fileName = if (name == "detekt") "detekt" else name.substring("detekt".length)
-            return project.buildDir.resolve("reports/detekt/$fileName.xml").toPath()
-        }
-
-        // not provided by detekt itself so far, might change in the future
-        val allDetekt = tasks.register("allDetekt") {
-            detektTasks.forEach {
-                dependsOn(it)
-            }
-        }
-        tasks.named("check").configure {
-            dependsOn(allDetekt)
-        }
-        detektTasks.forEach {
-            val reportXml = it.reportXml()
-            it.doLast {
-                // necessary as currently detekt writes main.xml for each platform and overrides when doing so
-                Files.move(
-                    project.buildDir.resolve("reports/detekt/main.xml").toPath(),
-                    reportXml,
-                    StandardCopyOption.REPLACE_EXISTING
-                )
-            }
-            // as we change name of the output file, we need to let gradle know about it
-            it.outputs.file(reportXml)
-        }
-        tasks.named("sonarqube").configure {
-            dependsOn(allDetekt)
-            doFirst {
-                sonarqube {
-                    properties {
-                        val reportPaths = detektTasks
-                            .map { it.reportXml() }
-                            .filter { Files.exists(it) }
-                            .joinToString(",")
-                        property("sonar.kotlin", "detekt.reportPaths=$reportPaths")
-                    }
-                }
-            }
-        }
-
-        fun sonarqubeSourceSets(endsWith: String) : String =
-            kotlin.sourceSets.asSequence()
-                .filter { it.name.endsWith(endsWith) }
-                .map { "src/${it.name}" }
-                .filter { file(it).exists() }
-                .joinToString(",")
-
-        // here due to detekt
-        sonarqube {
-            properties {
-                property("sonar.host.url", "https://sonarcloud.io")
-                property("sonar.organization", "robstoll-github")
-                property("sonar.projectKey", "robstoll_${rootProject.name}")
-                property("sonar.projectVersion", rootProject.version)
-                property("sonar.sources", sonarqubeSourceSets("Main"))
-                property("sonar.tests", sonarqubeSourceSets("Test"))
-                property("sonar.coverage", "jacoco.xmlReportPaths=build/reports/jacoco/report.xml")
-                property("sonar.verbose", "true")
-            }
-        }
+// here due to detekt
+sonarqube {
+    properties {
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.organization", "robstoll-github")
+        property("sonar.projectKey", "robstoll_${rootProject.name}")
+        property("sonar.projectVersion", rootProject.version)
+        property("sonar.sources", sonarqubeSourceSets("Main"))
+        property("sonar.tests", sonarqubeSourceSets("Test"))
+        property("sonar.coverage", "jacoco.xmlReportPaths=build/reports/jacoco/report.xml")
+        property("sonar.verbose", "true")
     }
 }
 
