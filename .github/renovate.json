@@ -4,5 +4,5 @@
         "github>robstoll/renovate-presets-jvm",
         ":switchToGradleLite"
     ],
-    "bumpVersion": "prerelease"
+    "ignoreUnstable": false
 }
