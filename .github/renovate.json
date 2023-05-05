@@ -3,5 +3,6 @@
         "config:base",
         "github>robstoll/renovate-presets-jvm",
         ":switchToGradleLite"
-    ]
+    ],
+    "bumpVersion": "prerelease"
 }
