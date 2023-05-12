@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -12,7 +13,7 @@ buildscript {
 plugins {
     kotlin("multiplatform") version "1.8.10"
     id("org.jetbrains.dokka") version "1.8.10"
-    val tutteliGradleVersion = "4.8.0"
+    val tutteliGradleVersion = "4.9.0"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
@@ -30,20 +31,14 @@ the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
 repositories { mavenCentral() }
 
 kotlin {
-    jvm {
-        withJava()
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
-    }
+    jvm { withJava() }
     js(LEGACY) { nodejs() }
 
     targets.all {
         compilations.all {
-
             kotlinOptions {
-                apiVersion = "1.5"
-                languageVersion = "1.5"
+                apiVersion = "1.3"
+                languageVersion = "1.3"
             }
         }
     }
@@ -67,7 +62,6 @@ kotlin {
         }
         val jsTest by getting {
             dependencies {
-
                 implementation(
                     "ch.tutteli.atrium:atrium-fluent-en_GB-js:$atriumVersion"
                     // cannot exclude as the module name changed in this version (from kbox-js to kbox)
@@ -77,6 +71,18 @@ kotlin {
             }
         }
     }
+}
+kotlin {
+    // reading JAVA_VERSION from env to enable jdk17 build in CI
+    val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: 11
+    jvmToolchain(jdkVersion)
+}
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "11"
+}
+tasks.withType<JavaCompile> {
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
 }
 
 detekt {
