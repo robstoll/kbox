@@ -20,7 +20,7 @@ plugins {
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("org.sonarqube") version "3.5.0.2730"
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 val atriumVersion by extra("0.18.0")
 val spekVersion by extra("2.0.15")
