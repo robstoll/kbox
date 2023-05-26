@@ -22,7 +22,7 @@ plugins {
     id("org.sonarqube") version "3.5.0.2730"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
-val atriumVersion by extra("0.18.0")
+val atriumVersion by extra("1.0.0-RC1")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
