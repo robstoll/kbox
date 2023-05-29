@@ -54,7 +54,6 @@ $dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/hasNext/#/PointingToDecla
 $dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/next/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/next.html
 $dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/peek/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/peek.html
 $dokka.location:ch.tutteli.kbox/JvmSynchronized///PointingToDeclaration/kbox/ch.tutteli.kbox/-jvm-synchronized/index.html
-$dokka.location:ch.tutteli.kbox/JvmSynchronized/JvmSynchronized/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-jvm-synchronized/-jvm-synchronized.html
 $dokka.location:ch.tutteli.kbox/PeekingIterator.Companion///PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/-companion/index.html
 $dokka.location:ch.tutteli.kbox/PeekingIterator///PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/index.html
 $dokka.location:ch.tutteli.kbox/PeekingIterator/peek/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/peek.html
