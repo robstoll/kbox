@@ -5,7 +5,8 @@ import java.nio.file.StandardCopyOption
 
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
-    rootProject.version = "0.16.0-SNAPSHOT"
+    // and we want that it to apply ch.tutteli conventions
+    rootProject.version = "1.0.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin "
 }
@@ -22,7 +23,7 @@ plugins {
     id("org.sonarqube") version "4.2.0.3129"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
-val atriumVersion by extra("0.18.0")
+val atriumVersion by extra("1.0.0")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
@@ -52,22 +53,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB-common:$atriumVersion", excludeKboxAndKotlin)
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                implementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atriumVersion", excludeKboxAndKotlin)
-            }
-        }
-        val jsTest by getting {
-            dependencies {
-                implementation(
-                    "ch.tutteli.atrium:atrium-fluent-en_GB-js:$atriumVersion"
-                    // cannot exclude as the module name changed in this version (from kbox-js to kbox)
-                    // TODO add again once atrium uses new kbox version
-                    //, excludeKboxAndKotlin
-                )
+                implementation("ch.tutteli.atrium:atrium-fluent:$atriumVersion", excludeKboxAndKotlin)
             }
         }
     }
