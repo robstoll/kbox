@@ -8,6 +8,8 @@ package ch.tutteli.kbox
  * This function is meant for other things such as check if upper bound of range is within bound and return a sublist or
  * return an empty list etc.
  *
+ * @param E Element type of this [List].
+ * @param R Return type.
  * @param index The index which is used for the bound check.
  * @param thenBlock The block which is executed if the [index] is within the bound.
  * @param elseBlock The block which is executed if the [index] is outside the bound.
@@ -26,6 +28,8 @@ inline fun <E, R> List<E>.ifWithinBound(index: Int, thenBlock: () -> R, elseBloc
  * This function is meant for other things such as check if upper bound of range is within bound and return a sublist or
  * return an empty list etc.
  *
+ * @param E Element type of this [List].
+ * @param R Return type.
  * @param index The index which is used for the bound check.
  * @param thenBlock The block which is executed if the [index] is within the bound.
  * @param elseBlock The block which is executed if the [index] is outside the bound.

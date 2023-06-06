@@ -6,9 +6,11 @@ package ch.tutteli.kbox
  *
  * A key represent a child and the value its parent.
  *
+ * @param T Key and value type of the [Map].
  * @param child Defines the starting point of the search.
  * @param failIfCyclic `false` per default but can be set to `true` in which case it throws an [IllegalStateException]
  *   if a cycle is detected.
+ *
  *
  * @throws IllegalStateException In case [failIfCyclic] is `true` and a cycle is detected.
  *

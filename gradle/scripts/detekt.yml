@@ -23,3 +23,7 @@ style:
         active: false
 #    WildcardImport:
 #        active: false
+
+comments:
+    OutdatedDocumentation:
+        allowParamOnConstructorProperties: true
