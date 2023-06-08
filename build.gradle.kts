@@ -112,6 +112,12 @@ detektTasks.forEach {
     it.outputs.file(reportXml)
 }
 
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
+}
+
 /*
 
 Release & deploy a commit
