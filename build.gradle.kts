@@ -20,7 +20,6 @@ plugins {
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
-    id("org.sonarqube") version "4.2.0.3129"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 val atriumVersion by extra("1.0.0")
@@ -111,41 +110,6 @@ detektTasks.forEach {
     }
     // as we change name of the output file, we need to let gradle know about it
     it.outputs.file(reportXml)
-}
-tasks.named("sonarqube").configure {
-    dependsOn(allDetekt)
-    doFirst {
-        sonarqube {
-            properties {
-                val reportPaths = detektTasks
-                    .map { it.reportXml() }
-                    .filter { Files.exists(it) }
-                    .joinToString(",")
-                property("sonar.kotlin", "detekt.reportPaths=$reportPaths")
-            }
-        }
-    }
-}
-
-fun sonarqubeSourceSets(endsWith: String): String =
-    kotlin.sourceSets.asSequence()
-        .filter { it.name.endsWith(endsWith) }
-        .map { "src/${it.name}" }
-        .filter { file(it).exists() }
-        .joinToString(",")
-
-// here due to detekt
-sonarqube {
-    properties {
-        property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.organization", "robstoll-github")
-        property("sonar.projectKey", "robstoll_${rootProject.name}")
-        property("sonar.projectVersion", rootProject.version)
-        property("sonar.sources", sonarqubeSourceSets("Main"))
-        property("sonar.tests", sonarqubeSourceSets("Test"))
-        property("sonar.coverage", "jacoco.xmlReportPaths=build/reports/jacoco/report.xml")
-        property("sonar.verbose", "true")
-    }
 }
 
 /*
