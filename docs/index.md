@@ -1,4 +1,4 @@
-[![Download](https://img.shields.io/badge/Download-0.15.1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.kbox/kbox/0.15.1/jar)
+[![Download](https://img.shields.io/badge/Download-1.0.0-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.kbox/kbox/1.0.0/jar)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 
 # KBox
