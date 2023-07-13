@@ -134,10 +134,12 @@ Release & deploy a commit
     c) commit (modified docs/index.md, build.gradle.kts, README.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
-4. deploy to bintray:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gradlew clean publishToBintray
-    b) Log in to bintray, check that there are 26 artifacts and publish them
-    c) synchronise to maven central
+4. deploy to maven-central:
+    a) CI=true gr clean publishToSonatype
+    b) Log into https://oss.sonatype.org/#stagingRepositories
+    c) check if staging repo is ok
+    d) close repo
+    e) release repo
 5. create release on github
 
 Prepare next dev cycle
