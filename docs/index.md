@@ -11,12 +11,9 @@ KBox is published to maven central.
 ```
 repositories { mavenCentral() }
 dependencies {
-    implementation("ch.tutteli.kbox:kbox-jvm:0.15.1")
+    implementation("ch.tutteli.kbox:kbox:1.0.0")
 }
 ```
-
-Accordingly, you can use `kbox-js` as artifactId instead of `kbox-jvm`
-(or simply `kbox` in case of a MPP project in commonMain).
 
 # Documentation
 
