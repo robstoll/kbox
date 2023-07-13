@@ -130,7 +130,8 @@ Release & deploy a commit
 1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
 2. update main:
     a) point to the tag, search for `tree/main` and replace it with `tree/vX.Y.Z` (README.md)
-    b) commit (modified .travis.yml, build.gradle, README.md)
+    b) update badges
+    c) commit (modified docs/index.md, build.gradle.kts, README.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
