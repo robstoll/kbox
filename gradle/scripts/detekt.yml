@@ -23,6 +23,8 @@ style:
         active: false
 #    WildcardImport:
 #        active: false
+    BracesOnIfStatements:
+        active: false
 
 comments:
     OutdatedDocumentation:
