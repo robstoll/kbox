@@ -19,10 +19,10 @@ plugins {
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
-    id("io.gitlab.arturbosch.detekt") version "1.23.5"
+    id("io.gitlab.arturbosch.detekt") version "1.23.0"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
-val atriumVersion by extra("1.1.0")
+val atriumVersion by extra("1.0.0")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
@@ -32,13 +32,13 @@ repositories { mavenCentral() }
 
 kotlin {
     jvm { withJava() }
-    js(LEGACY) { nodejs() }
+    js(IR) { nodejs() }
 
     targets.all {
         compilations.all {
             kotlinOptions {
-                apiVersion = "1.3"
-                languageVersion = "1.3"
+                apiVersion = "1.4"
+                languageVersion = "1.4"
             }
         }
     }
@@ -99,6 +99,9 @@ tasks.named("check").configure {
     dependsOn(allDetekt)
 }
 detektTasks.forEach {
+
+    it.exclude("**/org/spekframework/**") // exclude fake spek
+
     val reportXml = it.reportXml()
     it.doLast {
         // necessary as currently detekt writes main.xml for each platform and overrides when doing so
@@ -125,13 +128,16 @@ Release & deploy a commit
 1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
 2. update main:
     a) point to the tag, search for `tree/main` and replace it with `tree/vX.Y.Z` (README.md)
-    b) commit (modified .travis.yml, build.gradle, README.md)
+    b) update badges
+    c) commit (modified docs/index.md, build.gradle.kts, README.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
-4. deploy to bintray:
-    a) java -version 2>&1 | grep "version \"9" && CI=true ./gradlew clean publishToBintray
-    b) Log in to bintray, check that there are 26 artifacts and publish them
-    c) synchronise to maven central
+4. deploy to maven-central:
+    a) CI=true gr clean publishToSonatype
+    b) Log into https://oss.sonatype.org/#stagingRepositories
+    c) check if staging repo is ok
+    d) close repo
+    e) release repo
 5. create release on github
 
 Prepare next dev cycle
