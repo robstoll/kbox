@@ -12,7 +12,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.8.22"
+    kotlin("multiplatform") version "1.9.22"
     id("org.jetbrains.dokka") version "1.9.10"
     val tutteliGradleVersion = "5.0.1"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
@@ -22,7 +22,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
-val atriumVersion by extra("1.0.0")
+val atriumVersion by extra("1.2.0-RC1")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
@@ -79,7 +79,7 @@ val detektTasks = tasks.withType<io.gitlab.arturbosch.detekt.Detekt>()
 
 fun Task.reportXml(): Path {
     val fileName = if (name == "detekt") "detekt" else name.substring("detekt".length)
-    return project.buildDir.resolve("reports/detekt/$fileName.xml").toPath()
+    return project.layout.buildDirectory.file("reports/detekt/$fileName.xml").get().asFile.toPath()
 }
 
 // not provided by detekt itself so far, might change in the future
@@ -105,8 +105,9 @@ detektTasks.forEach {
     val reportXml = it.reportXml()
     it.doLast {
         // necessary as currently detekt writes main.xml for each platform and overrides when doing so
+        //TODO 1.1.0 should be fixed with https://github.com/detekt/detekt/issues/4035#event-11762158557
         Files.move(
-            project.buildDir.resolve("reports/detekt/main.xml").toPath(),
+            project.project.layout.buildDirectory.file("reports/detekt/main.xml").get().asFile.toPath(),
             reportXml,
             StandardCopyOption.REPLACE_EXISTING
         )
