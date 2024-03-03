@@ -13,13 +13,13 @@ buildscript {
 
 plugins {
     kotlin("multiplatform") version "1.8.22"
-    id("org.jetbrains.dokka") version "1.8.20"
-    val tutteliGradleVersion = "4.10.0"
+    id("org.jetbrains.dokka") version "1.9.10"
+    val tutteliGradleVersion = "5.0.1"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
-    id("io.gitlab.arturbosch.detekt") version "1.23.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.5"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 val atriumVersion by extra("1.1.0-IR-alpha")
@@ -28,9 +28,7 @@ val spekVersion by extra("2.0.15")
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
     .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
 kotlin {
     jvm { withJava() }
