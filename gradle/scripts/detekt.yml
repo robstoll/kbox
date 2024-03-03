@@ -15,8 +15,6 @@ performance:
         active: false
 
 style:
-    MandatoryBracesIfStatements:
-        active: false
     #    OptionalWhenBraces:
     #        active: false
     OptionalUnit:
@@ -24,6 +22,8 @@ style:
 #    WildcardImport:
 #        active: false
     BracesOnIfStatements:
+        active: false
+    BracesOnWhenStatements:
         active: false
 
 comments:
