@@ -27,7 +27,7 @@ import kotlin.jvm.JvmName
  * @param loadElements the function returning the children of a given element in case of a tree / the connected nodes
  *   in case of a graph.
  *
- * @since 1.1.0
+ * @since 1.0.0
  */
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
@@ -76,7 +76,7 @@ fun <T> Sequence<T>.dynamicTraversal(
  * @param loadElements the function returning the children of a given element in case of a tree / the connected nodes
  *   in case of a graph.
  *
- * @since 1.1.0
+ * @since 1.0.0
  */
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
@@ -107,14 +107,14 @@ fun <T> Sequence<T>.dynamicTraversal(
 /**
  * Represents the option to which traversal algorithm shall be applied.
  *
- * @since 1.1.0
+ * @since 1.0.0
  */
 enum class TraversalAlgorithmOption {
     /** Taking the tree as example, the resulting sequence contains the result in a breath first manner,
      * i.e. if `dropRoots = false` then the elements of the original sequence are returned first (if `dropRoots] = true`
      * then they are skipped/dropped), then the children of those elements, then the children of the children and so on.
      *
-     * @since 1.1.0
+     * @since 1.0.0
      */
     BreadthFirst,
 
@@ -126,7 +126,7 @@ enum class TraversalAlgorithmOption {
      * Once there is no first child (i.e. we reached a leaf of the tree) the sibling of this child is visited, and again
      * the first child of this sibling etc.
      *
-     * @since 1.1.0
+     * @since 1.0.0
      */
     DepthFirst
 }

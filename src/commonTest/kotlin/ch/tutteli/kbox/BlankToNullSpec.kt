@@ -5,9 +5,6 @@ import ch.tutteli.kbox.atrium.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-/**
- * asdf
- */
 object BlankToNullSpec : Spek({
 
     describe("fun ${String::blankToNull.name}") {
