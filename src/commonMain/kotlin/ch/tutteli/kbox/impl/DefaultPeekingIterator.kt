@@ -6,7 +6,7 @@ import ch.tutteli.kbox.PeekingIterator
 /**
  * An [Iterator] which provides the [peek] function in addition.
  */
-class DefaultPeekingIterator<out T : Any>(private val itr: Iterator<T>) : PeekingIterator<T> {
+internal class DefaultPeekingIterator<out T : Any>(private val itr: Iterator<T>) : PeekingIterator<T> {
 
     private var peek: T? = null
     @JvmSynchronized
