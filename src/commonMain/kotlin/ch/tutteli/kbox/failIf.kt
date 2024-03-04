@@ -6,6 +6,6 @@ package ch.tutteli.kbox
  * @param predicate the predicate which defines if the exception should be thrown or not.
  * @param errorMessage The message which as [IllegalStateException.message]
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 inline fun failIf(predicate: Boolean, errorMessage: () -> String) = check(predicate.not(), errorMessage)
