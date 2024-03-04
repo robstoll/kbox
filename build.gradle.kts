@@ -70,6 +70,11 @@ tasks.withType<JavaCompile> {
     sourceCompatibility = "11"
     targetCompatibility = "11"
 }
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    compilerOptions {
+        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+    }
+}
 
 detekt {
     allRules = true
