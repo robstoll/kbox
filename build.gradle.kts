@@ -7,7 +7,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we want that it to apply the ch.tutteli conventions
-    rootProject.version = "1.1.0"
+    rootProject.version = "1.2.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin "
 }
@@ -142,11 +142,13 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to maven-central:
-    a) CI=true gr clean publishToSonatype
-    b) Log into https://oss.sonatype.org/#stagingRepositories
-    c) check if staging repo is ok
-    d) close repo
-    e) release repo
+    a) echo "enter the sonatype user token"
+	   read SONATYPE_PW
+    b) java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
+    c) Log into https://oss.sonatype.org/#stagingRepositories
+    d) check if staging repo is ok
+    e) close repo
+    f) release repo
 5. create release on github
 
 Prepare next dev cycle
