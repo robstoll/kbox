@@ -59,6 +59,9 @@ Current extension functions:
 - [`varargsToList/glue`](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/varargToList.kt#L11)
   creates a `List` out of a single `E` and an `Array<E>`.
 
+- [takeIf](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/takeIf.kt#L12) 
+  same behaviour as `takeIf` but as prefix operator and not postfix.
+
 Moreover, the following function might come in handy for you as well:
 - [identity](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/identity.kt)
 
