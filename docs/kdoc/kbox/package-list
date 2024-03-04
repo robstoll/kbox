@@ -1,5 +1,11 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:ch.tutteli.kbox.impl////PointingToDeclaration/kbox/ch.tutteli.kbox.impl/index.html
+$dokka.location:ch.tutteli.kbox.impl/DefaultPeekingIterator///PointingToDeclaration/kbox/ch.tutteli.kbox.impl/-default-peeking-iterator/index.html
+$dokka.location:ch.tutteli.kbox.impl/DefaultPeekingIterator/DefaultPeekingIterator/#kotlin.collections.Iterator[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/kbox/ch.tutteli.kbox.impl/-default-peeking-iterator/-default-peeking-iterator.html
+$dokka.location:ch.tutteli.kbox.impl/DefaultPeekingIterator/hasNext/#/PointingToDeclaration/kbox/ch.tutteli.kbox.impl/-default-peeking-iterator/has-next.html
+$dokka.location:ch.tutteli.kbox.impl/DefaultPeekingIterator/next/#/PointingToDeclaration/kbox/ch.tutteli.kbox.impl/-default-peeking-iterator/next.html
+$dokka.location:ch.tutteli.kbox.impl/DefaultPeekingIterator/peek/#/PointingToDeclaration/kbox/ch.tutteli.kbox.impl/-default-peeking-iterator/peek.html
 $dokka.location:ch.tutteli.kbox////PointingToDeclaration/kbox/ch.tutteli.kbox/index.html
 $dokka.location:ch.tutteli.kbox//appendToStringBuilder/kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.text.StringBuilder#kotlin.String#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/append-to-string-builder.html
 $dokka.location:ch.tutteli.kbox//appendToStringBuilder/kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.text.StringBuilder#kotlin.String#kotlin.String#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/append-to-string-builder.html
@@ -8,7 +14,9 @@ $dokka.location:ch.tutteli.kbox//appendToStringBuilder/kotlin.collections.List[T
 $dokka.location:ch.tutteli.kbox//appendToStringBuilder/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#kotlin.text.StringBuilder#kotlin.String#kotlin.String#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/append-to-string-builder.html
 $dokka.location:ch.tutteli.kbox//appendToStringBuilder/kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#kotlin.text.StringBuilder#kotlin.String#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/append-to-string-builder.html
 $dokka.location:ch.tutteli.kbox//blankToNull/TypeParam(bounds=[kotlin.CharSequence])#/PointingToDeclaration/kbox/ch.tutteli.kbox/blank-to-null.html
-$dokka.location:ch.tutteli.kbox//create/ch.tutteli.kbox.PeekingIterator.Companion#kotlin.collections.Iterator[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/kbox/ch.tutteli.kbox/create.html
+$dokka.location:ch.tutteli.kbox//dynamicTraversal/kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean#kotlin.Boolean#ch.tutteli.kbox.TraversalAlgorithmOption#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]]/PointingToDeclaration/kbox/ch.tutteli.kbox/dynamic-traversal.html
+$dokka.location:ch.tutteli.kbox//dynamicTraversal/kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean#kotlin.Boolean#ch.tutteli.kbox.TraversalAlgorithmOption#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]]/PointingToDeclaration/kbox/ch.tutteli.kbox/dynamic-traversal.html
+$dokka.location:ch.tutteli.kbox//failIf/#kotlin.Boolean#kotlin.Function0[kotlin.String]/PointingToDeclaration/kbox/ch.tutteli.kbox/fail-if.html
 $dokka.location:ch.tutteli.kbox//forEachIn/#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Array[kotlin.Array[TypeParam(bounds=[kotlin.Any?])]]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/for-each-in.html
 $dokka.location:ch.tutteli.kbox//forEachIn/#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/for-each-in.html
 $dokka.location:ch.tutteli.kbox//forEachIn/#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kbox/ch.tutteli.kbox/for-each-in.html
@@ -46,20 +54,24 @@ $dokka.location:ch.tutteli.kbox//mapRemainingWithCounter/kotlin.collections.Iter
 $dokka.location:ch.tutteli.kbox//mapWithIndex/kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/kbox/ch.tutteli.kbox/map-with-index.html
 $dokka.location:ch.tutteli.kbox//mapWithIndex/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/kbox/ch.tutteli.kbox/map-with-index.html
 $dokka.location:ch.tutteli.kbox//mapWithIndex/kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/kbox/ch.tutteli.kbox/map-with-index.html
+$dokka.location:ch.tutteli.kbox//takeIf/#kotlin.Boolean#kotlin.Function0[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/kbox/ch.tutteli.kbox/take-if.html
 $dokka.location:ch.tutteli.kbox//toPeekingIterator/kotlin.collections.Iterator[TypeParam(bounds=[kotlin.Any])]#/PointingToDeclaration/kbox/ch.tutteli.kbox/to-peeking-iterator.html
 $dokka.location:ch.tutteli.kbox//varargToList/#TypeParam(bounds=[kotlin.Any?])#kotlin.Array[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/kbox/ch.tutteli.kbox/vararg-to-list.html
-$dokka.location:ch.tutteli.kbox/DefaultPeekingIterator///PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/index.html
-$dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/DefaultPeekingIterator/#kotlin.collections.Iterator[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/-default-peeking-iterator.html
-$dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/hasNext/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/has-next.html
-$dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/next/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/next.html
-$dokka.location:ch.tutteli.kbox/DefaultPeekingIterator/peek/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-default-peeking-iterator/peek.html
 $dokka.location:ch.tutteli.kbox/JvmSynchronized///PointingToDeclaration/kbox/ch.tutteli.kbox/-jvm-synchronized/index.html
 $dokka.location:ch.tutteli.kbox/PeekingIterator.Companion///PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/-companion/index.html
+$dokka.location:ch.tutteli.kbox/PeekingIterator.Companion/invoke/#kotlin.collections.Iterator[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/-companion/invoke.html
 $dokka.location:ch.tutteli.kbox/PeekingIterator///PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/index.html
 $dokka.location:ch.tutteli.kbox/PeekingIterator/peek/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-peeking-iterator/peek.html
+$dokka.location:ch.tutteli.kbox/TraversalAlgorithmOption.BreadthFirst///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}kbox/ch.tutteli.kbox/-traversal-algorithm-option/-breadth-first/index.html
+$dokka.location:ch.tutteli.kbox/TraversalAlgorithmOption.DepthFirst///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}kbox/ch.tutteli.kbox/-traversal-algorithm-option/-depth-first/index.html
+$dokka.location:ch.tutteli.kbox/TraversalAlgorithmOption///PointingToDeclaration/kbox/ch.tutteli.kbox/-traversal-algorithm-option/index.html
+$dokka.location:ch.tutteli.kbox/TraversalAlgorithmOption/entries/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-traversal-algorithm-option/entries.html
+$dokka.location:ch.tutteli.kbox/TraversalAlgorithmOption/valueOf/#kotlin.String/PointingToDeclaration/kbox/ch.tutteli.kbox/-traversal-algorithm-option/value-of.html
+$dokka.location:ch.tutteli.kbox/TraversalAlgorithmOption/values/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-traversal-algorithm-option/values.html
 $dokka.location:ch.tutteli.kbox/WithIndex///PointingToDeclaration/kbox/ch.tutteli.kbox/-with-index/index.html
 $dokka.location:ch.tutteli.kbox/WithIndex/WithIndex/#kotlin.Int#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/kbox/ch.tutteli.kbox/-with-index/-with-index.html
 $dokka.location:ch.tutteli.kbox/WithIndex/index/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-with-index/--index--.html
 $dokka.location:ch.tutteli.kbox/WithIndex/value/#/PointingToDeclaration/kbox/ch.tutteli.kbox/-with-index/value.html
 ch.tutteli.kbox
+ch.tutteli.kbox.impl
 
