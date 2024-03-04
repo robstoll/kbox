@@ -1,4 +1,7 @@
-package ch.tutteli.kbox
+package ch.tutteli.kbox.impl
+
+import ch.tutteli.kbox.JvmSynchronized
+import ch.tutteli.kbox.PeekingIterator
 
 /**
  * An [Iterator] which provides the [peek] function in addition.

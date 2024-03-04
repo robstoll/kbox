@@ -72,13 +72,16 @@ tasks.withType<JavaCompile> {
 }
 tasks.withType<KotlinCompilationTask<*>>().configureEach {
     compilerOptions {
-        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+        with(freeCompilerArgs) {
+            add("-opt-in=kotlin.RequiresOptIn")
+            add("-Xexpect-actual-classes")
+        }
     }
 }
 
 detekt {
     allRules = true
-    config = files("${rootProject.projectDir}/gradle/scripts/detekt.yml")
+    config.from(files("${rootProject.projectDir}/gradle/scripts/detekt.yml"))
 }
 
 val detektTasks = tasks.withType<io.gitlab.arturbosch.detekt.Detekt>()
