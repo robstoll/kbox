@@ -144,11 +144,11 @@ Release & deploy a commit
 4. deploy to maven-central:
     a) echo "enter the sonatype user token"
 	   read SONATYPE_PW
-    b) java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
-    c) Log into https://oss.sonatype.org/#stagingRepositories
-    d) check if staging repo is ok
-    e) close repo
-    f) release repo
+       java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
+    b) Log into https://oss.sonatype.org/#stagingRepositories
+    c) check if staging repo is ok
+    d) close repo
+    e) release repo
 5. create release on github
 
 Prepare next dev cycle
