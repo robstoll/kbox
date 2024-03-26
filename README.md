@@ -22,7 +22,7 @@ in the stdlib such as:
 - isNotNullAndNotEmpty
 - identity
 
-and more, see the [Documentation](#documentation) for a full list.
+and more, see the [Documentation](https://robstoll.github.io/kbox/kdoc/) for a full list.
 
 # Installation
 
