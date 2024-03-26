@@ -23,7 +23,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
-val atriumVersion by extra("1.2.0-RC1")
+val atriumVersion by extra("1.2.0")
 val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
