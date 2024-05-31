@@ -17,14 +17,13 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.20"
     val tutteliGradleVersion = "5.0.1"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
+    id("ch.tutteli.gradle.plugins.junitjacoco") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
-    id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 val atriumVersion by extra("1.2.0")
-val spekVersion by extra("2.0.15")
 
 the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
     .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
@@ -45,15 +44,14 @@ kotlin {
     }
 
     sourceSets {
-        val excludeKboxAndKotlin: ExternalModuleDependency.() -> Unit = {
+        val excludeKbox: ExternalModuleDependency.() -> Unit = {
             exclude(group = "ch.tutteli.kbox")
-            exclude(group = "org.jetbrains.kotlin")
         }
 
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("ch.tutteli.atrium:atrium-fluent:$atriumVersion", excludeKboxAndKotlin)
+                implementation("ch.tutteli.atrium:atrium-fluent:$atriumVersion", excludeKbox)
             }
         }
     }
@@ -108,8 +106,6 @@ tasks.named("check").configure {
     dependsOn(allDetekt)
 }
 detektTasks.forEach {
-
-    it.exclude("**/org/spekframework/**") // exclude fake spek
 
     val reportXml = it.reportXml()
     it.doLast {
