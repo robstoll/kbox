@@ -28,4 +28,5 @@ style:
 
 comments:
     OutdatedDocumentation:
+        matchDeclarationsOrder: false
         allowParamOnConstructorProperties: true

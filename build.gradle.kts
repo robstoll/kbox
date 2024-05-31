@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -14,72 +11,26 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "2.0.0"
-    id("org.jetbrains.dokka") version "1.9.20"
-    val tutteliGradleVersion = "5.0.1"
-    id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
-    id("ch.tutteli.gradle.plugins.junitjacoco") version tutteliGradleVersion
-    id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion
-    id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion
-    id("io.gitlab.arturbosch.detekt") version "1.23.6"
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("build-logic.published-kotlin-multiplatform")
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.nexus.publish)
 }
-val atriumVersion by extra("1.2.0")
-
-the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
-    .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
-
-repositories { mavenCentral() }
 
 kotlin {
-    compilerOptions {
-        @Suppress("DEPRECATION" /* we support kotlin 1.4 as long as possible */)
-        val kotlinVersion = KotlinVersion.KOTLIN_1_4
-        apiVersion.set(kotlinVersion)
-        languageVersion.set(kotlinVersion)
-        freeCompilerArgs.add("-Xexpect-actual-classes")
-    }
-
-    jvm { withJava() }
-    js(IR) { nodejs() }
-
     sourceSets {
-        val excludeKbox: ExternalModuleDependency.() -> Unit = {
-            exclude(group = "ch.tutteli.kbox")
-        }
-
-        val commonTest by getting {
+        commonTest {
             dependencies {
-                implementation(kotlin("test"))
-                implementation("ch.tutteli.atrium:atrium-fluent:$atriumVersion", excludeKbox)
+                implementation(libs.atrium.fluent.get().let { "${it.module}:${it.version}"}) {
+                    exclude(group = "ch.tutteli.kbox")
+                }
             }
-        }
-    }
-}
-kotlin {
-    // reading JAVA_VERSION from env to enable jdk17 build in CI
-    val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: 11
-    jvmToolchain(jdkVersion)
-}
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
-}
-tasks.withType<JavaCompile> {
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
-}
-tasks.withType<KotlinCompilationTask<*>>().configureEach {
-    compilerOptions {
-        with(freeCompilerArgs) {
-            add("-opt-in=kotlin.RequiresOptIn")
-            add("-Xexpect-actual-classes")
         }
     }
 }
 
 detekt {
     allRules = true
-    config.from(files("${rootProject.projectDir}/gradle/scripts/detekt.yml"))
+    config.from(files("${rootProject.projectDir}/gradle/detekt.yml"))
 }
 
 val detektTasks = tasks.withType<io.gitlab.arturbosch.detekt.Detekt>()
@@ -125,6 +76,7 @@ nexusPublishing {
         sonatype()
     }
 }
+
 
 /*
 
