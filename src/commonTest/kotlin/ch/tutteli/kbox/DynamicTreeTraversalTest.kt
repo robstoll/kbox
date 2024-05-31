@@ -2,35 +2,39 @@ package ch.tutteli.kbox
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import ch.tutteli.atrium.api.verbs.expectGrouped
+import kotlin.test.Test
 
-object DynamicTreeTraversalSpec : Spek({
+class DynamicTreeTraversalTest {
 
-    describe("empty sequence") {
-        TraversalAlgorithmOption.values().flatMap { algo ->
-            listOf(false, true).flatMap { revisit ->
-                listOf(false, true).map { dropRoots ->
-                    Triple(algo, revisit, dropRoots)
-                }
-            }
-        }.forEach { (algo, revisit, dropRoots) ->
-            it("algo: $algo, revisit: $revisit, dropRoots: $dropRoots") {
-                expect(
-                    emptySequence<Int>().dynamicTraversal(
-                        revisit = revisit,
-                        dropRoots = dropRoots,
-                        traversalAlgorithm = algo,
-                    ) {
-                        sequenceOf(1)
+    @Test
+    fun empty_sequence() {
+        expectGrouped {
+            TraversalAlgorithmOption.values().flatMap { algo ->
+                listOf(false, true).flatMap { revisit ->
+                    listOf(false, true).map { dropRoots ->
+                        Triple(algo, revisit, dropRoots)
                     }
-                ).asIterable().notToHaveElements()
+                }
+            }.forEach { (algo, revisit, dropRoots) ->
+                group("algo: $algo, revisit: $revisit, dropRoots: $dropRoots") {
+                    expect(
+                        emptySequence<Int>().dynamicTraversal(
+                            revisit = revisit,
+                            dropRoots = dropRoots,
+                            traversalAlgorithm = algo,
+                        ) {
+                            sequenceOf(1)
+                        }
+                    ).asIterable().notToHaveElements()
+                }
             }
         }
     }
 
-    describe("sequenceOf 1, 3") {
-        describe("load elements returns sequence of it + 1") {
+    @Test
+    fun sequenceOf_1_and_3__load_elements_returns_sequence_of_it_plus_1() {
+        expectGrouped {
             listOf(
                 Triple(
                     TraversalAlgorithmOption.BreadthFirst, false, true
@@ -77,7 +81,7 @@ object DynamicTreeTraversalSpec : Spek({
                 ) to listOf(1, 2, 3, 4, 5),
             ).forEach { (triple, expected) ->
                 val (algo, revisit, dropRoots) = triple
-                it("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => take 5 returns ${expected.joinToString(", ")}") {
+                group("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => take 5 returns ${expected.joinToString(", ")}") {
                     var saw3 = false
                     expect(
                         sequenceOf(1, 3).dynamicTraversal(
@@ -95,8 +99,11 @@ object DynamicTreeTraversalSpec : Spek({
                 }
             }
         }
+    }
 
-        describe("initial sequence throws when loading 3") {
+    @Test
+    fun sequenceOf_1_and_3__initial_sequence_throws_when_loading_3() {
+        expectGrouped {
             val throwingSequence = Sequence {
                 object : Iterator<Int> {
                     var isFirst = true
@@ -114,7 +121,7 @@ object DynamicTreeTraversalSpec : Spek({
                     Triple(TraversalAlgorithmOption.BreadthFirst, revisit, dropRoots)
                 }
             }.forEach { (algo, revisit, dropRoots) ->
-                it("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => throws as it reads it") {
+                group("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => throws as it reads it") {
                     expect {
                         throwingSequence.dynamicTraversal(
                             revisit = revisit,
@@ -133,7 +140,7 @@ object DynamicTreeTraversalSpec : Spek({
                     Triple(TraversalAlgorithmOption.DepthFirst, revisit, dropRoots)
                 }
             }.forEach { (algo, revisit, dropRoots) ->
-                it("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => doesn't throw as it never reaches it") {
+                group("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => doesn't throw as it never reaches it") {
                     expect {
                         throwingSequence.dynamicTraversal(
                             revisit = revisit,
@@ -152,8 +159,11 @@ object DynamicTreeTraversalSpec : Spek({
                 }
             }
         }
+    }
 
-        describe("load elements returns only for initial sequence it + 1, it + 2, then empty sequence") {
+    @Test
+    fun sequenceOf_1_and_3__load_elements_returns_only_for_initial_sequence_it_plus_1_it_plus_2_then_empty_sequence() {
+        expectGrouped {
             listOf(
 
                 Triple(
@@ -173,7 +183,7 @@ object DynamicTreeTraversalSpec : Spek({
                 ) to listOf(1 to true, 2 to false, 3 to false, 3 to true, 4 to false),
             ).forEach { (triple, expected) ->
                 val (algo, revisit, dropRoots) = triple
-                it("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => take 5 returns ${expected.joinToString(", ")}") {
+                group("algo: $algo, revisit: $revisit, dropRoots: $dropRoots => take 5 returns ${expected.joinToString(", ")}") {
                     expect(
                         sequenceOf(1 to true, 3 to true).dynamicTraversal(
                             revisit = revisit,
@@ -189,4 +199,4 @@ object DynamicTreeTraversalSpec : Spek({
             }
         }
     }
-})
+}

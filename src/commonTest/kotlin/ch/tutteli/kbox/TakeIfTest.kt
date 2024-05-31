@@ -7,7 +7,7 @@ import kotlin.test.Test
 class TakeIfTest {
 
     @Test
-    fun `it_returns_null_if_predicate_doesnt_hold`() {
+    fun it_returns_null_if_predicate_doesnt_hold() {
         expect(
             takeIf<Int>(false) { throw IllegalArgumentException("bla") }
         ).toEqual(null)
