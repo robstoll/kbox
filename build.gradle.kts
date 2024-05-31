@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.nio.file.Files
@@ -13,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.9.24"
+    kotlin("multiplatform") version "2.0.0"
     id("org.jetbrains.dokka") version "1.9.20"
     val tutteliGradleVersion = "5.0.1"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
@@ -31,17 +32,15 @@ the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
 repositories { mavenCentral() }
 
 kotlin {
+    compilerOptions {
+        @Suppress("DEPRECATION" /* we support kotlin 1.4 as long as possible */)
+        val kotlinVersion = KotlinVersion.KOTLIN_1_4
+        apiVersion.set(kotlinVersion)
+        languageVersion.set(kotlinVersion)
+    }
+
     jvm { withJava() }
     js(IR) { nodejs() }
-
-    targets.all {
-        compilations.all {
-            kotlinOptions {
-                apiVersion = "1.4"
-                languageVersion = "1.4"
-            }
-        }
-    }
 
     sourceSets {
         val excludeKbox: ExternalModuleDependency.() -> Unit = {
