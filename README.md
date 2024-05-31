@@ -20,6 +20,7 @@ in the stdlib such as:
 - blankToNull
 - isNotNullAndNotEmpty
 - identity
+- Pair.mapFirst/Second
 
 and more, see the [Documentation](https://robstoll.github.io/kbox/kdoc/) for a full list.
 
