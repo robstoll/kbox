@@ -8,7 +8,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we want that it to apply the ch.tutteli conventions
-    rootProject.version = "1.2.0-SNAPSHOT"
+    rootProject.version = "1.2.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin "
 }
@@ -37,6 +37,7 @@ kotlin {
         val kotlinVersion = KotlinVersion.KOTLIN_1_4
         apiVersion.set(kotlinVersion)
         languageVersion.set(kotlinVersion)
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
     jvm { withJava() }
@@ -133,9 +134,10 @@ Release & deploy a commit
 2. update main:
     a) point to the tag, search for `tree/main` and replace it with `tree/vX.Y.Z` (README.md)
     b) update badges
-    c) commit (modified docs/index.md, build.gradle.kts, README.md)
-    c) git tag vX.Y.Z
-    d) git push origin vX.Y.Z
+    c) gr dokkaHtml
+    d) commit (modified docs/index.md, docs/kdoc/*, build.gradle.kts, README.md)
+    e) git tag vX.Y.Z
+    f) git push origin vX.Y.Z
 4. deploy to maven-central:
     a) echo "enter the sonatype user token"
 	   read SONATYPE_PW
