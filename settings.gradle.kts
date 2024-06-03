@@ -5,6 +5,7 @@ pluginManagement {
     }
     includeBuild("gradle/build-logic")
     includeBuild("gradle/build-logic-conventions")
+    includeBuild("gradle/code-generation")
 }
 
 dependencyResolutionManagement {

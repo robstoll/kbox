@@ -7,20 +7,34 @@ buildscript {
     // and we want that it to apply the ch.tutteli conventions
     rootProject.version = "1.2.0"
     rootProject.group = "ch.tutteli.kbox"
-    rootProject.description = "A utility library for Kotlin "
+    rootProject.description = "A utility library for Kotlin"
+    extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
+    extra.set("generationTestFolder", project.files("src/commonTest/generated/kotlin"))
 }
+val generationFolder: ConfigurableFileCollection by extra
+val generationTestFolder: ConfigurableFileCollection by extra
+
 
 plugins {
     id("build-logic.published-kotlin-multiplatform")
+    id("code-generation.generate")
     alias(libs.plugins.detekt)
     alias(libs.plugins.nexus.publish)
 }
 
+
+
 kotlin {
     sourceSets {
+        commonMain {
+            kotlin.srcDir(generationFolder)
+        }
+
         commonTest {
+
+            kotlin.srcDir(generationTestFolder)
             dependencies {
-                implementation(libs.atrium.fluent.get().let { "${it.module}:${it.version}"}) {
+                implementation(libs.atrium.fluent.get().let { "${it.module}:${it.version}" }) {
                     exclude(group = "ch.tutteli.kbox")
                 }
             }
