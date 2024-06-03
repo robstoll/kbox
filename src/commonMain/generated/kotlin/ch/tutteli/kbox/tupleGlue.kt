@@ -10,7 +10,7 @@ package ch.tutteli.kbox
 *
 * You can also think of it as all values of the given [pair] are [Pair.append]ed to this [Pair].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4> Pair<A1, A2>.glue(
     pair: Pair<A3, A4>
@@ -22,7 +22,7 @@ fun <A1, A2, A3, A4> Pair<A1, A2>.glue(
 *
 * You can also think of it as all values of the given [triple] are [Pair.append]ed to this [Pair].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5> Pair<A1, A2>.glue(
     triple: Triple<A3, A4, A5>
@@ -34,7 +34,7 @@ fun <A1, A2, A3, A4, A5> Pair<A1, A2>.glue(
 *
 * You can also think of it as all values of the given [tuple4] are [Pair.append]ed to this [Pair].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Pair<A1, A2>.glue(
     tuple4: Tuple4<A3, A4, A5, A6>
@@ -46,7 +46,7 @@ fun <A1, A2, A3, A4, A5, A6> Pair<A1, A2>.glue(
 *
 * You can also think of it as all values of the given [tuple5] are [Pair.append]ed to this [Pair].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Pair<A1, A2>.glue(
     tuple5: Tuple5<A3, A4, A5, A6, A7>
@@ -58,7 +58,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Pair<A1, A2>.glue(
 *
 * You can also think of it as all values of the given [tuple6] are [Pair.append]ed to this [Pair].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Pair<A1, A2>.glue(
     tuple6: Tuple6<A3, A4, A5, A6, A7, A8>
@@ -70,7 +70,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Pair<A1, A2>.glue(
 *
 * You can also think of it as all values of the given [tuple7] are [Pair.append]ed to this [Pair].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Pair<A1, A2>.glue(
     tuple7: Tuple7<A3, A4, A5, A6, A7, A8, A9>
@@ -82,7 +82,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Pair<A1, A2>.glue(
 *
 * You can also think of it as all values of the given [pair] are [Triple.append]ed to this [Triple].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5> Triple<A1, A2, A3>.glue(
     pair: Pair<A4, A5>
@@ -94,7 +94,7 @@ fun <A1, A2, A3, A4, A5> Triple<A1, A2, A3>.glue(
 *
 * You can also think of it as all values of the given [triple] are [Triple.append]ed to this [Triple].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Triple<A1, A2, A3>.glue(
     triple: Triple<A4, A5, A6>
@@ -106,7 +106,7 @@ fun <A1, A2, A3, A4, A5, A6> Triple<A1, A2, A3>.glue(
 *
 * You can also think of it as all values of the given [tuple4] are [Triple.append]ed to this [Triple].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Triple<A1, A2, A3>.glue(
     tuple4: Tuple4<A4, A5, A6, A7>
@@ -118,7 +118,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Triple<A1, A2, A3>.glue(
 *
 * You can also think of it as all values of the given [tuple5] are [Triple.append]ed to this [Triple].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Triple<A1, A2, A3>.glue(
     tuple5: Tuple5<A4, A5, A6, A7, A8>
@@ -130,7 +130,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Triple<A1, A2, A3>.glue(
 *
 * You can also think of it as all values of the given [tuple6] are [Triple.append]ed to this [Triple].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Triple<A1, A2, A3>.glue(
     tuple6: Tuple6<A4, A5, A6, A7, A8, A9>
@@ -142,7 +142,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Triple<A1, A2, A3>.glue(
 *
 * You can also think of it as all values of the given [pair] are [Tuple4.append]ed to this [Tuple4].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Tuple4<A1, A2, A3, A4>.glue(
     pair: Pair<A5, A6>
@@ -154,7 +154,7 @@ fun <A1, A2, A3, A4, A5, A6> Tuple4<A1, A2, A3, A4>.glue(
 *
 * You can also think of it as all values of the given [triple] are [Tuple4.append]ed to this [Tuple4].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Tuple4<A1, A2, A3, A4>.glue(
     triple: Triple<A5, A6, A7>
@@ -166,7 +166,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Tuple4<A1, A2, A3, A4>.glue(
 *
 * You can also think of it as all values of the given [tuple4] are [Tuple4.append]ed to this [Tuple4].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple4<A1, A2, A3, A4>.glue(
     tuple4: Tuple4<A5, A6, A7, A8>
@@ -178,7 +178,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple4<A1, A2, A3, A4>.glue(
 *
 * You can also think of it as all values of the given [tuple5] are [Tuple4.append]ed to this [Tuple4].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple4<A1, A2, A3, A4>.glue(
     tuple5: Tuple5<A5, A6, A7, A8, A9>
@@ -190,7 +190,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple4<A1, A2, A3, A4>.glue(
 *
 * You can also think of it as all values of the given [pair] are [Tuple5.append]ed to this [Tuple5].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Tuple5<A1, A2, A3, A4, A5>.glue(
     pair: Pair<A6, A7>
@@ -202,7 +202,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Tuple5<A1, A2, A3, A4, A5>.glue(
 *
 * You can also think of it as all values of the given [triple] are [Tuple5.append]ed to this [Tuple5].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple5<A1, A2, A3, A4, A5>.glue(
     triple: Triple<A6, A7, A8>
@@ -214,7 +214,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple5<A1, A2, A3, A4, A5>.glue(
 *
 * You can also think of it as all values of the given [tuple4] are [Tuple5.append]ed to this [Tuple5].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple5<A1, A2, A3, A4, A5>.glue(
     tuple4: Tuple4<A6, A7, A8, A9>
@@ -226,7 +226,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple5<A1, A2, A3, A4, A5>.glue(
 *
 * You can also think of it as all values of the given [pair] are [Tuple6.append]ed to this [Tuple6].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple6<A1, A2, A3, A4, A5, A6>.glue(
     pair: Pair<A7, A8>
@@ -238,7 +238,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple6<A1, A2, A3, A4, A5, A6>.glue(
 *
 * You can also think of it as all values of the given [triple] are [Tuple6.append]ed to this [Tuple6].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple6<A1, A2, A3, A4, A5, A6>.glue(
     triple: Triple<A7, A8, A9>
@@ -250,7 +250,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple6<A1, A2, A3, A4, A5, A6>.glue(
 *
 * You can also think of it as all values of the given [pair] are [Tuple7.append]ed to this [Tuple7].
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple7<A1, A2, A3, A4, A5, A6, A7>.glue(
     pair: Pair<A8, A9>

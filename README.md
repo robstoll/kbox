@@ -1,16 +1,16 @@
 <!-- for main -->
-
-[![Download](https://img.shields.io/badge/Download-1.2.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/1.2.0)
+<!--
+[![Download](https://img.shields.io/badge/Download-2.0.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/2.0.0)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 [![Build Status Ubuntu](https://github.com/robstoll/kbox/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/kbox/actions?query=workflow%3AUbuntu+branch%3Amain)
 [![Build Status Windows](https://github.com/robstoll/kbox/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/kbox/actions?query=workflow%3AWindows+branch%3Amain)
-
+-->
 
 <!-- for a specific release -->
-<!--
-[![Download](https://img.shields.io/badge/Download-1.2.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/1.2.0)
+
+[![Download](https://img.shields.io/badge/Download-2.0.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/2.0.0)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
--->
+
 
 # KBox
 KBox is a very small but useful utility library for Kotlin (JVM, Android and JS) providing functions which are missing
@@ -32,7 +32,7 @@ KBox is published to maven central.
 ```
 repositories { mavenCentral() }
 dependencies {
-    implementation("ch.tutteli.kbox:kbox:1.2.0")
+    implementation("ch.tutteli.kbox:kbox:2.0.0")
 }
 ```
 

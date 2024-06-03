@@ -7,7 +7,7 @@ package ch.tutteli.kbox
 /**
  * Represents a simple data structure to hold 4 values.
  *
- * @since 1.3.0
+ * @since 2.0.0
  */
 @Suppress("UndocumentedPublicProperty")
 data class Tuple4<A1, A2, A3, A4>(

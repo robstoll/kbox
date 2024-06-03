@@ -8,7 +8,7 @@ package ch.tutteli.kbox
 /**
 * Transforms this [Pair] into a [Triple] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3> Pair<A1, A2>.append(
     a3: A3
@@ -18,7 +18,7 @@ fun <A1, A2, A3> Pair<A1, A2>.append(
 /**
 * Transforms this [Pair] into a [Tuple4] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4> Pair<A1, A2>.append(
     a3: A3, a4: A4
@@ -28,7 +28,7 @@ fun <A1, A2, A3, A4> Pair<A1, A2>.append(
 /**
 * Transforms this [Pair] into a [Tuple5] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5> Pair<A1, A2>.append(
     a3: A3, a4: A4, a5: A5
@@ -38,7 +38,7 @@ fun <A1, A2, A3, A4, A5> Pair<A1, A2>.append(
 /**
 * Transforms this [Pair] into a [Tuple6] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Pair<A1, A2>.append(
     a3: A3, a4: A4, a5: A5, a6: A6
@@ -48,7 +48,7 @@ fun <A1, A2, A3, A4, A5, A6> Pair<A1, A2>.append(
 /**
 * Transforms this [Pair] into a [Tuple7] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Pair<A1, A2>.append(
     a3: A3, a4: A4, a5: A5, a6: A6, a7: A7
@@ -58,7 +58,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Pair<A1, A2>.append(
 /**
 * Transforms this [Pair] into a [Tuple8] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 @Suppress("LongParameterList")
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Pair<A1, A2>.append(
@@ -69,7 +69,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Pair<A1, A2>.append(
 /**
 * Transforms this [Pair] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 @Suppress("LongParameterList")
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Pair<A1, A2>.append(
@@ -80,7 +80,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Pair<A1, A2>.append(
 /**
 * Transforms this [Triple] into a [Tuple4] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4> Triple<A1, A2, A3>.append(
     a4: A4
@@ -90,7 +90,7 @@ fun <A1, A2, A3, A4> Triple<A1, A2, A3>.append(
 /**
 * Transforms this [Triple] into a [Tuple5] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5> Triple<A1, A2, A3>.append(
     a4: A4, a5: A5
@@ -100,7 +100,7 @@ fun <A1, A2, A3, A4, A5> Triple<A1, A2, A3>.append(
 /**
 * Transforms this [Triple] into a [Tuple6] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Triple<A1, A2, A3>.append(
     a4: A4, a5: A5, a6: A6
@@ -110,7 +110,7 @@ fun <A1, A2, A3, A4, A5, A6> Triple<A1, A2, A3>.append(
 /**
 * Transforms this [Triple] into a [Tuple7] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Triple<A1, A2, A3>.append(
     a4: A4, a5: A5, a6: A6, a7: A7
@@ -120,7 +120,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Triple<A1, A2, A3>.append(
 /**
 * Transforms this [Triple] into a [Tuple8] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Triple<A1, A2, A3>.append(
     a4: A4, a5: A5, a6: A6, a7: A7, a8: A8
@@ -130,7 +130,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Triple<A1, A2, A3>.append(
 /**
 * Transforms this [Triple] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 @Suppress("LongParameterList")
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Triple<A1, A2, A3>.append(
@@ -141,7 +141,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Triple<A1, A2, A3>.append(
 /**
 * Transforms this [Tuple4] into a [Tuple5] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5> Tuple4<A1, A2, A3, A4>.append(
     a5: A5
@@ -151,7 +151,7 @@ fun <A1, A2, A3, A4, A5> Tuple4<A1, A2, A3, A4>.append(
 /**
 * Transforms this [Tuple4] into a [Tuple6] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Tuple4<A1, A2, A3, A4>.append(
     a5: A5, a6: A6
@@ -161,7 +161,7 @@ fun <A1, A2, A3, A4, A5, A6> Tuple4<A1, A2, A3, A4>.append(
 /**
 * Transforms this [Tuple4] into a [Tuple7] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Tuple4<A1, A2, A3, A4>.append(
     a5: A5, a6: A6, a7: A7
@@ -171,7 +171,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Tuple4<A1, A2, A3, A4>.append(
 /**
 * Transforms this [Tuple4] into a [Tuple8] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple4<A1, A2, A3, A4>.append(
     a5: A5, a6: A6, a7: A7, a8: A8
@@ -181,7 +181,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple4<A1, A2, A3, A4>.append(
 /**
 * Transforms this [Tuple4] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple4<A1, A2, A3, A4>.append(
     a5: A5, a6: A6, a7: A7, a8: A8, a9: A9
@@ -191,7 +191,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple4<A1, A2, A3, A4>.append(
 /**
 * Transforms this [Tuple5] into a [Tuple6] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6> Tuple5<A1, A2, A3, A4, A5>.append(
     a6: A6
@@ -201,7 +201,7 @@ fun <A1, A2, A3, A4, A5, A6> Tuple5<A1, A2, A3, A4, A5>.append(
 /**
 * Transforms this [Tuple5] into a [Tuple7] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Tuple5<A1, A2, A3, A4, A5>.append(
     a6: A6, a7: A7
@@ -211,7 +211,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Tuple5<A1, A2, A3, A4, A5>.append(
 /**
 * Transforms this [Tuple5] into a [Tuple8] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple5<A1, A2, A3, A4, A5>.append(
     a6: A6, a7: A7, a8: A8
@@ -221,7 +221,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple5<A1, A2, A3, A4, A5>.append(
 /**
 * Transforms this [Tuple5] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple5<A1, A2, A3, A4, A5>.append(
     a6: A6, a7: A7, a8: A8, a9: A9
@@ -231,7 +231,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple5<A1, A2, A3, A4, A5>.append(
 /**
 * Transforms this [Tuple6] into a [Tuple7] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7> Tuple6<A1, A2, A3, A4, A5, A6>.append(
     a7: A7
@@ -241,7 +241,7 @@ fun <A1, A2, A3, A4, A5, A6, A7> Tuple6<A1, A2, A3, A4, A5, A6>.append(
 /**
 * Transforms this [Tuple6] into a [Tuple8] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple6<A1, A2, A3, A4, A5, A6>.append(
     a7: A7, a8: A8
@@ -251,7 +251,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple6<A1, A2, A3, A4, A5, A6>.append(
 /**
 * Transforms this [Tuple6] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple6<A1, A2, A3, A4, A5, A6>.append(
     a7: A7, a8: A8, a9: A9
@@ -261,7 +261,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple6<A1, A2, A3, A4, A5, A6>.append(
 /**
 * Transforms this [Tuple7] into a [Tuple8] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple7<A1, A2, A3, A4, A5, A6, A7>.append(
     a8: A8
@@ -271,7 +271,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> Tuple7<A1, A2, A3, A4, A5, A6, A7>.append(
 /**
 * Transforms this [Tuple7] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple7<A1, A2, A3, A4, A5, A6, A7>.append(
     a8: A8, a9: A9
@@ -281,7 +281,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple7<A1, A2, A3, A4, A5, A6, A7>.appe
 /**
 * Transforms this [Tuple8] into a [Tuple9] by appending the given arguments.
 *
-* @since 1.3.0
+* @since 2.0.0
 */
 fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple8<A1, A2, A3, A4, A5, A6, A7, A8>.append(
     a9: A9

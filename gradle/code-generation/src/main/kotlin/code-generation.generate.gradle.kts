@@ -62,7 +62,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 |/**
                 | * Represents a simple data structure to hold $upperNumber values.
                 | *
-                | * @since 1.3.0
+                | * @since 2.0.0
                 | */
                 |@Suppress("UndocumentedPublicProperty")
                 |data class $tupleName<$typeArgs>(
@@ -99,7 +99,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     |/**
                     |* Transforms this [$tupleName] into a [$toTupleName] by appending the given arguments.
                     |*
-                    |* @since 1.3.0
+                    |* @since 2.0.0
                     |*/${if (upperNumber2 >= 6) "\n@Suppress(\"LongParameterList\")" else ""}
                     |fun <$typeArgs3> $tupleName<$typeArgs>.append(
                     |    $params
@@ -121,7 +121,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                         |*
                         |* You can also think of it as all values of the given [$tupleNameParamLowercase] are [$tupleName.append]ed to this [$tupleName].
                         |*
-                        |* @since 1.3.0
+                        |* @since 2.0.0
                         |*/
                         |fun <$typeArgs3> $tupleName<$typeArgs>.glue(
                         |    $tupleNameParamLowercase: $tupleNameParam<$typeArgs2>
@@ -150,7 +150,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     |/**
                     |* Maps [$tupleName.$argNameToMap] with the given [transform] function and returns a new [$tupleName].
                     |*
-                    |* @since 1.3.0
+                    |* @since 2.0.0
                     |*/
                     |fun <$typeArgs, A${argNum}New> $tupleName<$typeArgs>.map$argNameCapitalized(
                     |    transform: (A$argNum) -> A${argNum}New
