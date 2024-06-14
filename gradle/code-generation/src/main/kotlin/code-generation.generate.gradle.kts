@@ -54,21 +54,66 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             val constructorProperties = numbers.joinToString(",\n    ") { "val a$it: A$it" }
             val tupleName = getTupleName(upperNumber)
             val tuple = createStringBuilder(packageName)
+            val tupleLike = createStringBuilder(packageName)
+
+            tupleLike.append(
+                """
+                    |/**
+                    | * Represents a tuple like data structure which has $upperNumber components.
+                    | *
+                    | * @since 2.1.0
+                    | */${if (upperNumber >= 9) "\n@Suppress(\"ComplexInterface\")" else ""}
+                    |interface Tuple${upperNumber}Like<$typeArgs> {
+                    |${
+                    numbers.joinToString("\n") {
+                        """
+                          |    /**
+                          |     * Returns the $it${
+                            when (it) {
+                                1 -> "st"
+                                2 -> "nd"
+                                3 -> "rd"
+                                else -> "th"
+                            }
+                        } component of this Tuple${upperNumber}Like data structure.
+                          |     *
+                          |     * @since 2.1.0
+                          |     */
+                          |    operator fun component$it(): A$it
+                          |
+                      """.trimMargin()
+                    }
+                }
+                    |    /**
+                    |     * Turns this class into a [$tupleName].
+                    |     *
+                    |     * @since 2.1.0
+                    |     */
+                    |    fun toTuple(): $tupleName<$typeArgs> = $tupleName(
+                    |        ${numbers.joinToString(",\n        ") { "component$it()" }}
+                    |    )
+                    |}
+                    """.trimMargin()
+            )
+            tupleLike.appendLine()
+
+            val tupleLikeFile = packageDir.resolve("Tuple${upperNumber}Like.kt")
+            tupleLikeFile.writeText(tupleLike.toString())
 
             // we don't create a Tuple2, and Tuple3
             if (upperNumber >= 4) {
                 tuple.append(
                     """
-                |/**
-                | * Represents a simple data structure to hold $upperNumber values.
-                | *
-                | * @since 2.0.0
-                | */
-                |@Suppress("UndocumentedPublicProperty")
-                |data class $tupleName<$typeArgs>(
-                |    $constructorProperties,
-                |)
-                """.trimMargin()
+                    |/**
+                    | * Represents a simple data structure to hold $upperNumber values.
+                    | *
+                    | * @since 2.0.0
+                    | */
+                    |@Suppress("UndocumentedPublicProperty")
+                    |data class $tupleName<$typeArgs>(
+                    |    $constructorProperties,
+                    |)
+                    """.trimMargin()
                 )
                 tuple.appendLine()
 
@@ -200,14 +245,21 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             "2.toByte()",
             "listOf(1, 2)",
         )
+        val argsTypeParameters = sequenceOf(
+            "String", "Int", "Long", "Float", "Double", "Char", "Short", "Byte", "List<Int>"
+        )
 
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber)
+            val typeArgs = argsTypeParameters.take(upperNumber).joinToString(", ")
             val tupleName = getTupleName(upperNumber)
             val tupleCreation = """$tupleName(${argValues.take(upperNumber).joinToString(", ")})"""
 
             val mapTest = createStringBuilder("$packageName.map")
                 .appendTest("${tupleName}MapTest")
+
+            val toTupleTest = createStringBuilder("$packageName.toTuple")
+                .appendTest("Tuple${upperNumber}LikeToTupleTest")
 
             val appendTest = createStringBuilder("$packageName.append")
                 .appendTest("${tupleName}AppendTest")
@@ -264,6 +316,25 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 ).appendLine().appendLine()
             }
 
+            toTupleTest.append(
+                """
+                    |    @Test
+                    |    fun toTuple__returns_${tupleName}_in_correct_order() {
+                    |       val dataClass = Dummy$upperNumber(${argValues.take(upperNumber).joinToString(", ")})
+                    |       expect(dataClass.toTuple()).toBeAnInstanceOf<$tupleName<$typeArgs>> {
+                    |           ${
+                    numbers.joinToString("\n           ") {
+                        "feature { f(it::component$it) }.toEqual(${
+                            argValues.drop(it - 1).first()
+                        })"
+                    }
+                }
+                    |       }
+                    |    }
+                    |
+                    """.trimMargin()
+            ).appendLine()
+
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
                 val upperNumber3 = upperNumber + upperNumber2
                 val toTupleName = getTupleName(upperNumber3)
@@ -309,6 +380,23 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             mapTest.append("}")
             val mapTestFile = packageDir.resolve("map/${tupleName}MapTest.kt")
             mapTestFile.writeText(mapTest.toString())
+
+            toTupleTest
+                .append(
+                    """
+                    |    data class Dummy$upperNumber(
+                    |        ${
+                        argsTypeParameters.take(upperNumber).withIndex()
+                            .joinToString(",\n        ") { "val a${it.index + 1}: ${it.value}" }
+                    }
+                    |    ): Tuple${upperNumber}Like<$typeArgs>
+                    """.trimMargin()
+                )
+                .appendLine()
+                .append("}")
+
+            val toTupleTestFile = packageDir.resolve("toTuple/Tuple${upperNumber}LikeToTupleTest.kt")
+            toTupleTestFile.writeText(toTupleTest.toString())
 
 
             //cannot append to tuple of max arity
