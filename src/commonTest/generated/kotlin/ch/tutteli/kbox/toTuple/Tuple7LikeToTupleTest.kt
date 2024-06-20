@@ -13,25 +13,33 @@ class Tuple7LikeToTupleTest {
 
     @Test
     fun toTuple__returns_Tuple7_in_correct_order() {
-       val dataClass = Dummy7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-       expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple7<String, Int, Long, Float, Double, Char, Short>> {
-           feature { f(it::component1) }.toEqual("string")
-           feature { f(it::component2) }.toEqual(1)
-           feature { f(it::component3) }.toEqual(2L)
-           feature { f(it::component4) }.toEqual(3F)
-           feature { f(it::component5) }.toEqual(4.0)
-           feature { f(it::component6) }.toEqual('c')
-           feature { f(it::component7) }.toEqual(1.toShort())
-       }
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+        val dataClass = Dummy7(a1, a2, a3, a4, a5, a6, a7)
+
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple7<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     data class Dummy7(
-        val a1: String,
-        val a2: Int,
-        val a3: Long,
-        val a4: Float,
-        val a5: Double,
-        val a6: Char,
-        val a7: Short
-    ): Tuple7Like<String, Int, Long, Float, Double, Char, Short>
+        val a1: List<String>,
+        val a2: List<Int>,
+        val a3: List<Long>,
+        val a4: List<Float>,
+        val a5: List<Double>,
+        val a6: List<Char>,
+        val a7: List<Short>
+    ): Tuple7Like<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>>
 }

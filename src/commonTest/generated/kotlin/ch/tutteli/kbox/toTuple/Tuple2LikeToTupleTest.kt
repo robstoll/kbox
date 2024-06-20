@@ -13,15 +13,18 @@ class Tuple2LikeToTupleTest {
 
     @Test
     fun toTuple__returns_Pair_in_correct_order() {
-       val dataClass = Dummy2("string", 1)
-       expect(dataClass.toTuple()).toBeAnInstanceOf<Pair<String, Int>> {
-           feature { f(it::component1) }.toEqual("string")
-           feature { f(it::component2) }.toEqual(1)
-       }
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val dataClass = Dummy2(a1, a2)
+
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Pair<List<String>, List<Int>>> {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+        }
     }
 
     data class Dummy2(
-        val a1: String,
-        val a2: Int
-    ): Tuple2Like<String, Int>
+        val a1: List<String>,
+        val a2: List<Int>
+    ): Tuple2Like<List<String>, List<Int>>
 }

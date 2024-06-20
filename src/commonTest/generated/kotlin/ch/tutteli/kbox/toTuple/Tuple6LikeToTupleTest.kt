@@ -13,23 +13,30 @@ class Tuple6LikeToTupleTest {
 
     @Test
     fun toTuple__returns_Tuple6_in_correct_order() {
-       val dataClass = Dummy6("string", 1, 2L, 3F, 4.0, 'c')
-       expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple6<String, Int, Long, Float, Double, Char>> {
-           feature { f(it::component1) }.toEqual("string")
-           feature { f(it::component2) }.toEqual(1)
-           feature { f(it::component3) }.toEqual(2L)
-           feature { f(it::component4) }.toEqual(3F)
-           feature { f(it::component5) }.toEqual(4.0)
-           feature { f(it::component6) }.toEqual('c')
-       }
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val dataClass = Dummy6(a1, a2, a3, a4, a5, a6)
+
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple6<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+        }
     }
 
     data class Dummy6(
-        val a1: String,
-        val a2: Int,
-        val a3: Long,
-        val a4: Float,
-        val a5: Double,
-        val a6: Char
-    ): Tuple6Like<String, Int, Long, Float, Double, Char>
+        val a1: List<String>,
+        val a2: List<Int>,
+        val a3: List<Long>,
+        val a4: List<Float>,
+        val a5: List<Double>,
+        val a6: List<Char>
+    ): Tuple6Like<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>>
 }

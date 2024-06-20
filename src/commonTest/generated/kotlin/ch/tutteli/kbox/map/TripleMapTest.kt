@@ -13,12 +13,18 @@ class TripleMapTest {
 
     @Test
     fun mapFirst__identity__returns_equal_Triple() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+
         expect(
-            Triple("string", 1, 2L)
+            Triple(a1, a2, a3)
                 .mapFirst(::identity)
-        ).toEqual(
-            Triple("string", 1, 2L)
-        )
+        ) {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::third) }.toBeTheInstance(a3)
+        }
     }
 
     @Test
@@ -26,6 +32,7 @@ class TripleMapTest {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
+
         expect(
             Triple(a1, a2, a3)
                 .mapFirst { it.first() }
@@ -38,12 +45,18 @@ class TripleMapTest {
 
     @Test
     fun mapSecond__identity__returns_equal_Triple() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+
         expect(
-            Triple("string", 1, 2L)
+            Triple(a1, a2, a3)
                 .mapSecond(::identity)
-        ).toEqual(
-            Triple("string", 1, 2L)
-        )
+        ) {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::third) }.toBeTheInstance(a3)
+        }
     }
 
     @Test
@@ -51,6 +64,7 @@ class TripleMapTest {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
+
         expect(
             Triple(a1, a2, a3)
                 .mapSecond { it.first() }
@@ -63,12 +77,18 @@ class TripleMapTest {
 
     @Test
     fun mapThird__identity__returns_equal_Triple() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+
         expect(
-            Triple("string", 1, 2L)
+            Triple(a1, a2, a3)
                 .mapThird(::identity)
-        ).toEqual(
-            Triple("string", 1, 2L)
-        )
+        ) {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::third) }.toBeTheInstance(a3)
+        }
     }
 
     @Test
@@ -76,6 +96,7 @@ class TripleMapTest {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
+
         expect(
             Triple(a1, a2, a3)
                 .mapThird { it.first() }
