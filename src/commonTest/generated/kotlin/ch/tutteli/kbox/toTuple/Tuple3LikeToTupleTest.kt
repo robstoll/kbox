@@ -13,17 +13,21 @@ class Tuple3LikeToTupleTest {
 
     @Test
     fun toTuple__returns_Triple_in_correct_order() {
-       val dataClass = Dummy3("string", 1, 2L)
-       expect(dataClass.toTuple()).toBeAnInstanceOf<Triple<String, Int, Long>> {
-           feature { f(it::component1) }.toEqual("string")
-           feature { f(it::component2) }.toEqual(1)
-           feature { f(it::component3) }.toEqual(2L)
-       }
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val dataClass = Dummy3(a1, a2, a3)
+
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Triple<List<String>, List<Int>, List<Long>>> {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::third) }.toBeTheInstance(a3)
+        }
     }
 
     data class Dummy3(
-        val a1: String,
-        val a2: Int,
-        val a3: Long
-    ): Tuple3Like<String, Int, Long>
+        val a1: List<String>,
+        val a2: List<Int>,
+        val a3: List<Long>
+    ): Tuple3Like<List<String>, List<Int>, List<Long>>
 }

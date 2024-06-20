@@ -13,62 +13,140 @@ class PairGlueTest {
 
     @Test
     fun glue_Pair__results_in_a_Tuple4() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+
         expect(
-            Pair("string", 1)
-                .glue(Pair(2L, 3F))
-        ).toEqual(
-            Tuple4("string", 1, 2L, 3F)
-        )
+            Pair(a1, a2)
+                .glue(Pair(a3, a4))
+        ).toBeAnInstanceOf<Tuple4<List<String>, List<Int>, List<Long>, List<Float>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+        }
     }
 
     @Test
     fun glue_Triple__results_in_a_Tuple5() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+
         expect(
-            Pair("string", 1)
-                .glue(Triple(2L, 3F, 4.0))
-        ).toEqual(
-            Tuple5("string", 1, 2L, 3F, 4.0)
-        )
+            Pair(a1, a2)
+                .glue(Triple(a3, a4, a5))
+        ).toBeAnInstanceOf<Tuple5<List<String>, List<Int>, List<Long>, List<Float>, List<Double>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+        }
     }
 
     @Test
     fun glue_Tuple4__results_in_a_Tuple6() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+
         expect(
-            Pair("string", 1)
-                .glue(Tuple4(2L, 3F, 4.0, 'c'))
-        ).toEqual(
-            Tuple6("string", 1, 2L, 3F, 4.0, 'c')
-        )
+            Pair(a1, a2)
+                .glue(Tuple4(a3, a4, a5, a6))
+        ).toBeAnInstanceOf<Tuple6<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+        }
     }
 
     @Test
     fun glue_Tuple5__results_in_a_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Pair("string", 1)
-                .glue(Tuple5(2L, 3F, 4.0, 'c', 1.toShort()))
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+            Pair(a1, a2)
+                .glue(Tuple5(a3, a4, a5, a6, a7))
+        ).toBeAnInstanceOf<Tuple7<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
     fun glue_Tuple6__results_in_a_Tuple8() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+        val a8 = listOf(2.toByte())
+
         expect(
-            Pair("string", 1)
-                .glue(Tuple6(2L, 3F, 4.0, 'c', 1.toShort(), 2.toByte()))
-        ).toEqual(
-            Tuple8("string", 1, 2L, 3F, 4.0, 'c', 1.toShort(), 2.toByte())
-        )
+            Pair(a1, a2)
+                .glue(Tuple6(a3, a4, a5, a6, a7, a8))
+        ).toBeAnInstanceOf<Tuple8<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+            feature { f(it::a8) }.toBeTheInstance(a8)
+        }
     }
 
     @Test
     fun glue_Tuple7__results_in_a_Tuple9() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+        val a8 = listOf(2.toByte())
+        val a9 = listOf(listOf(1, 2))
+
         expect(
-            Pair("string", 1)
-                .glue(Tuple7(2L, 3F, 4.0, 'c', 1.toShort(), 2.toByte(), listOf(1, 2)))
-        ).toEqual(
-            Tuple9("string", 1, 2L, 3F, 4.0, 'c', 1.toShort(), 2.toByte(), listOf(1, 2))
-        )
+            Pair(a1, a2)
+                .glue(Tuple7(a3, a4, a5, a6, a7, a8, a9))
+        ).toBeAnInstanceOf<Tuple9<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>, List<List<Int>>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+            feature { f(it::a8) }.toBeTheInstance(a8)
+            feature { f(it::a9) }.toBeTheInstance(a9)
+        }
     }
 
 }

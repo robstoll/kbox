@@ -13,19 +13,24 @@ class Tuple4LikeToTupleTest {
 
     @Test
     fun toTuple__returns_Tuple4_in_correct_order() {
-       val dataClass = Dummy4("string", 1, 2L, 3F)
-       expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple4<String, Int, Long, Float>> {
-           feature { f(it::component1) }.toEqual("string")
-           feature { f(it::component2) }.toEqual(1)
-           feature { f(it::component3) }.toEqual(2L)
-           feature { f(it::component4) }.toEqual(3F)
-       }
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val dataClass = Dummy4(a1, a2, a3, a4)
+
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple4<List<String>, List<Int>, List<Long>, List<Float>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+        }
     }
 
     data class Dummy4(
-        val a1: String,
-        val a2: Int,
-        val a3: Long,
-        val a4: Float
-    ): Tuple4Like<String, Int, Long, Float>
+        val a1: List<String>,
+        val a2: List<Int>,
+        val a3: List<Long>,
+        val a4: List<Float>
+    ): Tuple4Like<List<String>, List<Int>, List<Long>, List<Float>>
 }

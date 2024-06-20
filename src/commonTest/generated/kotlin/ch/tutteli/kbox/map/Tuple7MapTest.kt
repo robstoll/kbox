@@ -13,12 +13,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA1__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA1(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -30,6 +44,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA1 { it.first() }
@@ -46,12 +61,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA2__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA2(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -63,6 +92,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA2 { it.first() }
@@ -79,12 +109,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA3__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA3(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -96,6 +140,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA3 { it.first() }
@@ -112,12 +157,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA4__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA4(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -129,6 +188,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA4 { it.first() }
@@ -145,12 +205,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA5__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA5(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -162,6 +236,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA5 { it.first() }
@@ -178,12 +253,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA6__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA6(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -195,6 +284,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA6 { it.first() }
@@ -211,12 +301,26 @@ class Tuple7MapTest {
 
     @Test
     fun mapA7__identity__returns_equal_Tuple7() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+        val a5 = listOf(4.0)
+        val a6 = listOf('c')
+        val a7 = listOf(1.toShort())
+
         expect(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
+            Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA7(::identity)
-        ).toEqual(
-            Tuple7("string", 1, 2L, 3F, 4.0, 'c', 1.toShort())
-        )
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+            feature { f(it::a5) }.toBeTheInstance(a5)
+            feature { f(it::a6) }.toBeTheInstance(a6)
+            feature { f(it::a7) }.toBeTheInstance(a7)
+        }
     }
 
     @Test
@@ -228,6 +332,7 @@ class Tuple7MapTest {
         val a5 = listOf(4.0)
         val a6 = listOf('c')
         val a7 = listOf(1.toShort())
+
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
                 .mapA7 { it.first() }

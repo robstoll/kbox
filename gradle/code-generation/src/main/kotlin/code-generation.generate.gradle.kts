@@ -48,13 +48,20 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val map = createStringBuilder(packageName)
 
+        val tupleFactory = StringBuilder(dontModifyNotice)
+            .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
+            .append("package ").append(packageName).append("\n\n")
+
+
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
             val typeArgs = numbers.joinToString(", ") { "A$it" }
             val constructorProperties = numbers.joinToString(",\n    ") { "val a$it: A$it" }
+            val parameters = numbers.joinToString(", ") { "a$it: A$it" }
+            val arguments = numbers.joinToString(", ") { "a$it" }
             val tupleName = getTupleName(upperNumber)
-            val tuple = createStringBuilder(packageName)
             val tupleLike = createStringBuilder(packageName)
+            val tuple = createStringBuilder(packageName)
 
             tupleLike.append(
                 """
@@ -121,6 +128,24 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 tupleFile.writeText(tuple.toString())
             }
 
+            tupleFactory.append(
+                """
+                    |/**
+                    | * Factory method to create a [$tupleName].
+                    | *
+                    | * Alternative to `$tupleName(...)` with the advantage that you can add remove
+                    | * arguments without the need to change function name.
+                    | *
+                    | * @return the newly created [$tupleName]
+                    | *
+                    | * @since 2.1.0
+                    | */${if (upperNumber >= 6) "\n@Suppress(\"LongParameterList\")" else ""}
+                    |fun <$typeArgs> Tuple(
+                    |   $parameters
+                    |): $tupleName<$typeArgs> =
+                    |    $tupleName($arguments)
+                """.trimMargin()
+            ).appendLine().appendLine()
 
 
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
@@ -215,6 +240,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val mapFile = packageDir.resolve("tupleMap.kt")
         mapFile.writeText(map.toString())
+
+        val tupleFactoryFile = packageDir.resolve("tupleFactory.kt")
+        tupleFactoryFile.writeText(tupleFactory.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -234,7 +262,7 @@ fun StringBuilder.appendTest(testName: String) = this.append(
 val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
     doFirst {
         val packageDir = File(generationTestFolder.asPath + "/" + packageNameAsPath)
-        val argValues = sequenceOf(
+        val argValuesNotMapped =  sequenceOf(
             "\"string\"",
             "1",
             "2L",
@@ -245,15 +273,31 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             "2.toByte()",
             "listOf(1, 2)",
         )
+        val argValues = argValuesNotMapped.map { "listOf($it)" }
+
         val argsTypeParameters = sequenceOf(
             "String", "Int", "Long", "Float", "Double", "Char", "Short", "Byte", "List<Int>"
-        )
+        ).map { "List<$it>" }
+
+        val factoryTest = createStringBuilder("$packageName")
+            .appendTest("TupleFactoryTest")
 
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber)
-            val typeArgs = argsTypeParameters.take(upperNumber).joinToString(", ")
+            fun typeArgs(num: Int) = argsTypeParameters.take(num).joinToString(", ")
+            val typeArgs = typeArgs(upperNumber)
             val tupleName = getTupleName(upperNumber)
-            val tupleCreation = """$tupleName(${argValues.take(upperNumber).joinToString(", ")})"""
+
+            fun vals(num: Int) = argValues.take(num).withIndex().joinToString("\n        ") { (index, value) ->
+                "val a${index + 1} = $value"
+            }
+            val vals = vals(upperNumber)
+
+            val valsAsArgs = numbers.joinToString(", ") { "a$it" }
+            val tupleCreation = """$tupleName($valsAsArgs)"""
+            fun sameFeatureCheck(num: Int, indent: String) = (1..num).joinToString("\n$indent") {
+                "feature { f(it::${getArgName(num, it)}) }.toBeTheInstance(a${it})"
+            }
 
             val mapTest = createStringBuilder("$packageName.map")
                 .appendTest("${tupleName}MapTest")
@@ -267,6 +311,19 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val glueTest = createStringBuilder("$packageName.glue")
                 .appendTest("${tupleName}GlueTest")
 
+            factoryTest.append(
+                """
+                |    @Test
+                |    fun factory_for_$tupleName() {
+                |        ${vals(upperNumber)}
+                |        expect(Tuple($valsAsArgs))
+                |            .toBeAnInstanceOf<$tupleName<${typeArgs}>> {
+                |                ${sameFeatureCheck(upperNumber, "                ")}
+                |          }
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+
             numbers.forEach { argNum ->
                 val argNameToMap = getArgName(upperNumber, argNum)
                 val argNameCapitalized = argNameToMap.replaceFirstChar {
@@ -274,42 +331,40 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 }
                 listOf(1, 2, 3).withIndex()
 
-                val vals = argValues.take(upperNumber).withIndex().joinToString("\n        ") { (index, value) ->
-                    "val a${index + 1} = listOf($value)"
-                }
-                val tupleListCreation =
-                    """$tupleName(${numbers.joinToString(", ") { "a$it" }})"""
-                val tupleListResult = """$tupleName(${
-                    argValues.take(upperNumber).withIndex().joinToString(", ") { (index, value) ->
+                val tupleListResult = "$tupleName(${
+                    argValuesNotMapped.take(upperNumber).withIndex().joinToString(", ") { (index, value) ->
                         if (index + 1 == argNum) value else "a${index + 1}"
                     }
-                })"""
-                val checkInstances = numbers.filter { it != argNum }.joinToString("\n            ") {
-                    """
-                    |feature { f(it::${getArgName(upperNumber, it)}) }.toBeTheInstance(a${it})
-                    """.trimMargin()
-                }
+                })"
+
                 mapTest.append(
                     """
                     |    @Test
                     |    fun map${argNameCapitalized}__identity__returns_equal_$tupleName() {
+                    |        $vals
+                    |
                     |        expect(
                     |            $tupleCreation
                     |                .map${argNameCapitalized}(::identity)
-                    |        ).toEqual(
-                    |            $tupleCreation
-                    |        )
+                    |        ) {
+                    |            ${sameFeatureCheck(upperNumber, "            ")}
+                    |        }
                     |    }
                     |
                     |    @Test
                     |    fun map${argNameCapitalized}__transformation_does_not_touch_other_properties() {
                     |        $vals
+                    |
                     |        expect(
-                    |            $tupleListCreation
+                    |            $tupleCreation
                     |                .map${argNameCapitalized} { it.first() }
                     |        ) {
                     |            toEqual($tupleListResult)
-                    |            $checkInstances
+                    |            ${
+                        numbers.filter { it != argNum }.joinToString("\n            ") {
+                            "feature { f(it::${getArgName(upperNumber, it)}) }.toBeTheInstance(a${it})"
+                        }
+                    }
                     |        }
                     |    }
                      """.trimMargin()
@@ -320,16 +375,12 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 """
                     |    @Test
                     |    fun toTuple__returns_${tupleName}_in_correct_order() {
-                    |       val dataClass = Dummy$upperNumber(${argValues.take(upperNumber).joinToString(", ")})
-                    |       expect(dataClass.toTuple()).toBeAnInstanceOf<$tupleName<$typeArgs>> {
-                    |           ${
-                    numbers.joinToString("\n           ") {
-                        "feature { f(it::component$it) }.toEqual(${
-                            argValues.drop(it - 1).first()
-                        })"
-                    }
-                }
-                    |       }
+                    |        $vals
+                    |        val dataClass = Dummy$upperNumber($valsAsArgs)
+                    |
+                    |        expect(dataClass.toTuple()).toBeAnInstanceOf<$tupleName<$typeArgs>> {
+                    |            ${sameFeatureCheck(upperNumber, "            ")}
+                    |        }
                     |    }
                     |
                     """.trimMargin()
@@ -338,19 +389,20 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
                 val upperNumber3 = upperNumber + upperNumber2
                 val toTupleName = getTupleName(upperNumber3)
-
-                val toTupleNameCreation = """$toTupleName(${argValues.take(upperNumber3).joinToString(", ")})"""
+                val vals3AsArgs = (upperNumber + 1..upperNumber3).joinToString(", ") { "a$it" }
 
                 appendTest.append(
                     """
                         |    @Test
                         |    fun append_${upperNumber2}_values__results_in_a_$toTupleName() {
+                        |        ${vals(upperNumber3)}
+                        |
                         |        expect(
                         |            $tupleCreation
-                        |                .append(${argValues.drop(upperNumber).take(upperNumber2).joinToString(", ")})
-                        |        ).toEqual(
-                        |            $toTupleNameCreation
-                        |        )
+                        |                .append($vals3AsArgs)
+                        |        ).toBeAnInstanceOf<$toTupleName<${typeArgs(upperNumber3)}>> {
+                        |            ${sameFeatureCheck(upperNumber3, "            ")}
+                        |        }
                         |    }
                          """.trimMargin()
                 ).appendLine().appendLine()
@@ -358,18 +410,20 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 if (upperNumber2 > 1) {
                     val tupleNameParam = getTupleName(upperNumber2)
                     val tupleNameParamCreation =
-                        """$tupleNameParam(${argValues.drop(upperNumber).take(upperNumber2).joinToString(", ")})"""
+                        """$tupleNameParam($vals3AsArgs)"""
 
                     glueTest.append(
                         """
                         |    @Test
                         |    fun glue_${tupleNameParam}__results_in_a_$toTupleName() {
+                        |        ${vals(upperNumber3)}
+                        |
                         |        expect(
                         |            $tupleCreation
                         |                .glue($tupleNameParamCreation)
-                        |        ).toEqual(
-                        |            $toTupleNameCreation
-                        |        )
+                        |        ).toBeAnInstanceOf<$toTupleName<${typeArgs(upperNumber3)}>> {
+                        |            ${sameFeatureCheck(upperNumber3, "            ")}
+                        |        }
                         |    }
                          """.trimMargin()
                     ).appendLine().appendLine()
@@ -413,6 +467,10 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 glueTestFile.writeText(glueTest.toString())
             }
         }
+
+        factoryTest.append("}")
+        val factoryTestFile = packageDir.resolve("TupleFactoryTest.kt")
+        factoryTestFile.writeText(factoryTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)

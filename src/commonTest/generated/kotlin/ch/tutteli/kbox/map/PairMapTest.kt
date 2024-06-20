@@ -13,18 +13,23 @@ class PairMapTest {
 
     @Test
     fun mapFirst__identity__returns_equal_Pair() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+
         expect(
-            Pair("string", 1)
+            Pair(a1, a2)
                 .mapFirst(::identity)
-        ).toEqual(
-            Pair("string", 1)
-        )
+        ) {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+        }
     }
 
     @Test
     fun mapFirst__transformation_does_not_touch_other_properties() {
         val a1 = listOf("string")
         val a2 = listOf(1)
+
         expect(
             Pair(a1, a2)
                 .mapFirst { it.first() }
@@ -36,18 +41,23 @@ class PairMapTest {
 
     @Test
     fun mapSecond__identity__returns_equal_Pair() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+
         expect(
-            Pair("string", 1)
+            Pair(a1, a2)
                 .mapSecond(::identity)
-        ).toEqual(
-            Pair("string", 1)
-        )
+        ) {
+            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::second) }.toBeTheInstance(a2)
+        }
     }
 
     @Test
     fun mapSecond__transformation_does_not_touch_other_properties() {
         val a1 = listOf("string")
         val a2 = listOf(1)
+
         expect(
             Pair(a1, a2)
                 .mapSecond { it.first() }
