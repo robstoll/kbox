@@ -5,7 +5,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we want that it to apply the ch.tutteli conventions
-    rootProject.version = "2.1.0-SNAPSHOT"
+    rootProject.version = "2.1.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin"
     extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
