@@ -15,13 +15,14 @@
 # KBox
 KBox is a very small but useful utility library for Kotlin (JVM, Android and JS) providing functions which are missing
 in the stdlib such as:
-- failIf
-- takeIf
-- blankToNull
-- isNotNullAndNotEmpty
-- identity
-- Tuple4 - Tuple9 (including map, append, glue)
-- Pair.mapFirst/Second
+- [failIf](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/failIf.kt)
+- [takeIf](https://github.com/robstoll/kbox/blob/main/src/commonMain/kotlin/ch/tutteli/kbox/takeIf.kt)
+- [blankToNull](https://github.com/robstoll/kbox/blob/main/src/commonMain/kotlin/ch/tutteli/kbox/blankToNull.kt)
+- [isNotNullAndNotEmpty/Blank](https://github.com/robstoll/kbox/blob/main/src/commonMain/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt)
+- [identity](https://github.com/robstoll/kbox/blob/main/src/commonMain/kotlin/ch/tutteli/kbox/identity.kt)
+- [Tuple4(Like) - Tuple9(Like)](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox)  
+  (including functions mapComponentX, append, glue)
+- [Triple/Pair.mapFirst/Second/Third](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/tupleMap.kt#L12)
 
 and more, see the [Documentation](https://robstoll.github.io/kbox/kdoc/) for a full list.
 
