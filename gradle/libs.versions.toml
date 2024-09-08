@@ -1,7 +1,7 @@
 [versions]
 atrium = "1.2.0"
 nexusPublish = "2.0.0"
-detekt = "1.23.6"
+detekt = "1.23.7"
 
 [libraries]
 atrium-fluent = { module = "ch.tutteli.atrium:atrium-fluent", version.ref = "atrium" }
