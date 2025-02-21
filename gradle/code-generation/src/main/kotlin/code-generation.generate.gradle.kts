@@ -52,6 +52,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
             .append("package ").append(packageName).append("\n\n")
 
+        val flatten = createStringBuilder(packageName)
 
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
@@ -62,6 +63,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             val tupleName = getTupleName(upperNumber)
             val tupleLike = createStringBuilder(packageName)
             val tuple = createStringBuilder(packageName)
+            val properties = numbers.joinToString(", ") { getArgName(upperNumber, it) }
 
             tupleLike.append(
                 """
@@ -148,6 +150,20 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             ).appendLine().appendLine()
 
 
+            val typeArgsWithSuper = numbers.joinToString(", ") { "A$it : SuperT" }
+            flatten.append(
+                """
+                    |/**
+                    |* Flattens [$tupleName] into a [List].
+                    |*
+                    |* @since 2.2.0
+                    |*/
+                    |fun <$typeArgsWithSuper, SuperT> $tupleName<$typeArgs>.flatten(): List<SuperT> =
+                    |    listOf($properties)
+                    |
+                    """.trimMargin()
+            ).appendLine()
+
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
                 val upperNumber3 = upperNumber + upperNumber2
                 val numbers2 = (1..upperNumber2)
@@ -161,7 +177,6 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
                 val params = numbers2.joinToString(", ") { "a${it + upperNumber}: A${it + upperNumber}" }
                 val args = numbers2.joinToString(", ") { "a${it + upperNumber}" }
-                val properties = numbers.joinToString(", ") { getArgName(upperNumber, it) }
 
 
                 append.append(
@@ -243,6 +258,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val tupleFactoryFile = packageDir.resolve("tupleFactory.kt")
         tupleFactoryFile.writeText(tupleFactory.toString())
+
+        val flattenFile = packageDir.resolve("tupleFlatten.kt")
+        flattenFile.writeText(flatten.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -279,7 +297,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             "String", "Int", "Long", "Float", "Double", "Char", "Short", "Byte", "List<Int>"
         ).map { "List<$it>" }
 
-        val factoryTest = createStringBuilder("$packageName")
+        val factoryTest = createStringBuilder(packageName)
             .appendTest("TupleFactoryTest")
 
         (2..numOfArgs).forEach { upperNumber ->
@@ -310,6 +328,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
             val glueTest = createStringBuilder("$packageName.glue")
                 .appendTest("${tupleName}GlueTest")
+
+            val flattenTest = createStringBuilder("$packageName.flatten")
+                .appendTest("${tupleName}FlattenTest")
 
             factoryTest.append(
                 """
@@ -386,6 +407,29 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     """.trimMargin()
             ).appendLine()
 
+            val ints = (0 until upperNumber).joinToString(", ")
+            val intsAndString = (0 until upperNumber - 1).joinToString(", ") +", \"a\""
+            flattenTest.append(
+                """
+                |    @Test
+                |    fun flatten__Ints_returns_int_List_in_correct_order() {
+                |        val tuple = $tupleName($ints)
+                |        val l : List<Int> = tuple.flatten()
+                |
+                |        expect(l).toContainExactly($ints)
+                |    }
+                |
+                |    @Test
+                |    fun flatten__IntsAndString_returns_Comparable_List_in_correct_order() {
+                |        val tuple = $tupleName($intsAndString)
+                |        val l : List<Comparable<*>> = tuple.flatten()
+                |
+                |        expect(l).toContainExactly($intsAndString)
+                |    }
+                |
+                """.trimMargin()
+            ).appendLine()
+
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
                 val upperNumber3 = upperNumber + upperNumber2
                 val toTupleName = getTupleName(upperNumber3)
@@ -428,7 +472,6 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                          """.trimMargin()
                     ).appendLine().appendLine()
                 }
-
             }
 
             mapTest.append("}")
@@ -452,6 +495,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val toTupleTestFile = packageDir.resolve("toTuple/Tuple${upperNumber}LikeToTupleTest.kt")
             toTupleTestFile.writeText(toTupleTest.toString())
 
+            flattenTest.append("}")
+            val flattenTestFile = packageDir.resolve("flatten/${tupleName}FlattenTest.kt")
+            flattenTestFile.writeText(flattenTest.toString())
 
             //cannot append to tuple of max arity
             if (upperNumber < numOfArgs) {
