@@ -4,67 +4,195 @@
 // --------------------------------------------------------------------------------------------------------------------
 package ch.tutteli.kbox
 
-/**
-* Flattens [Pair] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, SuperT> Pair<A1, A2>.flatten(): List<SuperT> =
-    listOf(first, second)
+import kotlin.jvm.JvmName/**
+ * Flattens a [List] of [Pair]<T, T> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten2")
+fun <T> List<Pair<T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
 
 /**
-* Flattens [Triple] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, SuperT> Triple<A1, A2, A3>.flatten(): List<SuperT> =
-    listOf(first, second, third)
+ * Flattens a [Sequence] of [Pair]<T, T> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten2")
+fun <T> Sequence<Pair<T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
 
 /**
-* Flattens [Tuple4] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, A4 : SuperT, SuperT> Tuple4<A1, A2, A3, A4>.flatten(): List<SuperT> =
-    listOf(a1, a2, a3, a4)
+ * Flattens a [List] of [Triple]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten3")
+fun <T> List<Triple<T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
 
 /**
-* Flattens [Tuple5] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, A4 : SuperT, A5 : SuperT, SuperT> Tuple5<A1, A2, A3, A4, A5>.flatten(): List<SuperT> =
-    listOf(a1, a2, a3, a4, a5)
+ * Flattens a [Sequence] of [Triple]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten3")
+fun <T> Sequence<Triple<T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
 
 /**
-* Flattens [Tuple6] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, A4 : SuperT, A5 : SuperT, A6 : SuperT, SuperT> Tuple6<A1, A2, A3, A4, A5, A6>.flatten(): List<SuperT> =
-    listOf(a1, a2, a3, a4, a5, a6)
+ * Flattens a [List] of [Tuple4]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten4")
+fun <T> List<Tuple4<T, T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
 
 /**
-* Flattens [Tuple7] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, A4 : SuperT, A5 : SuperT, A6 : SuperT, A7 : SuperT, SuperT> Tuple7<A1, A2, A3, A4, A5, A6, A7>.flatten(): List<SuperT> =
-    listOf(a1, a2, a3, a4, a5, a6, a7)
+ * Flattens a [Sequence] of [Tuple4]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten4")
+fun <T> Sequence<Tuple4<T, T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
 
 /**
-* Flattens [Tuple8] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, A4 : SuperT, A5 : SuperT, A6 : SuperT, A7 : SuperT, A8 : SuperT, SuperT> Tuple8<A1, A2, A3, A4, A5, A6, A7, A8>.flatten(): List<SuperT> =
-    listOf(a1, a2, a3, a4, a5, a6, a7, a8)
+ * Flattens a [List] of [Tuple5]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten5")
+fun <T> List<Tuple5<T, T, T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
 
 /**
-* Flattens [Tuple9] into a [List].
-*
-* @since 2.2.0
-*/
-fun <A1 : SuperT, A2 : SuperT, A3 : SuperT, A4 : SuperT, A5 : SuperT, A6 : SuperT, A7 : SuperT, A8 : SuperT, A9 : SuperT, SuperT> Tuple9<A1, A2, A3, A4, A5, A6, A7, A8, A9>.flatten(): List<SuperT> =
-    listOf(a1, a2, a3, a4, a5, a6, a7, a8, a9)
+ * Flattens a [Sequence] of [Tuple5]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten5")
+fun <T> Sequence<Tuple5<T, T, T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
+
+/**
+ * Flattens a [List] of [Tuple6]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten6")
+fun <T> List<Tuple6<T, T, T, T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
+
+/**
+ * Flattens a [Sequence] of [Tuple6]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten6")
+fun <T> Sequence<Tuple6<T, T, T, T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
+
+/**
+ * Flattens a [List] of [Tuple7]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten7")
+fun <T> List<Tuple7<T, T, T, T, T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
+
+/**
+ * Flattens a [Sequence] of [Tuple7]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten7")
+fun <T> Sequence<Tuple7<T, T, T, T, T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
+
+/**
+ * Flattens a [List] of [Tuple8]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten8")
+fun <T> List<Tuple8<T, T, T, T, T, T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
+
+/**
+ * Flattens a [Sequence] of [Tuple8]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten8")
+fun <T> Sequence<Tuple8<T, T, T, T, T, T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
+
+/**
+ * Flattens a [List] of [Tuple9]<T, T, ...> into a `List<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten9")
+fun <T> List<Tuple9<T, T, T, T, T, T, T, T, T>>.flatten(): List<T> =
+    asSequence().flatten().toList()
+
+/**
+ * Flattens a [Sequence] of [Tuple9]<T, T, ...> into a `Sequence<T>`.
+ *
+ * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+ * are not all the same.
+ *
+ * @since 3.0.0
+ */
+@JvmName("flatten9")
+fun <T> Sequence<Tuple9<T, T, T, T, T, T, T, T, T>>.flatten(): Sequence<T> =
+    flatMap { it.toSequence() }
 

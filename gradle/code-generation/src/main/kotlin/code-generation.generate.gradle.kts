@@ -59,7 +59,10 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
             .append("package ").append(packageName).append("\n\n")
 
-        val flatten = createStringBuilder(packageName)
+        val toList = createStringBuilder(packageName)
+        val toSequence = createStringBuilder(packageName)
+        val flatten = createStringBuilder(packageName).append("import kotlin.jvm.JvmName")
+
 
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
@@ -153,20 +156,66 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 """.trimMargin()
             ).appendLine().appendLine()
 
+            val tAsTypeArgs = numbers.joinToString(", ") { "T" }
 
-            val typeArgsWithSuper = numbers.joinToString(", ") { "A$it : SuperT" }
-            flatten.append(
-                """
+            if (upperNumber > 3) {
+                toList.append(
+                    """
                     |/**
-                    |* Flattens [$tupleName] into a [List].
+                    |* Converts this [$tupleName] into a [List].
                     |*
-                    |* @since 2.2.0
+                    |* @since 3.0.0
                     |*/
-                    |fun <$typeArgsWithSuper, SuperT> $tupleName<$typeArgs>.flatten(): List<SuperT> =
+                    |fun <T> $tupleName<$tAsTypeArgs>.toList(): List<T> =
                     |    listOf($properties)
                     |
                     """.trimMargin()
+                ).appendLine()
+            }
+
+
+            toSequence.append(
+                """
+                    |/**
+                    |* Converts this [$tupleName] into a [Sequence].
+                    |*
+                    |* @since 3.0.0
+                    |*/
+                    |fun <T> $tupleName<$tAsTypeArgs>.toSequence(): Sequence<T> =
+                    |    sequenceOf($properties)
+                    |
+                    """.trimMargin()
             ).appendLine()
+
+            flatten.append(
+                """
+                    |/**
+                    | * Flattens a [List] of [$tupleName]<${if(upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `List<T>`.
+                    | *
+                    | * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+                    | * are not all the same.
+                    | *
+                    | * @since 3.0.0
+                    | */
+                    |@JvmName("flatten$upperNumber")
+                    |fun <T> List<$tupleName<${tAsTypeArgs}>>.flatten(): List<T> =
+                    |    asSequence().flatten().toList()
+                    |
+                    |/**
+                    | * Flattens a [Sequence] of [$tupleName]<${if(upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `Sequence<T>`.
+                    | *
+                    | * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+                    | * are not all the same.
+                    | *
+                    | * @since 3.0.0
+                    | */
+                    |@JvmName("flatten$upperNumber")
+                    |fun <T> Sequence<$tupleName<$tAsTypeArgs>>.flatten(): Sequence<T> =
+                    |    flatMap { it.toSequence() }
+                    |
+                    """.trimMargin()
+            ).appendLine()
+
 
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
                 val upperNumber3 = upperNumber + upperNumber2
@@ -263,6 +312,12 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleFactoryFile = packageDir.resolve("tupleFactory.kt")
         tupleFactoryFile.writeText(tupleFactory.toString())
 
+        val toListFile = packageDir.resolve("tupleToList.kt")
+        toListFile.writeText(toList.toString())
+
+        val toSequenceFile = packageDir.resolve("tupleToSequence.kt")
+        toSequenceFile.writeText(toSequence.toString())
+
         val flattenFile = packageDir.resolve("tupleFlatten.kt")
         flattenFile.writeText(flatten.toString())
     }
@@ -333,6 +388,12 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
             val glueTest = createStringBuilder("$packageName.glue")
                 .appendTest("${tupleName}GlueTest")
+
+            val toListTest = createStringBuilder("$packageName.toList")
+                .appendTest("${tupleName}ToListTest")
+
+            val toSequenceTest = createStringBuilder("$packageName.toSequence")
+                .appendTest("${tupleName}ToSequenceTest")
 
             val flattenTest = createStringBuilder("$packageName.flatten")
                 .appendTest("${tupleName}FlattenTest")
@@ -414,22 +475,81 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
             val ints = (0 until upperNumber).joinToString(", ")
             val intsAndString = (0 until upperNumber - 1).joinToString(", ") + ", \"a\""
-            flattenTest.append(
+
+            toListTest.append(
                 """
                 |    @Test
-                |    fun flatten__Ints_returns_int_List_in_correct_order() {
+                |    fun toList__Ints_returns_int_List_in_correct_order() {
                 |        val tuple = $tupleName($ints)
-                |        val l : List<Int> = tuple.flatten()
+                |        val l : List<Int> = tuple.toList()
                 |
                 |        expect(l).toContainExactly($ints)
                 |    }
                 |
                 |    @Test
-                |    fun flatten__IntsAndString_returns_Comparable_List_in_correct_order() {
+                |    fun toList__IntsAndString_returns_Comparable_List_in_correct_order() {
                 |        val tuple = $tupleName($intsAndString)
-                |        val l : List<Comparable<*>> = tuple.flatten()
+                |        val l : List<Comparable<*>> = tuple.toList()
                 |
                 |        expect(l).toContainExactly($intsAndString)
+                |    }
+                |
+                """.trimMargin()
+            ).appendLine()
+
+            toSequenceTest.append(
+                """
+                |    @Test
+                |    fun toSequence__Ints_returns_int_List_in_correct_order() {
+                |        val tuple = $tupleName($ints)
+                |        val l : Sequence<Int> = tuple.toSequence()
+                |
+                |        expect(l).asList().toContainExactly($ints)
+                |    }
+                |
+                |    @Test
+                |    fun toSequence__IntsAndString_returns_Comparable_List_in_correct_order() {
+                |        val tuple = $tupleName($intsAndString)
+                |        val l : Sequence<Comparable<*>> = tuple.toSequence()
+                |
+                |        expect(l).asList().toContainExactly($intsAndString)
+                |    }
+                |
+                """.trimMargin()
+            ).appendLine()
+
+            flattenTest.append(
+                """
+                |    @Test
+                |    fun flatten__onList_Ints_returns_int_List_in_correct_order() {
+                |        val tuple = listOf($tupleName($ints), $tupleName($ints))
+                |        val l : List<Int> = tuple.flatten()
+                |
+                |        expect(l).toContainExactly($ints, $ints)
+                |    }
+                |
+                |    @Test
+                |    fun flatten__onList_IntsAndString_returns_Comparable_List_in_correct_order() {
+                |        val tuple = listOf($tupleName($intsAndString), $tupleName($intsAndString))
+                |        val l : List<Comparable<*>> = tuple.flatten()
+                |
+                |        expect(l).toContainExactly($intsAndString, $intsAndString)
+                |    }
+                |
+                |    @Test
+                |    fun flatten__onSequence_Ints_returns_int_List_in_correct_order() {
+                |        val tuple = sequenceOf($tupleName($ints), $tupleName($ints))
+                |        val l : Sequence<Int> = tuple.flatten()
+                |
+                |        expect(l).asList().toContainExactly($ints, $ints)
+                |    }
+                |
+                |    @Test
+                |    fun flatten__onSequence_IntsAndString_returns_Comparable_List_in_correct_order() {
+                |        val tuple = sequenceOf($tupleName($intsAndString), $tupleName($intsAndString))
+                |        val l : Sequence<Comparable<*>> = tuple.flatten()
+                |
+                |        expect(l).asList().toContainExactly($intsAndString, $intsAndString)
                 |    }
                 |
                 """.trimMargin()
@@ -499,6 +619,14 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
             val toTupleTestFile = packageDir.resolve("toTuple/Tuple${upperNumber}LikeToTupleTest.kt")
             toTupleTestFile.writeText(toTupleTest.toString())
+
+            toListTest.append("}")
+            val toListTestFile = packageDir.resolve("toList/${tupleName}ToListTest.kt")
+            toListTestFile.writeText(toListTest.toString())
+
+            toSequenceTest.append("}")
+            val toSequenceTestFile = packageDir.resolve("toSequence/${tupleName}ToSequenceTest.kt")
+            toSequenceTestFile.writeText(toSequenceTest.toString())
 
             flattenTest.append("}")
             val flattenTestFile = packageDir.resolve("flatten/${tupleName}FlattenTest.kt")
