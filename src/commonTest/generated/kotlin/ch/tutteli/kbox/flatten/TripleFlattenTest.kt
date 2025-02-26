@@ -12,19 +12,35 @@ import kotlin.test.Test
 class TripleFlattenTest {
 
     @Test
-    fun flatten__Ints_returns_int_List_in_correct_order() {
-        val tuple = Triple(0, 1, 2)
+    fun flatten__onList_Ints_returns_int_List_in_correct_order() {
+        val tuple = listOf(Triple(0, 1, 2), Triple(0, 1, 2))
         val l : List<Int> = tuple.flatten()
 
-        expect(l).toContainExactly(0, 1, 2)
+        expect(l).toContainExactly(0, 1, 2, 0, 1, 2)
     }
 
     @Test
-    fun flatten__IntsAndString_returns_Comparable_List_in_correct_order() {
-        val tuple = Triple(0, 1, "a")
+    fun flatten__onList_IntsAndString_returns_Comparable_List_in_correct_order() {
+        val tuple = listOf(Triple(0, 1, "a"), Triple(0, 1, "a"))
         val l : List<Comparable<*>> = tuple.flatten()
 
-        expect(l).toContainExactly(0, 1, "a")
+        expect(l).toContainExactly(0, 1, "a", 0, 1, "a")
+    }
+
+    @Test
+    fun flatten__onSequence_Ints_returns_int_List_in_correct_order() {
+        val tuple = sequenceOf(Triple(0, 1, 2), Triple(0, 1, 2))
+        val l : Sequence<Int> = tuple.flatten()
+
+        expect(l).asList().toContainExactly(0, 1, 2, 0, 1, 2)
+    }
+
+    @Test
+    fun flatten__onSequence_IntsAndString_returns_Comparable_List_in_correct_order() {
+        val tuple = sequenceOf(Triple(0, 1, "a"), Triple(0, 1, "a"))
+        val l : Sequence<Comparable<*>> = tuple.flatten()
+
+        expect(l).asList().toContainExactly(0, 1, "a", 0, 1, "a")
     }
 
 }

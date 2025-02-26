@@ -12,19 +12,35 @@ import kotlin.test.Test
 class Tuple9FlattenTest {
 
     @Test
-    fun flatten__Ints_returns_int_List_in_correct_order() {
-        val tuple = Tuple9(0, 1, 2, 3, 4, 5, 6, 7, 8)
+    fun flatten__onList_Ints_returns_int_List_in_correct_order() {
+        val tuple = listOf(Tuple9(0, 1, 2, 3, 4, 5, 6, 7, 8), Tuple9(0, 1, 2, 3, 4, 5, 6, 7, 8))
         val l : List<Int> = tuple.flatten()
 
-        expect(l).toContainExactly(0, 1, 2, 3, 4, 5, 6, 7, 8)
+        expect(l).toContainExactly(0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8)
     }
 
     @Test
-    fun flatten__IntsAndString_returns_Comparable_List_in_correct_order() {
-        val tuple = Tuple9(0, 1, 2, 3, 4, 5, 6, 7, "a")
+    fun flatten__onList_IntsAndString_returns_Comparable_List_in_correct_order() {
+        val tuple = listOf(Tuple9(0, 1, 2, 3, 4, 5, 6, 7, "a"), Tuple9(0, 1, 2, 3, 4, 5, 6, 7, "a"))
         val l : List<Comparable<*>> = tuple.flatten()
 
-        expect(l).toContainExactly(0, 1, 2, 3, 4, 5, 6, 7, "a")
+        expect(l).toContainExactly(0, 1, 2, 3, 4, 5, 6, 7, "a", 0, 1, 2, 3, 4, 5, 6, 7, "a")
+    }
+
+    @Test
+    fun flatten__onSequence_Ints_returns_int_List_in_correct_order() {
+        val tuple = sequenceOf(Tuple9(0, 1, 2, 3, 4, 5, 6, 7, 8), Tuple9(0, 1, 2, 3, 4, 5, 6, 7, 8))
+        val l : Sequence<Int> = tuple.flatten()
+
+        expect(l).asList().toContainExactly(0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8)
+    }
+
+    @Test
+    fun flatten__onSequence_IntsAndString_returns_Comparable_List_in_correct_order() {
+        val tuple = sequenceOf(Tuple9(0, 1, 2, 3, 4, 5, 6, 7, "a"), Tuple9(0, 1, 2, 3, 4, 5, 6, 7, "a"))
+        val l : Sequence<Comparable<*>> = tuple.flatten()
+
+        expect(l).asList().toContainExactly(0, 1, 2, 3, 4, 5, 6, 7, "a", 0, 1, 2, 3, 4, 5, 6, 7, "a")
     }
 
 }
