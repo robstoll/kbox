@@ -35,6 +35,13 @@ fun getArgName(numOfValues: Int, index: Int) = when (index) {
     else -> "a$index"
 }
 
+fun withOrdinalIndicator(index: Int) = index.toString() + when (index) {
+    1 -> "st"
+    2 -> "nd"
+    3 -> "rd"
+    else -> "th"
+}
+
 val generate: TaskProvider<Task> = tasks.register("generate") {
     doFirst {
         val packageDir = File(generationFolder.asPath + "/" + packageNameAsPath)
@@ -57,6 +64,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
             val typeArgs = numbers.joinToString(", ") { "A$it" }
+            val typeArgsOut = numbers.joinToString(", ") { "out A$it" }
             val constructorProperties = numbers.joinToString(",\n    ") { "val a$it: A$it" }
             val parameters = numbers.joinToString(", ") { "a$it: A$it" }
             val arguments = numbers.joinToString(", ") { "a$it" }
@@ -77,14 +85,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     numbers.joinToString("\n") {
                         """
                           |    /**
-                          |     * Returns the $it${
-                            when (it) {
-                                1 -> "st"
-                                2 -> "nd"
-                                3 -> "rd"
-                                else -> "th"
-                            }
-                        } component of this Tuple${upperNumber}Like data structure.
+                          |     * Returns the ${withOrdinalIndicator(it)} component of this Tuple${upperNumber}Like data structure.
                           |     *
                           |     * @since 2.1.0
                           |     */
@@ -116,10 +117,13 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     |/**
                     | * Represents a simple data structure to hold $upperNumber values.
                     | *
+                    | * ${numbers.joinToString("\n * ") { "@param A$it The type of the ${withOrdinalIndicator(it)} component of this $tupleName." }}
+                    | *
+                    | * ${numbers.joinToString("\n * ") { "@param a$it the ${withOrdinalIndicator(it)} component of this $tupleName." }}
+                    | *
                     | * @since 2.0.0
                     | */
-                    |@Suppress("UndocumentedPublicProperty")
-                    |data class $tupleName<$typeArgs>(
+                    |data class $tupleName<$typeArgsOut>(
                     |    $constructorProperties,
                     |)
                     """.trimMargin()
@@ -280,7 +284,7 @@ fun StringBuilder.appendTest(testName: String) = this.append(
 val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
     doFirst {
         val packageDir = File(generationTestFolder.asPath + "/" + packageNameAsPath)
-        val argValuesNotMapped =  sequenceOf(
+        val argValuesNotMapped = sequenceOf(
             "\"string\"",
             "1",
             "2L",
@@ -309,6 +313,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             fun vals(num: Int) = argValues.take(num).withIndex().joinToString("\n        ") { (index, value) ->
                 "val a${index + 1} = $value"
             }
+
             val vals = vals(upperNumber)
 
             val valsAsArgs = numbers.joinToString(", ") { "a$it" }
@@ -408,7 +413,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             ).appendLine()
 
             val ints = (0 until upperNumber).joinToString(", ")
-            val intsAndString = (0 until upperNumber - 1).joinToString(", ") +", \"a\""
+            val intsAndString = (0 until upperNumber - 1).joinToString(", ") + ", \"a\""
             flattenTest.append(
                 """
                 |    @Test
