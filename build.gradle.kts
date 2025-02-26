@@ -5,7 +5,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we use/apply it in the conventions
-    rootProject.version = "2.3.0-SNAPSHOT"
+    rootProject.version = "3.0.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin"
     extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
@@ -98,7 +98,7 @@ Release & deploy a commit
 2. update main:
     a) point to the tag, search for `(tree|blob)/main` and replace it with `$1/vX.Y.Z` (README.md)
     b) update badges
-    c) gr dokkaHtml
+    c) rm -r ./docs/kdoc && gr dokkaHtml
     d) commit (modified docs/index.md, docs/kdoc/*, build.gradle.kts, README.md)
     e) git tag vX.Y.Z
     f) git push origin vX.Y.Z
