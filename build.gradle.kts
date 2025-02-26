@@ -4,8 +4,8 @@ import java.nio.file.StandardCopyOption
 
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
-    // and we want that it to apply the ch.tutteli conventions
-    rootProject.version = "2.2.0-SNAPSHOT"
+    // and we use/apply it in the conventions
+    rootProject.version = "2.2.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin"
     extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
@@ -21,8 +21,6 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.nexus.publish)
 }
-
-
 
 kotlin {
     sourceSets {
@@ -98,7 +96,7 @@ Release & deploy a commit
 --------------------------------
 1. search for X.Y.Z-SNAPSHOT and replace with X.Y.Z
 2. update main:
-    a) point to the tag, search for `tree/main` and replace it with `tree/vX.Y.Z` (README.md)
+    a) point to the tag, search for `(tree|blob)/main` and replace it with `$1/vX.Y.Z` (README.md)
     b) update badges
     c) gr dokkaHtml
     d) commit (modified docs/index.md, docs/kdoc/*, build.gradle.kts, README.md)
