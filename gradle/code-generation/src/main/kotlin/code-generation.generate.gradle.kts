@@ -45,23 +45,23 @@ fun withOrdinalIndicator(index: Int) = index.toString() + when (index) {
 val generate: TaskProvider<Task> = tasks.register("generate") {
     doFirst {
         val packageDir = File(generationFolder.asPath + "/" + packageNameAsPath)
-        val append = StringBuilder(dontModifyNotice)
+        val tupleAppend = StringBuilder(dontModifyNotice)
             .append("@file:Suppress(\"MethodOverloading\")\n")
             .append("package ").append(packageName).append("\n\n")
 
-        val glue = StringBuilder(dontModifyNotice)
+        val tupleGlue = StringBuilder(dontModifyNotice)
             .append("@file:Suppress(\"MethodOverloading\")\n")
             .append("package ").append(packageName).append("\n\n")
 
-        val map = createStringBuilder(packageName)
+        val tupleMap = createStringBuilder(packageName)
 
         val tupleFactory = StringBuilder(dontModifyNotice)
             .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
             .append("package ").append(packageName).append("\n\n")
 
-        val toList = createStringBuilder(packageName)
-        val toSequence = createStringBuilder(packageName)
-        val flatten = createStringBuilder(packageName).append("import kotlin.jvm.JvmName")
+        val tupleToList = createStringBuilder(packageName)
+        val tupleToSequence = createStringBuilder(packageName)
+        val tupleFlatten = createStringBuilder(packageName).append("import kotlin.jvm.JvmName")
 
 
         (2..numOfArgs).forEach { upperNumber ->
@@ -78,13 +78,13 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
             tupleLike.append(
                 """
-                    |/**
-                    | * Represents a tuple like data structure which has $upperNumber components.
-                    | *
-                    | * @since 2.1.0
-                    | */${if (upperNumber >= 9) "\n@Suppress(\"ComplexInterface\")" else ""}
-                    |interface Tuple${upperNumber}Like<$typeArgs> {
-                    |${
+                |/**
+                | * Represents a tuple like data structure which has $upperNumber components.
+                | *
+                | * @since 2.1.0
+                | */${if (upperNumber >= 9) "\n@Suppress(\"ComplexInterface\")" else ""}
+                |interface Tuple${upperNumber}Like<$typeArgs> {
+                |${
                     numbers.joinToString("\n") {
                         """
                           |    /**
@@ -97,16 +97,16 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                       """.trimMargin()
                     }
                 }
-                    |    /**
-                    |     * Turns this class into a [$tupleName].
-                    |     *
-                    |     * @since 2.1.0
-                    |     */
-                    |    fun toTuple(): $tupleName<$typeArgs> = $tupleName(
-                    |        ${numbers.joinToString(",\n        ") { "component$it()" }}
-                    |    )
-                    |}
-                    """.trimMargin()
+                |    /**
+                |     * Turns this class into a [$tupleName].
+                |     *
+                |     * @since 2.1.0
+                |     */
+                |    fun toTuple(): $tupleName<$typeArgs> = $tupleName(
+                |        ${numbers.joinToString(",\n        ") { "component$it()" }}
+                |    )
+                |}
+                """.trimMargin()
             )
             tupleLike.appendLine()
 
@@ -139,27 +139,27 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
             tupleFactory.append(
                 """
-                    |/**
-                    | * Factory method to create a [$tupleName].
-                    | *
-                    | * Alternative to `$tupleName(...)` with the advantage that you can add remove
-                    | * arguments without the need to change function name.
-                    | *
-                    | * @return the newly created [$tupleName]
-                    | *
-                    | * @since 2.1.0
-                    | */${if (upperNumber >= 6) "\n@Suppress(\"LongParameterList\")" else ""}
-                    |fun <$typeArgs> Tuple(
-                    |   $parameters
-                    |): $tupleName<$typeArgs> =
-                    |    $tupleName($arguments)
+                |/**
+                | * Factory method to create a [$tupleName].
+                | *
+                | * Alternative to `$tupleName(...)` with the advantage that you can add remove
+                | * arguments without the need to change function name.
+                | *
+                | * @return the newly created [$tupleName]
+                | *
+                | * @since 2.1.0
+                | */${if (upperNumber >= 6) "\n@Suppress(\"LongParameterList\")" else ""}
+                |fun <$typeArgs> Tuple(
+                |   $parameters
+                |): $tupleName<$typeArgs> =
+                |    $tupleName($arguments)
                 """.trimMargin()
             ).appendLine().appendLine()
 
             val tAsTypeArgs = numbers.joinToString(", ") { "T" }
 
             if (upperNumber > 3) {
-                toList.append(
+                tupleToList.append(
                     """
                     |/**
                     |* Converts this [$tupleName] into a [List].
@@ -174,46 +174,59 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             }
 
 
-            toSequence.append(
+            tupleToSequence.append(
                 """
-                    |/**
-                    |* Converts this [$tupleName] into a [Sequence].
-                    |*
-                    |* @since 3.0.0
-                    |*/
-                    |fun <T> $tupleName<$tAsTypeArgs>.toSequence(): Sequence<T> =
-                    |    sequenceOf($properties)
-                    |
-                    """.trimMargin()
+                |/**
+                |* Converts this [$tupleName] into a [Sequence].
+                |*
+                |* @since 3.0.0
+                |*/
+                |fun <T> $tupleName<$tAsTypeArgs>.toSequence(): Sequence<T> =
+                |    sequenceOf($properties)
+                |
+                """.trimMargin()
             ).appendLine()
 
-            flatten.append(
+            tupleFlatten.append(
+                //TODO remove with 4.0.0 only here to retain binary backward compatibility
                 """
-                    |/**
-                    | * Flattens a [List] of [$tupleName]<${if(upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `List<T>`.
-                    | *
-                    | * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
-                    | * are not all the same.
-                    | *
-                    | * @since 3.0.0
-                    | */
-                    |@JvmName("flatten$upperNumber")
-                    |fun <T> List<$tupleName<${tAsTypeArgs}>>.flatten(): List<T> =
-                    |    asSequence().flatten().toList()
-                    |
-                    |/**
-                    | * Flattens a [Sequence] of [$tupleName]<${if(upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `Sequence<T>`.
-                    | *
-                    | * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
-                    | * are not all the same.
-                    | *
-                    | * @since 3.0.0
-                    | */
-                    |@JvmName("flatten$upperNumber")
-                    |fun <T> Sequence<$tupleName<$tAsTypeArgs>>.flatten(): Sequence<T> =
-                    |    flatMap { it.toSequence() }
-                    |
-                    """.trimMargin()
+                |/**
+                | * Flattens a [List] of [$tupleName]<${if (upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `List<T>`.
+                | *
+                | * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+                | * are not all the same.
+                | *
+                | * @since 3.0.0
+                | */
+                |@JvmName("flatten$upperNumber")
+                |fun <T> List<$tupleName<${tAsTypeArgs}>>.flatten(): List<T> =
+                |    asSequence().flatten().toList()
+                |
+                |/**
+                | * Flattens an [Iterable] of [$tupleName]<${if (upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `List<T>`.
+                | *
+                | * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
+                | * are not all the same.
+                | *
+                | * @since 3.1.0
+                | */
+                |@JvmName("flatten$upperNumber")
+                |fun <T> Iterable<$tupleName<${tAsTypeArgs}>>.flatten(): List<T> =
+                |    asSequence().flatten().toList()
+                |
+                |/**
+                | * Flattens a [Sequence] of [$tupleName]<${if (upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `Sequence<T>`.
+                | *
+                | * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
+                | * are not all the same.
+                | *
+                | * @since 3.0.0
+                | */
+                |@JvmName("flatten$upperNumber")
+                |fun <T> Sequence<$tupleName<$tAsTypeArgs>>.flatten(): Sequence<T> =
+                |    flatMap { it.toSequence() }
+                |
+                """.trimMargin()
             ).appendLine()
 
 
@@ -232,7 +245,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 val args = numbers2.joinToString(", ") { "a${it + upperNumber}" }
 
 
-                append.append(
+                tupleAppend.append(
                     """
                     |/**
                     |* Transforms this [$tupleName] into a [$toTupleName] by appending the given arguments.
@@ -252,7 +265,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                         "$tupleNameParamLowercase.${getArgName(upperNumber2, it)}"
                     }
 
-                    glue.append(
+                    tupleGlue.append(
                         """
                         |/**
                         |* Glues the given [$tupleNameParamLowercase] to this [$tupleName] and thus results in a [$toTupleName].
@@ -283,7 +296,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 val argNameCapitalized = argNameToMap.replaceFirstChar {
                     if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                 }
-                map.append(
+                tupleMap.append(
                     """
                     |/**
                     |* Maps [$tupleName.$argNameToMap] with the given [transform] function and returns a new [$tupleName].
@@ -300,26 +313,26 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             }
         }
 
-        val appendFile = packageDir.resolve("tupleAppend.kt")
-        appendFile.writeText(append.toString())
+        val tupleAppendFile = packageDir.resolve("tupleAppend.kt")
+        tupleAppendFile.writeText(tupleAppend.toString())
 
-        val glueFile = packageDir.resolve("tupleGlue.kt")
-        glueFile.writeText(glue.toString())
+        val tupleGlueFile = packageDir.resolve("tupleGlue.kt")
+        tupleGlueFile.writeText(tupleGlue.toString())
 
-        val mapFile = packageDir.resolve("tupleMap.kt")
-        mapFile.writeText(map.toString())
+        val tupleMapFile = packageDir.resolve("tupleMap.kt")
+        tupleMapFile.writeText(tupleMap.toString())
 
         val tupleFactoryFile = packageDir.resolve("tupleFactory.kt")
         tupleFactoryFile.writeText(tupleFactory.toString())
 
-        val toListFile = packageDir.resolve("tupleToList.kt")
-        toListFile.writeText(toList.toString())
+        val tupleToListFile = packageDir.resolve("tupleToList.kt")
+        tupleToListFile.writeText(tupleToList.toString())
 
-        val toSequenceFile = packageDir.resolve("tupleToSequence.kt")
-        toSequenceFile.writeText(toSequence.toString())
+        val tupleToSequenceFile = packageDir.resolve("tupleToSequence.kt")
+        tupleToSequenceFile.writeText(tupleToSequence.toString())
 
-        val flattenFile = packageDir.resolve("tupleFlatten.kt")
-        flattenFile.writeText(flatten.toString())
+        val tupleFlattenFile = packageDir.resolve("tupleFlatten.kt")
+        tupleFlattenFile.writeText(tupleFlatten.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -356,7 +369,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             "String", "Int", "Long", "Float", "Double", "Char", "Short", "Byte", "List<Int>"
         ).map { "List<$it>" }
 
-        val factoryTest = createStringBuilder(packageName)
+        val tupleFactoryTest = createStringBuilder(packageName)
             .appendTest("TupleFactoryTest")
 
         (2..numOfArgs).forEach { upperNumber ->
@@ -377,28 +390,28 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 "feature { f(it::${getArgName(num, it)}) }.toBeTheInstance(a${it})"
             }
 
-            val mapTest = createStringBuilder("$packageName.map")
+            val tupleMapTest = createStringBuilder("$packageName.map")
                 .appendTest("${tupleName}MapTest")
 
             val toTupleTest = createStringBuilder("$packageName.toTuple")
                 .appendTest("Tuple${upperNumber}LikeToTupleTest")
 
-            val appendTest = createStringBuilder("$packageName.append")
+            val tupleAppendTest = createStringBuilder("$packageName.append")
                 .appendTest("${tupleName}AppendTest")
 
-            val glueTest = createStringBuilder("$packageName.glue")
+            val tupleGlueTest = createStringBuilder("$packageName.glue")
                 .appendTest("${tupleName}GlueTest")
 
-            val toListTest = createStringBuilder("$packageName.toList")
+            val tupleToListTest = createStringBuilder("$packageName.toList")
                 .appendTest("${tupleName}ToListTest")
 
-            val toSequenceTest = createStringBuilder("$packageName.toSequence")
+            val tupleToSequenceTest = createStringBuilder("$packageName.toSequence")
                 .appendTest("${tupleName}ToSequenceTest")
 
-            val flattenTest = createStringBuilder("$packageName.flatten")
+            val tupleFlattenTest = createStringBuilder("$packageName.flatten")
                 .appendTest("${tupleName}FlattenTest")
 
-            factoryTest.append(
+            tupleFactoryTest.append(
                 """
                 |    @Test
                 |    fun factory_for_$tupleName() {
@@ -424,7 +437,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     }
                 })"
 
-                mapTest.append(
+                tupleMapTest.append(
                     """
                     |    @Test
                     |    fun map${argNameCapitalized}__identity__returns_equal_$tupleName() {
@@ -476,7 +489,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val ints = (0 until upperNumber).joinToString(", ")
             val intsAndString = (0 until upperNumber - 1).joinToString(", ") + ", \"a\""
 
-            toListTest.append(
+            tupleToListTest.append(
                 """
                 |    @Test
                 |    fun toList__Ints_returns_int_List_in_correct_order() {
@@ -497,7 +510,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 """.trimMargin()
             ).appendLine()
 
-            toSequenceTest.append(
+            tupleToSequenceTest.append(
                 """
                 |    @Test
                 |    fun toSequence__Ints_returns_int_List_in_correct_order() {
@@ -518,7 +531,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 """.trimMargin()
             ).appendLine()
 
-            flattenTest.append(
+            tupleFlattenTest.append(
                 """
                 |    @Test
                 |    fun flatten__onList_Ints_returns_int_List_in_correct_order() {
@@ -560,7 +573,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 val toTupleName = getTupleName(upperNumber3)
                 val vals3AsArgs = (upperNumber + 1..upperNumber3).joinToString(", ") { "a$it" }
 
-                appendTest.append(
+                tupleAppendTest.append(
                     """
                         |    @Test
                         |    fun append_${upperNumber2}_values__results_in_a_$toTupleName() {
@@ -581,7 +594,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     val tupleNameParamCreation =
                         """$tupleNameParam($vals3AsArgs)"""
 
-                    glueTest.append(
+                    tupleGlueTest.append(
                         """
                         |    @Test
                         |    fun glue_${tupleNameParam}__results_in_a_$toTupleName() {
@@ -599,9 +612,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 }
             }
 
-            mapTest.append("}")
+            tupleMapTest.append("}")
             val mapTestFile = packageDir.resolve("map/${tupleName}MapTest.kt")
-            mapTestFile.writeText(mapTest.toString())
+            mapTestFile.writeText(tupleMapTest.toString())
 
             toTupleTest
                 .append(
@@ -620,36 +633,36 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val toTupleTestFile = packageDir.resolve("toTuple/Tuple${upperNumber}LikeToTupleTest.kt")
             toTupleTestFile.writeText(toTupleTest.toString())
 
-            toListTest.append("}")
+            tupleToListTest.append("}")
             val toListTestFile = packageDir.resolve("toList/${tupleName}ToListTest.kt")
-            toListTestFile.writeText(toListTest.toString())
+            toListTestFile.writeText(tupleToListTest.toString())
 
-            toSequenceTest.append("}")
+            tupleToSequenceTest.append("}")
             val toSequenceTestFile = packageDir.resolve("toSequence/${tupleName}ToSequenceTest.kt")
-            toSequenceTestFile.writeText(toSequenceTest.toString())
+            toSequenceTestFile.writeText(tupleToSequenceTest.toString())
 
-            flattenTest.append("}")
+            tupleFlattenTest.append("}")
             val flattenTestFile = packageDir.resolve("flatten/${tupleName}FlattenTest.kt")
-            flattenTestFile.writeText(flattenTest.toString())
+            flattenTestFile.writeText(tupleFlattenTest.toString())
 
             //cannot append to tuple of max arity
             if (upperNumber < numOfArgs) {
-                appendTest.append("}")
+                tupleAppendTest.append("}")
                 val appendTestFile = packageDir.resolve("append/${tupleName}AppendTest.kt")
-                appendTestFile.writeText(appendTest.toString())
+                appendTestFile.writeText(tupleAppendTest.toString())
             }
 
             //cannot glue to tuple of max arity with another, same same for tuple of max arity -1
             if (upperNumber < numOfArgs - 1) {
-                glueTest.append("}")
+                tupleGlueTest.append("}")
                 val glueTestFile = packageDir.resolve("glue/${tupleName}GlueTest.kt")
-                glueTestFile.writeText(glueTest.toString())
+                glueTestFile.writeText(tupleGlueTest.toString())
             }
         }
 
-        factoryTest.append("}")
+        tupleFactoryTest.append("}")
         val factoryTestFile = packageDir.resolve("TupleFactoryTest.kt")
-        factoryTestFile.writeText(factoryTest.toString())
+        factoryTestFile.writeText(tupleFactoryTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)
