@@ -5,7 +5,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we use/apply it in the conventions
-    rootProject.version = "3.0.0"
+    rootProject.version = "3.1.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin"
     extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
@@ -114,10 +114,10 @@ Release & deploy a commit
 
 Prepare next dev cycle
 -----------------------
-1. point to main, search for `(tree|blob)/vX.Y.Z` and replace it with `$1/main`
+1. point to main, search for `(tree|blob)/vX.Y.Z` and replace it with `$1/main` in *.md
 2. Replace badges
-3. search for X.Y.Z and replace with X.Y.Z-SNAPSHOT
-4. commit & push changes
+3. replace version in this file with X.Y.Z-SNAPSHOT
+4. commit & push changes (README.md, build.gradle.kts)
 
 */
 
