@@ -17,7 +17,7 @@ fun dontModifyNotice(place: String) =
 
 val dontModifyNotice = dontModifyNotice("gradle/code-generation/src/main/kotlin/code-generation.generate.gradle.kts")
 
-fun createStringBuilder(packageName: String) = StringBuilder(dontModifyNotice)
+fun createStringBuilder(packageName: String): java.lang.StringBuilder = StringBuilder(dontModifyNotice)
     .append("package ").append(packageName).append("\n\n")
 
 val numOfArgs = 9
@@ -42,6 +42,17 @@ fun withOrdinalIndicator(index: Int) = index.toString() + when (index) {
     else -> "th"
 }
 
+val primitiveTypes = listOf(
+    "Boolean" to "BooleanArray",
+    "Byte" to "ByteArray",
+    "Char" to "CharArray",
+    "Short" to "ShortArray",
+    "Int" to "IntArray",
+    "Long" to "LongArray",
+    "Float" to "FloatArray",
+    "Double" to "DoubleArray"
+)
+
 val generate: TaskProvider<Task> = tasks.register("generate") {
     doFirst {
         val packageDir = File(generationFolder.asPath + "/" + packageNameAsPath)
@@ -61,8 +72,11 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val tupleToList = createStringBuilder(packageName)
         val tupleToSequence = createStringBuilder(packageName)
-        val tupleFlatten = createStringBuilder(packageName).append("import kotlin.jvm.JvmName")
+        val tupleFlatten = createStringBuilder(packageName)
+            .append("import kotlin.jvm.JvmName")
 
+        val toVarArg = createStringBuilder(packageName)
+            .append("import kotlin.jvm.JvmName")
 
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
@@ -313,6 +327,70 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             }
         }
 
+        toVarArg.append(
+            """
+            |/**
+            | * Splits this [Array] into the first element and the rest as `Array<out T>`.
+            | *
+            | * This way you can pass it to a function which expects `x: T, vararg otherX: T`.
+            | *
+            | * @since 3.1.0
+            | */
+            |inline fun <reified T> Array<out T>.toVarArg(): Pair<T, Array<out T>> =
+            |   first() to drop(1).toList().toTypedArray()
+            |
+            """.trimMargin()
+        ).appendLine()
+
+
+        primitiveTypes.forEach { (type, arrayType) ->
+            listOf("Iterable", "Array").forEach { receiver ->
+                toVarArg.append(
+                    """
+                    |/**
+                    | * Splits this [$receiver] into the first element and the rest as [$arrayType].
+                    | *
+                    | * This way you can pass it to a function which expects `x: $type, vararg otherX: $type`.
+                    | *
+                    | * @since 3.1.0
+                    | */
+                    |@JvmName("toVarArg$type")
+                    |fun $receiver<$type>.toVarArg(): Pair<$type, $arrayType> =
+                    |   first() to drop(1).to$arrayType()
+                    |
+                    """.trimMargin()
+                ).appendLine()
+            }
+            toVarArg.append(
+                """
+                |/**
+                | * Splits this [Sequence] into the first element and the rest as [$arrayType].
+                | *
+                | * This way you can pass it to a function which expects `x: $type, vararg otherX: $type`.
+                | *
+                | * @since 3.1.0
+                | */
+                |@JvmName("toVarArg$type")
+                |fun Sequence<$type>.toVarArg(): Pair<$type, $arrayType> =
+                |   first() to drop(1).toList().to$arrayType()
+                |
+                |/**
+                | * Splits this [$arrayType] into the first element and the rest as [$arrayType].
+                | *
+                | * This way you can pass it to a function which expects `x: $type, vararg otherX: $type`.
+                | *
+                | * @since 3.1.0
+                | */
+                |@JvmName("toVarArg$type")
+                |fun $arrayType.toVarArg(): Pair<$type, $arrayType> =
+                |   first() to drop(1).to$arrayType()
+                |
+                """.trimMargin()
+            ).appendLine()
+
+        }
+
+
         val tupleAppendFile = packageDir.resolve("tupleAppend.kt")
         tupleAppendFile.writeText(tupleAppend.toString())
 
@@ -333,6 +411,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val tupleFlattenFile = packageDir.resolve("tupleFlatten.kt")
         tupleFlattenFile.writeText(tupleFlatten.toString())
+
+        val toVarArgFile = packageDir.resolve("toVarArg.kt")
+        toVarArgFile.writeText(toVarArg.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -371,6 +452,87 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
         val tupleFactoryTest = createStringBuilder(packageName)
             .appendTest("TupleFactoryTest")
+
+        val toVarArgTest = createStringBuilder(packageName)
+            .appendTest("ToVarArgTest")
+        toVarArgTest.append(
+            """
+            |    fun expectString(s: String, vararg others: String) {}
+            |    fun expectBoolean(first: Boolean, vararg others: Boolean) {}
+            |    fun expectByte(first: Byte, vararg others: Byte) {}
+            |    fun expectChar(first: Char, vararg others: Char) {}
+            |    fun expectShort(first: Short, vararg others: Short) {}
+            |    fun expectInt(first: Int, vararg others: Int) {}
+            |    fun expectLong(first: Long, vararg others: Long) {}
+            |    fun expectFloat(first: Float, vararg others: Float) {}
+            |    fun expectDouble(first: Double, vararg others: Double) {}
+            |
+            |    @Test
+            |    fun toVarArg_array() {
+            |        val arr = arrayOf("a", "b")
+            |        val pair = arr.toVarArg()
+            |
+            |        val (first, rest) = pair
+            |        expectString(first, *rest)
+            |
+            |        expect(pair) {
+            |           this.first.toEqual("a")
+            |           second.asList().toContainExactly("b")
+            |        }
+            |    }
+            """.trimMargin()
+        ).appendLine().appendLine()
+
+        primitiveTypes.forEach { (type, arrayTypeUpper) ->
+            val arrayType = arrayTypeUpper.first().lowercase() + arrayTypeUpper.drop(1)
+            val (value1, value2) = when (type) {
+                "Boolean" -> "false" to "true"
+                "Byte" -> "1.toByte()" to "2.toByte()"
+                "Char" -> "'a'" to "'b', 'c', 'd'"
+                "Short" -> "1.toShort()" to "2.toShort()"
+                "Int" -> "1" to "2, 3, 4, 5, 6, 7"
+                "Long" -> "1L" to "2L"
+                "Float" -> "1.0f" to "2.0f"
+                "Double" -> "1.0" to "2.0, 3.0"
+                else -> throw IllegalStateException("not all primitiveTypes cases covered: $type")
+            }
+            toVarArgTest.append(
+                """
+                |    @Test
+                |    fun toVarArg_$arrayType() {
+                |        val arr = ${arrayType}Of($value1, $value2)
+                |        val pair = arr.toVarArg()
+                |
+                |        val (first, rest) = pair
+                |        expect$type(first, *rest)
+                |
+                |        expect(pair) {
+                |           this.first.toEqual($value1)
+                |           second.asList().toContainExactly($value2)
+                |        }
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+            listOf("Iterable" to "listOf", "Sequence" to "sequenceOf").forEach { (receiver, factory) ->
+                toVarArgTest.append(
+                    """
+                |    @Test
+                |    fun toVarArg_${receiver}_of_${type}_returns_$arrayType() {
+                |        val arr: $receiver<$type> = ${factory}($value1, $value2)
+                |        val pair = arr.toVarArg()
+                |
+                |        val (first, rest) = pair
+                |        expect$type(first, *rest)
+                |
+                |        expect(pair) {
+                |           this.first.toEqual($value1)
+                |           second.asList().toContainExactly($value2)
+                |        }
+                |    }
+                """.trimMargin()
+                ).appendLine().appendLine()
+            }
+        }
 
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber)
@@ -663,6 +825,10 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         tupleFactoryTest.append("}")
         val factoryTestFile = packageDir.resolve("TupleFactoryTest.kt")
         factoryTestFile.writeText(tupleFactoryTest.toString())
+
+        toVarArgTest.append("}")
+        val toVarArgTestFile = packageDir.resolve("ToVarArgTest.kt")
+        toVarArgTestFile.writeText(toVarArgTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)
