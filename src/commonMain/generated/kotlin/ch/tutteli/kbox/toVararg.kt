@@ -4,7 +4,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 package ch.tutteli.kbox
 
-import kotlin.jvm.JvmName/**
+import kotlin.jvm.JvmName
+
+/**
  * Splits this [Array] into the first element and the rest as `Array<out T>`.
  *
  * This way you can pass it to a function which expects `x: T, vararg otherX: T`.
@@ -12,6 +14,26 @@ import kotlin.jvm.JvmName/**
  * @since 3.1.0
  */
 inline fun <reified T> Array<out T>.toVararg(): Pair<T, Array<out T>> =
+   first() to drop(1).toList().toTypedArray()
+
+/**
+ * Splits this [Iterable] into the first element and the rest as `Array<out T>`.
+ *
+ * This way you can pass it to a function which expects `x: T, vararg otherX: T`.
+ *
+ * @since 3.1.0
+ */
+inline fun <reified T> Iterable<T>.toVararg(): Pair<T, Array<out T>> =
+   first() to drop(1).toList().toTypedArray()
+
+/**
+ * Splits this [Sequence] into the first element and the rest as `Array<out T>`.
+ *
+ * This way you can pass it to a function which expects `x: T, vararg otherX: T`.
+ *
+ * @since 3.1.0
+ */
+inline fun <reified T> Sequence<T>.toVararg(): Pair<T, Array<out T>> =
    first() to drop(1).toList().toTypedArray()
 
 /**
@@ -32,7 +54,6 @@ fun Iterable<Boolean>.toVararg(): Pair<Boolean, BooleanArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargBoolean")
 fun Array<Boolean>.toVararg(): Pair<Boolean, BooleanArray> =
    first() to drop(1).toBooleanArray()
 
@@ -54,7 +75,6 @@ fun Sequence<Boolean>.toVararg(): Pair<Boolean, BooleanArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargBoolean")
 fun BooleanArray.toVararg(): Pair<Boolean, BooleanArray> =
    first() to drop(1).toBooleanArray()
 
@@ -76,7 +96,6 @@ fun Iterable<Byte>.toVararg(): Pair<Byte, ByteArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargByte")
 fun Array<Byte>.toVararg(): Pair<Byte, ByteArray> =
    first() to drop(1).toByteArray()
 
@@ -98,7 +117,6 @@ fun Sequence<Byte>.toVararg(): Pair<Byte, ByteArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargByte")
 fun ByteArray.toVararg(): Pair<Byte, ByteArray> =
    first() to drop(1).toByteArray()
 
@@ -120,7 +138,6 @@ fun Iterable<Char>.toVararg(): Pair<Char, CharArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargChar")
 fun Array<Char>.toVararg(): Pair<Char, CharArray> =
    first() to drop(1).toCharArray()
 
@@ -142,7 +159,6 @@ fun Sequence<Char>.toVararg(): Pair<Char, CharArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargChar")
 fun CharArray.toVararg(): Pair<Char, CharArray> =
    first() to drop(1).toCharArray()
 
@@ -164,7 +180,6 @@ fun Iterable<Short>.toVararg(): Pair<Short, ShortArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargShort")
 fun Array<Short>.toVararg(): Pair<Short, ShortArray> =
    first() to drop(1).toShortArray()
 
@@ -186,7 +201,6 @@ fun Sequence<Short>.toVararg(): Pair<Short, ShortArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargShort")
 fun ShortArray.toVararg(): Pair<Short, ShortArray> =
    first() to drop(1).toShortArray()
 
@@ -208,7 +222,6 @@ fun Iterable<Int>.toVararg(): Pair<Int, IntArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargInt")
 fun Array<Int>.toVararg(): Pair<Int, IntArray> =
    first() to drop(1).toIntArray()
 
@@ -230,7 +243,6 @@ fun Sequence<Int>.toVararg(): Pair<Int, IntArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargInt")
 fun IntArray.toVararg(): Pair<Int, IntArray> =
    first() to drop(1).toIntArray()
 
@@ -252,7 +264,6 @@ fun Iterable<Long>.toVararg(): Pair<Long, LongArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargLong")
 fun Array<Long>.toVararg(): Pair<Long, LongArray> =
    first() to drop(1).toLongArray()
 
@@ -274,7 +285,6 @@ fun Sequence<Long>.toVararg(): Pair<Long, LongArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargLong")
 fun LongArray.toVararg(): Pair<Long, LongArray> =
    first() to drop(1).toLongArray()
 
@@ -296,7 +306,6 @@ fun Iterable<Float>.toVararg(): Pair<Float, FloatArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargFloat")
 fun Array<Float>.toVararg(): Pair<Float, FloatArray> =
    first() to drop(1).toFloatArray()
 
@@ -318,7 +327,6 @@ fun Sequence<Float>.toVararg(): Pair<Float, FloatArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargFloat")
 fun FloatArray.toVararg(): Pair<Float, FloatArray> =
    first() to drop(1).toFloatArray()
 
@@ -340,7 +348,6 @@ fun Iterable<Double>.toVararg(): Pair<Double, DoubleArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargDouble")
 fun Array<Double>.toVararg(): Pair<Double, DoubleArray> =
    first() to drop(1).toDoubleArray()
 
@@ -362,7 +369,6 @@ fun Sequence<Double>.toVararg(): Pair<Double, DoubleArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarargDouble")
 fun DoubleArray.toVararg(): Pair<Double, DoubleArray> =
    first() to drop(1).toDoubleArray()
 
