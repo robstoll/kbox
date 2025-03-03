@@ -4,7 +4,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 package ch.tutteli.kbox
 
-import kotlin.jvm.JvmName/**
+import kotlin.jvm.JvmName
+
+/**
  * Flattens a [List] of [Pair]<T, T> into a `List<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
