@@ -9,7 +9,7 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class ToVarArgTest {
+class ToVarargTest {
 
     fun expectString(s: String, vararg others: String) {}
     fun expectBoolean(first: Boolean, vararg others: Boolean) {}
@@ -22,9 +22,9 @@ class ToVarArgTest {
     fun expectDouble(first: Double, vararg others: Double) {}
 
     @Test
-    fun toVarArg_array() {
+    fun toVararg_array() {
         val arr = arrayOf("a", "b")
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectString(first, *rest)
@@ -36,9 +36,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_booleanArray() {
+    fun toVararg_booleanArray() {
         val arr = booleanArrayOf(false, true)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectBoolean(first, *rest)
@@ -50,9 +50,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Boolean_returns_booleanArray() {
+    fun toVararg_Iterable_of_Boolean_returns_booleanArray() {
         val arr: Iterable<Boolean> = listOf(false, true)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectBoolean(first, *rest)
@@ -64,9 +64,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Boolean_returns_booleanArray() {
+    fun toVararg_Sequence_of_Boolean_returns_booleanArray() {
         val arr: Sequence<Boolean> = sequenceOf(false, true)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectBoolean(first, *rest)
@@ -78,9 +78,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_byteArray() {
+    fun toVararg_byteArray() {
         val arr = byteArrayOf(1.toByte(), 2.toByte())
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectByte(first, *rest)
@@ -92,9 +92,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Byte_returns_byteArray() {
+    fun toVararg_Iterable_of_Byte_returns_byteArray() {
         val arr: Iterable<Byte> = listOf(1.toByte(), 2.toByte())
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectByte(first, *rest)
@@ -106,9 +106,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Byte_returns_byteArray() {
+    fun toVararg_Sequence_of_Byte_returns_byteArray() {
         val arr: Sequence<Byte> = sequenceOf(1.toByte(), 2.toByte())
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectByte(first, *rest)
@@ -120,9 +120,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_charArray() {
+    fun toVararg_charArray() {
         val arr = charArrayOf('a', 'b', 'c', 'd')
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectChar(first, *rest)
@@ -134,9 +134,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Char_returns_charArray() {
+    fun toVararg_Iterable_of_Char_returns_charArray() {
         val arr: Iterable<Char> = listOf('a', 'b', 'c', 'd')
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectChar(first, *rest)
@@ -148,9 +148,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Char_returns_charArray() {
+    fun toVararg_Sequence_of_Char_returns_charArray() {
         val arr: Sequence<Char> = sequenceOf('a', 'b', 'c', 'd')
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectChar(first, *rest)
@@ -162,9 +162,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_shortArray() {
+    fun toVararg_shortArray() {
         val arr = shortArrayOf(1.toShort(), 2.toShort())
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectShort(first, *rest)
@@ -176,9 +176,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Short_returns_shortArray() {
+    fun toVararg_Iterable_of_Short_returns_shortArray() {
         val arr: Iterable<Short> = listOf(1.toShort(), 2.toShort())
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectShort(first, *rest)
@@ -190,9 +190,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Short_returns_shortArray() {
+    fun toVararg_Sequence_of_Short_returns_shortArray() {
         val arr: Sequence<Short> = sequenceOf(1.toShort(), 2.toShort())
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectShort(first, *rest)
@@ -204,9 +204,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_intArray() {
+    fun toVararg_intArray() {
         val arr = intArrayOf(1, 2, 3, 4, 5, 6, 7)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectInt(first, *rest)
@@ -218,9 +218,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Int_returns_intArray() {
+    fun toVararg_Iterable_of_Int_returns_intArray() {
         val arr: Iterable<Int> = listOf(1, 2, 3, 4, 5, 6, 7)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectInt(first, *rest)
@@ -232,9 +232,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Int_returns_intArray() {
+    fun toVararg_Sequence_of_Int_returns_intArray() {
         val arr: Sequence<Int> = sequenceOf(1, 2, 3, 4, 5, 6, 7)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectInt(first, *rest)
@@ -246,9 +246,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_longArray() {
+    fun toVararg_longArray() {
         val arr = longArrayOf(1L, 2L)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectLong(first, *rest)
@@ -260,9 +260,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Long_returns_longArray() {
+    fun toVararg_Iterable_of_Long_returns_longArray() {
         val arr: Iterable<Long> = listOf(1L, 2L)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectLong(first, *rest)
@@ -274,9 +274,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Long_returns_longArray() {
+    fun toVararg_Sequence_of_Long_returns_longArray() {
         val arr: Sequence<Long> = sequenceOf(1L, 2L)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectLong(first, *rest)
@@ -288,9 +288,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_floatArray() {
+    fun toVararg_floatArray() {
         val arr = floatArrayOf(1.0f, 2.0f)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectFloat(first, *rest)
@@ -302,9 +302,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Float_returns_floatArray() {
+    fun toVararg_Iterable_of_Float_returns_floatArray() {
         val arr: Iterable<Float> = listOf(1.0f, 2.0f)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectFloat(first, *rest)
@@ -316,9 +316,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Float_returns_floatArray() {
+    fun toVararg_Sequence_of_Float_returns_floatArray() {
         val arr: Sequence<Float> = sequenceOf(1.0f, 2.0f)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectFloat(first, *rest)
@@ -330,9 +330,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_doubleArray() {
+    fun toVararg_doubleArray() {
         val arr = doubleArrayOf(1.0, 2.0, 3.0)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectDouble(first, *rest)
@@ -344,9 +344,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Iterable_of_Double_returns_doubleArray() {
+    fun toVararg_Iterable_of_Double_returns_doubleArray() {
         val arr: Iterable<Double> = listOf(1.0, 2.0, 3.0)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectDouble(first, *rest)
@@ -358,9 +358,9 @@ class ToVarArgTest {
     }
 
     @Test
-    fun toVarArg_Sequence_of_Double_returns_doubleArray() {
+    fun toVararg_Sequence_of_Double_returns_doubleArray() {
         val arr: Sequence<Double> = sequenceOf(1.0, 2.0, 3.0)
-        val pair = arr.toVarArg()
+        val pair = arr.toVararg()
 
         val (first, rest) = pair
         expectDouble(first, *rest)

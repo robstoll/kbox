@@ -11,7 +11,7 @@ import kotlin.jvm.JvmName/**
  *
  * @since 3.1.0
  */
-inline fun <reified T> Array<out T>.toVarArg(): Pair<T, Array<out T>> =
+inline fun <reified T> Array<out T>.toVararg(): Pair<T, Array<out T>> =
    first() to drop(1).toList().toTypedArray()
 
 /**
@@ -21,8 +21,8 @@ inline fun <reified T> Array<out T>.toVarArg(): Pair<T, Array<out T>> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgBoolean")
-fun Iterable<Boolean>.toVarArg(): Pair<Boolean, BooleanArray> =
+@JvmName("toVarargBoolean")
+fun Iterable<Boolean>.toVararg(): Pair<Boolean, BooleanArray> =
    first() to drop(1).toBooleanArray()
 
 /**
@@ -32,8 +32,8 @@ fun Iterable<Boolean>.toVarArg(): Pair<Boolean, BooleanArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgBoolean")
-fun Array<Boolean>.toVarArg(): Pair<Boolean, BooleanArray> =
+@JvmName("toVarargBoolean")
+fun Array<Boolean>.toVararg(): Pair<Boolean, BooleanArray> =
    first() to drop(1).toBooleanArray()
 
 /**
@@ -43,8 +43,8 @@ fun Array<Boolean>.toVarArg(): Pair<Boolean, BooleanArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgBoolean")
-fun Sequence<Boolean>.toVarArg(): Pair<Boolean, BooleanArray> =
+@JvmName("toVarargBoolean")
+fun Sequence<Boolean>.toVararg(): Pair<Boolean, BooleanArray> =
    first() to drop(1).toList().toBooleanArray()
 
 /**
@@ -54,8 +54,8 @@ fun Sequence<Boolean>.toVarArg(): Pair<Boolean, BooleanArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgBoolean")
-fun BooleanArray.toVarArg(): Pair<Boolean, BooleanArray> =
+@JvmName("toVarargBoolean")
+fun BooleanArray.toVararg(): Pair<Boolean, BooleanArray> =
    first() to drop(1).toBooleanArray()
 
 /**
@@ -65,8 +65,8 @@ fun BooleanArray.toVarArg(): Pair<Boolean, BooleanArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgByte")
-fun Iterable<Byte>.toVarArg(): Pair<Byte, ByteArray> =
+@JvmName("toVarargByte")
+fun Iterable<Byte>.toVararg(): Pair<Byte, ByteArray> =
    first() to drop(1).toByteArray()
 
 /**
@@ -76,8 +76,8 @@ fun Iterable<Byte>.toVarArg(): Pair<Byte, ByteArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgByte")
-fun Array<Byte>.toVarArg(): Pair<Byte, ByteArray> =
+@JvmName("toVarargByte")
+fun Array<Byte>.toVararg(): Pair<Byte, ByteArray> =
    first() to drop(1).toByteArray()
 
 /**
@@ -87,8 +87,8 @@ fun Array<Byte>.toVarArg(): Pair<Byte, ByteArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgByte")
-fun Sequence<Byte>.toVarArg(): Pair<Byte, ByteArray> =
+@JvmName("toVarargByte")
+fun Sequence<Byte>.toVararg(): Pair<Byte, ByteArray> =
    first() to drop(1).toList().toByteArray()
 
 /**
@@ -98,8 +98,8 @@ fun Sequence<Byte>.toVarArg(): Pair<Byte, ByteArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgByte")
-fun ByteArray.toVarArg(): Pair<Byte, ByteArray> =
+@JvmName("toVarargByte")
+fun ByteArray.toVararg(): Pair<Byte, ByteArray> =
    first() to drop(1).toByteArray()
 
 /**
@@ -109,8 +109,8 @@ fun ByteArray.toVarArg(): Pair<Byte, ByteArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgChar")
-fun Iterable<Char>.toVarArg(): Pair<Char, CharArray> =
+@JvmName("toVarargChar")
+fun Iterable<Char>.toVararg(): Pair<Char, CharArray> =
    first() to drop(1).toCharArray()
 
 /**
@@ -120,8 +120,8 @@ fun Iterable<Char>.toVarArg(): Pair<Char, CharArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgChar")
-fun Array<Char>.toVarArg(): Pair<Char, CharArray> =
+@JvmName("toVarargChar")
+fun Array<Char>.toVararg(): Pair<Char, CharArray> =
    first() to drop(1).toCharArray()
 
 /**
@@ -131,8 +131,8 @@ fun Array<Char>.toVarArg(): Pair<Char, CharArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgChar")
-fun Sequence<Char>.toVarArg(): Pair<Char, CharArray> =
+@JvmName("toVarargChar")
+fun Sequence<Char>.toVararg(): Pair<Char, CharArray> =
    first() to drop(1).toList().toCharArray()
 
 /**
@@ -142,8 +142,8 @@ fun Sequence<Char>.toVarArg(): Pair<Char, CharArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgChar")
-fun CharArray.toVarArg(): Pair<Char, CharArray> =
+@JvmName("toVarargChar")
+fun CharArray.toVararg(): Pair<Char, CharArray> =
    first() to drop(1).toCharArray()
 
 /**
@@ -153,8 +153,8 @@ fun CharArray.toVarArg(): Pair<Char, CharArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgShort")
-fun Iterable<Short>.toVarArg(): Pair<Short, ShortArray> =
+@JvmName("toVarargShort")
+fun Iterable<Short>.toVararg(): Pair<Short, ShortArray> =
    first() to drop(1).toShortArray()
 
 /**
@@ -164,8 +164,8 @@ fun Iterable<Short>.toVarArg(): Pair<Short, ShortArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgShort")
-fun Array<Short>.toVarArg(): Pair<Short, ShortArray> =
+@JvmName("toVarargShort")
+fun Array<Short>.toVararg(): Pair<Short, ShortArray> =
    first() to drop(1).toShortArray()
 
 /**
@@ -175,8 +175,8 @@ fun Array<Short>.toVarArg(): Pair<Short, ShortArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgShort")
-fun Sequence<Short>.toVarArg(): Pair<Short, ShortArray> =
+@JvmName("toVarargShort")
+fun Sequence<Short>.toVararg(): Pair<Short, ShortArray> =
    first() to drop(1).toList().toShortArray()
 
 /**
@@ -186,8 +186,8 @@ fun Sequence<Short>.toVarArg(): Pair<Short, ShortArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgShort")
-fun ShortArray.toVarArg(): Pair<Short, ShortArray> =
+@JvmName("toVarargShort")
+fun ShortArray.toVararg(): Pair<Short, ShortArray> =
    first() to drop(1).toShortArray()
 
 /**
@@ -197,8 +197,8 @@ fun ShortArray.toVarArg(): Pair<Short, ShortArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgInt")
-fun Iterable<Int>.toVarArg(): Pair<Int, IntArray> =
+@JvmName("toVarargInt")
+fun Iterable<Int>.toVararg(): Pair<Int, IntArray> =
    first() to drop(1).toIntArray()
 
 /**
@@ -208,8 +208,8 @@ fun Iterable<Int>.toVarArg(): Pair<Int, IntArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgInt")
-fun Array<Int>.toVarArg(): Pair<Int, IntArray> =
+@JvmName("toVarargInt")
+fun Array<Int>.toVararg(): Pair<Int, IntArray> =
    first() to drop(1).toIntArray()
 
 /**
@@ -219,8 +219,8 @@ fun Array<Int>.toVarArg(): Pair<Int, IntArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgInt")
-fun Sequence<Int>.toVarArg(): Pair<Int, IntArray> =
+@JvmName("toVarargInt")
+fun Sequence<Int>.toVararg(): Pair<Int, IntArray> =
    first() to drop(1).toList().toIntArray()
 
 /**
@@ -230,8 +230,8 @@ fun Sequence<Int>.toVarArg(): Pair<Int, IntArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgInt")
-fun IntArray.toVarArg(): Pair<Int, IntArray> =
+@JvmName("toVarargInt")
+fun IntArray.toVararg(): Pair<Int, IntArray> =
    first() to drop(1).toIntArray()
 
 /**
@@ -241,8 +241,8 @@ fun IntArray.toVarArg(): Pair<Int, IntArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgLong")
-fun Iterable<Long>.toVarArg(): Pair<Long, LongArray> =
+@JvmName("toVarargLong")
+fun Iterable<Long>.toVararg(): Pair<Long, LongArray> =
    first() to drop(1).toLongArray()
 
 /**
@@ -252,8 +252,8 @@ fun Iterable<Long>.toVarArg(): Pair<Long, LongArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgLong")
-fun Array<Long>.toVarArg(): Pair<Long, LongArray> =
+@JvmName("toVarargLong")
+fun Array<Long>.toVararg(): Pair<Long, LongArray> =
    first() to drop(1).toLongArray()
 
 /**
@@ -263,8 +263,8 @@ fun Array<Long>.toVarArg(): Pair<Long, LongArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgLong")
-fun Sequence<Long>.toVarArg(): Pair<Long, LongArray> =
+@JvmName("toVarargLong")
+fun Sequence<Long>.toVararg(): Pair<Long, LongArray> =
    first() to drop(1).toList().toLongArray()
 
 /**
@@ -274,8 +274,8 @@ fun Sequence<Long>.toVarArg(): Pair<Long, LongArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgLong")
-fun LongArray.toVarArg(): Pair<Long, LongArray> =
+@JvmName("toVarargLong")
+fun LongArray.toVararg(): Pair<Long, LongArray> =
    first() to drop(1).toLongArray()
 
 /**
@@ -285,8 +285,8 @@ fun LongArray.toVarArg(): Pair<Long, LongArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgFloat")
-fun Iterable<Float>.toVarArg(): Pair<Float, FloatArray> =
+@JvmName("toVarargFloat")
+fun Iterable<Float>.toVararg(): Pair<Float, FloatArray> =
    first() to drop(1).toFloatArray()
 
 /**
@@ -296,8 +296,8 @@ fun Iterable<Float>.toVarArg(): Pair<Float, FloatArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgFloat")
-fun Array<Float>.toVarArg(): Pair<Float, FloatArray> =
+@JvmName("toVarargFloat")
+fun Array<Float>.toVararg(): Pair<Float, FloatArray> =
    first() to drop(1).toFloatArray()
 
 /**
@@ -307,8 +307,8 @@ fun Array<Float>.toVarArg(): Pair<Float, FloatArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgFloat")
-fun Sequence<Float>.toVarArg(): Pair<Float, FloatArray> =
+@JvmName("toVarargFloat")
+fun Sequence<Float>.toVararg(): Pair<Float, FloatArray> =
    first() to drop(1).toList().toFloatArray()
 
 /**
@@ -318,8 +318,8 @@ fun Sequence<Float>.toVarArg(): Pair<Float, FloatArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgFloat")
-fun FloatArray.toVarArg(): Pair<Float, FloatArray> =
+@JvmName("toVarargFloat")
+fun FloatArray.toVararg(): Pair<Float, FloatArray> =
    first() to drop(1).toFloatArray()
 
 /**
@@ -329,8 +329,8 @@ fun FloatArray.toVarArg(): Pair<Float, FloatArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgDouble")
-fun Iterable<Double>.toVarArg(): Pair<Double, DoubleArray> =
+@JvmName("toVarargDouble")
+fun Iterable<Double>.toVararg(): Pair<Double, DoubleArray> =
    first() to drop(1).toDoubleArray()
 
 /**
@@ -340,8 +340,8 @@ fun Iterable<Double>.toVarArg(): Pair<Double, DoubleArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgDouble")
-fun Array<Double>.toVarArg(): Pair<Double, DoubleArray> =
+@JvmName("toVarargDouble")
+fun Array<Double>.toVararg(): Pair<Double, DoubleArray> =
    first() to drop(1).toDoubleArray()
 
 /**
@@ -351,8 +351,8 @@ fun Array<Double>.toVarArg(): Pair<Double, DoubleArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgDouble")
-fun Sequence<Double>.toVarArg(): Pair<Double, DoubleArray> =
+@JvmName("toVarargDouble")
+fun Sequence<Double>.toVararg(): Pair<Double, DoubleArray> =
    first() to drop(1).toList().toDoubleArray()
 
 /**
@@ -362,7 +362,7 @@ fun Sequence<Double>.toVarArg(): Pair<Double, DoubleArray> =
  *
  * @since 3.1.0
  */
-@JvmName("toVarArgDouble")
-fun DoubleArray.toVarArg(): Pair<Double, DoubleArray> =
+@JvmName("toVarargDouble")
+fun DoubleArray.toVararg(): Pair<Double, DoubleArray> =
    first() to drop(1).toDoubleArray()
 

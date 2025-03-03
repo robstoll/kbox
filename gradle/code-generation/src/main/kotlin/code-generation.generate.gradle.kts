@@ -75,7 +75,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleFlatten = createStringBuilder(packageName)
             .append("import kotlin.jvm.JvmName")
 
-        val toVarArg = createStringBuilder(packageName)
+        val toVararg = createStringBuilder(packageName)
             .append("import kotlin.jvm.JvmName")
 
         (2..numOfArgs).forEach { upperNumber ->
@@ -327,7 +327,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             }
         }
 
-        toVarArg.append(
+        toVararg.append(
             """
             |/**
             | * Splits this [Array] into the first element and the rest as `Array<out T>`.
@@ -336,7 +336,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             | *
             | * @since 3.1.0
             | */
-            |inline fun <reified T> Array<out T>.toVarArg(): Pair<T, Array<out T>> =
+            |inline fun <reified T> Array<out T>.toVararg(): Pair<T, Array<out T>> =
             |   first() to drop(1).toList().toTypedArray()
             |
             """.trimMargin()
@@ -345,7 +345,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         primitiveTypes.forEach { (type, arrayType) ->
             listOf("Iterable", "Array").forEach { receiver ->
-                toVarArg.append(
+                toVararg.append(
                     """
                     |/**
                     | * Splits this [$receiver] into the first element and the rest as [$arrayType].
@@ -354,14 +354,14 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     | *
                     | * @since 3.1.0
                     | */
-                    |@JvmName("toVarArg$type")
-                    |fun $receiver<$type>.toVarArg(): Pair<$type, $arrayType> =
+                    |@JvmName("toVararg$type")
+                    |fun $receiver<$type>.toVararg(): Pair<$type, $arrayType> =
                     |   first() to drop(1).to$arrayType()
                     |
                     """.trimMargin()
                 ).appendLine()
             }
-            toVarArg.append(
+            toVararg.append(
                 """
                 |/**
                 | * Splits this [Sequence] into the first element and the rest as [$arrayType].
@@ -370,8 +370,8 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 | *
                 | * @since 3.1.0
                 | */
-                |@JvmName("toVarArg$type")
-                |fun Sequence<$type>.toVarArg(): Pair<$type, $arrayType> =
+                |@JvmName("toVararg$type")
+                |fun Sequence<$type>.toVararg(): Pair<$type, $arrayType> =
                 |   first() to drop(1).toList().to$arrayType()
                 |
                 |/**
@@ -381,8 +381,8 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 | *
                 | * @since 3.1.0
                 | */
-                |@JvmName("toVarArg$type")
-                |fun $arrayType.toVarArg(): Pair<$type, $arrayType> =
+                |@JvmName("toVararg$type")
+                |fun $arrayType.toVararg(): Pair<$type, $arrayType> =
                 |   first() to drop(1).to$arrayType()
                 |
                 """.trimMargin()
@@ -412,8 +412,8 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleFlattenFile = packageDir.resolve("tupleFlatten.kt")
         tupleFlattenFile.writeText(tupleFlatten.toString())
 
-        val toVarArgFile = packageDir.resolve("toVarArg.kt")
-        toVarArgFile.writeText(toVarArg.toString())
+        val toVarargFile = packageDir.resolve("toVararg.kt")
+        toVarargFile.writeText(toVararg.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -453,9 +453,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         val tupleFactoryTest = createStringBuilder(packageName)
             .appendTest("TupleFactoryTest")
 
-        val toVarArgTest = createStringBuilder(packageName)
-            .appendTest("ToVarArgTest")
-        toVarArgTest.append(
+        val toVarargTest = createStringBuilder(packageName)
+            .appendTest("ToVarargTest")
+        toVarargTest.append(
             """
             |    fun expectString(s: String, vararg others: String) {}
             |    fun expectBoolean(first: Boolean, vararg others: Boolean) {}
@@ -468,9 +468,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             |    fun expectDouble(first: Double, vararg others: Double) {}
             |
             |    @Test
-            |    fun toVarArg_array() {
+            |    fun toVararg_array() {
             |        val arr = arrayOf("a", "b")
-            |        val pair = arr.toVarArg()
+            |        val pair = arr.toVararg()
             |
             |        val (first, rest) = pair
             |        expectString(first, *rest)
@@ -496,12 +496,12 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 "Double" -> "1.0" to "2.0, 3.0"
                 else -> throw IllegalStateException("not all primitiveTypes cases covered: $type")
             }
-            toVarArgTest.append(
+            toVarargTest.append(
                 """
                 |    @Test
-                |    fun toVarArg_$arrayType() {
+                |    fun toVararg_$arrayType() {
                 |        val arr = ${arrayType}Of($value1, $value2)
-                |        val pair = arr.toVarArg()
+                |        val pair = arr.toVararg()
                 |
                 |        val (first, rest) = pair
                 |        expect$type(first, *rest)
@@ -514,12 +514,12 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 """.trimMargin()
             ).appendLine().appendLine()
             listOf("Iterable" to "listOf", "Sequence" to "sequenceOf").forEach { (receiver, factory) ->
-                toVarArgTest.append(
+                toVarargTest.append(
                     """
                 |    @Test
-                |    fun toVarArg_${receiver}_of_${type}_returns_$arrayType() {
+                |    fun toVararg_${receiver}_of_${type}_returns_$arrayType() {
                 |        val arr: $receiver<$type> = ${factory}($value1, $value2)
-                |        val pair = arr.toVarArg()
+                |        val pair = arr.toVararg()
                 |
                 |        val (first, rest) = pair
                 |        expect$type(first, *rest)
@@ -826,9 +826,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         val factoryTestFile = packageDir.resolve("TupleFactoryTest.kt")
         factoryTestFile.writeText(tupleFactoryTest.toString())
 
-        toVarArgTest.append("}")
-        val toVarArgTestFile = packageDir.resolve("ToVarArgTest.kt")
-        toVarArgTestFile.writeText(toVarArgTest.toString())
+        toVarargTest.append("}")
+        val toVarargTestFile = packageDir.resolve("ToVarargTest.kt")
+        toVarargTestFile.writeText(toVarargTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)
