@@ -11,16 +11,6 @@ import kotlin.test.Test
 
 class ToVarargTest {
 
-    fun expectString(s: String, vararg others: String) {}
-    fun expectBoolean(first: Boolean, vararg others: Boolean) {}
-    fun expectByte(first: Byte, vararg others: Byte) {}
-    fun expectChar(first: Char, vararg others: Char) {}
-    fun expectShort(first: Short, vararg others: Short) {}
-    fun expectInt(first: Int, vararg others: Int) {}
-    fun expectLong(first: Long, vararg others: Long) {}
-    fun expectFloat(first: Float, vararg others: Float) {}
-    fun expectDouble(first: Double, vararg others: Double) {}
-
     @Test
     fun toVararg_Array() {
         val arr = arrayOf("a", "b")
@@ -72,8 +62,8 @@ class ToVarargTest {
         expectBoolean(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(false)
-           second.asList().toContainExactly(true)
+            this.first.toEqual(false)
+            second.asList().toContainExactly(true)
         }
     }
 
@@ -128,8 +118,8 @@ class ToVarargTest {
         expectByte(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(1.toByte())
-           second.asList().toContainExactly(2.toByte())
+            this.first.toEqual(1.toByte())
+            second.asList().toContainExactly(2.toByte())
         }
     }
 
@@ -184,8 +174,8 @@ class ToVarargTest {
         expectChar(first, *rest)
 
         expect(pair) {
-           this.first.toEqual('a')
-           second.asList().toContainExactly('b', 'c', 'd')
+            this.first.toEqual('a')
+            second.asList().toContainExactly('b', 'c', 'd')
         }
     }
 
@@ -240,8 +230,8 @@ class ToVarargTest {
         expectShort(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(1.toShort())
-           second.asList().toContainExactly(2.toShort())
+            this.first.toEqual(1.toShort())
+            second.asList().toContainExactly(2.toShort())
         }
     }
 
@@ -296,8 +286,8 @@ class ToVarargTest {
         expectInt(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(1)
-           second.asList().toContainExactly(2, 3, 4, 5, 6, 7)
+            this.first.toEqual(1)
+            second.asList().toContainExactly(2, 3, 4, 5, 6, 7)
         }
     }
 
@@ -352,8 +342,8 @@ class ToVarargTest {
         expectLong(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(1L)
-           second.asList().toContainExactly(2L)
+            this.first.toEqual(1L)
+            second.asList().toContainExactly(2L)
         }
     }
 
@@ -408,8 +398,8 @@ class ToVarargTest {
         expectFloat(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(1.0f)
-           second.asList().toContainExactly(2.0f)
+            this.first.toEqual(1.0f)
+            second.asList().toContainExactly(2.0f)
         }
     }
 
@@ -464,8 +454,8 @@ class ToVarargTest {
         expectDouble(first, *rest)
 
         expect(pair) {
-           this.first.toEqual(1.0)
-           second.asList().toContainExactly(2.0, 3.0)
+            this.first.toEqual(1.0)
+            second.asList().toContainExactly(2.0, 3.0)
         }
     }
 

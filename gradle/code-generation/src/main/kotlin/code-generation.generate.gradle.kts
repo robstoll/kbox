@@ -75,6 +75,10 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleFlatten = createStringBuilder(packageName)
             .append("import kotlin.jvm.JvmName\n\n")
 
+        val varargToList = StringBuilder(dontModifyNotice)
+            .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
+            .append("package ").append(packageName).append("\n\n")
+
         val toVararg = createStringBuilder(packageName)
             .append("import kotlin.jvm.JvmName\n\n")
 
@@ -327,6 +331,32 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             }
         }
 
+        varargToList.append(
+            """
+            |/**
+            | * Adds the given [arg] and the [otherArgs] into a new [List] and returns it.
+            | *
+            | * This function is intended for API functions which expect `x: T, vararg otherX: T` and want to pass the arguments
+            | * to another function which expects only one argument of `List<T>`.
+            | *
+            | * @return a [List] containing [arg] and [otherArgs].
+            | */
+            |fun <T> varargToList(arg: T, otherArgs: Array<out T>): List<T> {
+            |    val list = ArrayList<T>(otherArgs.size + 1)
+            |    list.add(arg)
+            |    list.addAll(otherArgs)
+            |    return list
+            |}
+            |
+            |/**
+            | * Delegates to [varargToList] -- adds `this` and the [otherArgs] into a new [List] and returns it.
+            | */
+            |@Suppress("NOTHING_TO_INLINE")
+            |inline infix fun <T> T.glue(otherArgs: Array<out T>): List<T> = varargToList(this, otherArgs)
+            |
+            """.trimMargin()
+        ).appendLine()
+
         listOf("Array", "Iterable", "Sequence").forEach { receiver ->
             toVararg.append(
                 """
@@ -345,6 +375,37 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         }
 
         primitiveTypes.forEach { (type, arrayType) ->
+            varargToList.append(
+                """
+                |/**
+                | * Adds the given [arg] and the [otherArgs] into a new [List] and returns it.
+                | *
+                | * This function is intended for API functions which expect `x: $type, vararg otherX: $type` and want to pass
+                | * the arguments to another function which expects only one argument of `List<$type>`.
+                | *
+                | * @return a [List] containing [arg] and [otherArgs].
+                | *
+                | * @since 3.1.0
+                | */
+                |fun varargToList(arg: $type, otherArgs: $arrayType): List<$type> {
+                |    val list = ArrayList<$type>(otherArgs.size + 1)
+                |    list.add(arg)
+                |    list.addAll(otherArgs.asList())
+                |    return list
+                |}
+                |
+                |/**
+                | * Delegates to [varargToList] -- adds `this` and the [otherArgs] into a new [List] and returns it.
+                | *
+                | * @since 3.1.0
+                | */
+                |@Suppress("NOTHING_TO_INLINE")
+                |inline infix fun $type.glue(otherArgs: $arrayType): List<$type> = varargToList(this, otherArgs)
+
+                """.trimMargin()
+            ).appendLine()
+
+
             listOf("Iterable", "Array").forEach { receiver ->
                 toVararg.append(
                     """
@@ -410,6 +471,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleFlattenFile = packageDir.resolve("tupleFlatten.kt")
         tupleFlattenFile.writeText(tupleFlatten.toString())
 
+        val varargToListFile = packageDir.resolve("varargToList.kt")
+        varargToListFile.writeText(varargToList.toString())
+
         val toVarargFile = packageDir.resolve("toVararg.kt")
         toVarargFile.writeText(toVararg.toString())
     }
@@ -451,23 +515,31 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         val tupleFactoryTest = createStringBuilder(packageName)
             .appendTest("TupleFactoryTest")
 
+        val varargToListTest = createStringBuilder(packageName)
+            .appendTest("VarargToListTest")
+
         val toVarargTest = createStringBuilder(packageName)
             .appendTest("ToVarargTest")
 
-        toVarargTest.append(
+        varargToListTest.append(
             """
-            |    fun expectString(s: String, vararg others: String) {}
-            |    fun expectBoolean(first: Boolean, vararg others: Boolean) {}
-            |    fun expectByte(first: Byte, vararg others: Byte) {}
-            |    fun expectChar(first: Char, vararg others: Char) {}
-            |    fun expectShort(first: Short, vararg others: Short) {}
-            |    fun expectInt(first: Int, vararg others: Int) {}
-            |    fun expectLong(first: Long, vararg others: Long) {}
-            |    fun expectFloat(first: Float, vararg others: Float) {}
-            |    fun expectDouble(first: Double, vararg others: Double) {}
-            |
-            """.trimMargin()
-        ).appendLine()
+                |    @Test
+                |    fun varArgToList_array_of_strings() {
+                |        val arr = arrayOf("a", "b")
+                |        val list = varargToList("c", arr)
+                |
+                |        expect(list).toContainExactly("c", "a", "b")
+                |    }
+                |
+                |    @Test
+                |    fun glue_array_of_strings() {
+                |        val arr = arrayOf("a", "b")
+                |        val list = "c" glue arr
+                |
+                |        expect(list).toContainExactly("c", "a", "b")
+                |    }
+                """.trimMargin()
+        ).appendLine().appendLine()
 
         listOf(
             "Array" to "arrayOf",
@@ -506,6 +578,26 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 "Double" -> "1.0" to "2.0, 3.0"
                 else -> throw IllegalStateException("not all primitiveTypes cases covered: $type")
             }
+            varargToListTest.append(
+                """
+                |    @Test
+                |    fun varArgToList_$arrayType() {
+                |        val arr = ${arrayType}Of($value2)
+                |        val list = varargToList($value1, arr)
+                |
+                |        expect(list).toContainExactly($value1, $value2)
+                |    }
+                |
+                |    @Test
+                |    fun glue_$arrayType() {
+                |        val arr = ${arrayType}Of($value2)
+                |        val list = $value1 glue arr
+                |
+                |        expect(list).toContainExactly($value1, $value2)
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+
             toVarargTest.append(
                 """
                 |    @Test
@@ -517,8 +609,8 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 |        expect$type(first, *rest)
                 |
                 |        expect(pair) {
-                |           this.first.toEqual($value1)
-                |           second.asList().toContainExactly($value2)
+                |            this.first.toEqual($value1)
+                |            second.asList().toContainExactly($value2)
                 |        }
                 |    }
                 """.trimMargin()
@@ -840,6 +932,11 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         tupleFactoryTest.append("}")
         val factoryTestFile = packageDir.resolve("TupleFactoryTest.kt")
         factoryTestFile.writeText(tupleFactoryTest.toString())
+
+
+        varargToListTest.append("}")
+        val varargToListTestFile = packageDir.resolve("VarargToListTest.kt")
+        varargToListTestFile.writeText(varargToListTest.toString())
 
         toVarargTest.append("}")
         val toVarargTestFile = packageDir.resolve("ToVarargTest.kt")
