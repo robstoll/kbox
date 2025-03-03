@@ -82,6 +82,15 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val toVararg = createStringBuilder(packageName)
             .append("import kotlin.jvm.JvmName\n\n")
 
+        val invokeAsVararg = createStringBuilder(packageName)
+            .append(
+                """
+                |import kotlin.jvm.JvmName
+                |import kotlin.Function2
+                |
+                |""".trimMargin()
+            )
+
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
             val typeArgs = numbers.joinToString(", ") { "A$it" }
@@ -372,7 +381,34 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 |
                 """.trimMargin()
             ).appendLine()
+
+            invokeAsVararg.append(
+                """
+                |/**
+                | * Invokes the function passing the first element of the given [$receiver] as first argument and the rest as vararg.
+                | *
+                | * @since 3.1.0
+                | */
+                |inline fun <reified T, R> Function2<T, Array<out T>, R>.invokeAsVararg(arr: $receiver<${if (receiver == "Array") "out " else ""}T>): R =
+                |   arr.toVararg().let { (first, rest) -> this.invoke(first, rest) }
+                |
+                """.trimMargin()
+            ).appendLine()
         }
+
+
+        fun appendInvokeAsVararg(receiver: String, type: String, arrayType: String) = invokeAsVararg.append(
+            """
+            |/**
+            | * Invokes the function passing the first element of the given [$receiver] as first argument and the rest as vararg.
+            | *
+            | * @since 3.1.0
+            | */${if (receiver != "Array") "\n@JvmName(\"invokeWith$receiver${type}AsVarArg\")" else ""}
+            |fun <R> Function2<$type, $arrayType, R>.invokeAsVararg(arr: $receiver<$type>): R =
+            |   arr.toVararg().let { (first, rest) -> this.invoke(first, rest) }
+            |
+            """.trimMargin()
+        ).appendLine()
 
         primitiveTypes.forEach { (type, arrayType) ->
             varargToList.append(
@@ -421,6 +457,8 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     |
                     """.trimMargin()
                 ).appendLine()
+
+                appendInvokeAsVararg(receiver, type, arrayType)
             }
             toVararg.append(
                 """
@@ -447,6 +485,21 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 |
                 """.trimMargin()
             ).appendLine()
+
+            appendInvokeAsVararg("Sequence", type, arrayType)
+            invokeAsVararg.append(
+                """
+                |/**
+                | * Invokes the function passing the first element of the given [$arrayType] as first argument and the rest as vararg.
+                | *
+                | * @since 3.1.0
+                | */
+                |fun <R> Function2<$type, $arrayType, R>.invokeAsVararg(arr: $arrayType): R =
+                |   arr.toVararg().let { (first, rest) -> this.invoke(first, rest) }
+                |
+                """.trimMargin()
+            ).appendLine()
+
         }
 
 
@@ -476,6 +529,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val toVarargFile = packageDir.resolve("toVararg.kt")
         toVarargFile.writeText(toVararg.toString())
+
+        val invokeAsVarargFile = packageDir.resolve("invokeAsVararg.kt")
+        invokeAsVarargFile.writeText(invokeAsVararg.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -521,6 +577,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         val toVarargTest = createStringBuilder(packageName)
             .appendTest("ToVarargTest")
 
+        val invokeAsVarargTest = createStringBuilder(packageName)
+            .appendTest("InvokeAsVarargTest")
+
         varargToListTest.append(
             """
                 |    @Test
@@ -560,6 +619,18 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 |            this.first.toEqual("a")
                 |            second.asList().toContainExactly("b")
                 |        }
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+
+            invokeAsVarargTest.append(
+                """
+                |    @Test
+                |    fun invokeAsVararg_$receiver() {
+                |        val arr = $factory("a", "b")
+                |        val list = ::expectString.invokeAsVararg(arr)
+                |
+                |        expect(list).toContainExactly("a", "b")
                 |    }
                 """.trimMargin()
             ).appendLine().appendLine()
@@ -616,6 +687,18 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 """.trimMargin()
             ).appendLine().appendLine()
 
+            invokeAsVarargTest.append(
+                """
+                |    @Test
+                |    fun invokeAsVararg_$arrayType() {
+                |        val arr = ${arrayType}Of($value1, $value2)
+                |        val list = ::expect$type.invokeAsVararg(arr)
+                |
+                |        expect(list).toContainExactly($value1, $value2)
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+
             listOf(
                 "Array" to "arrayOf",
                 "Iterable" to "listOf",
@@ -637,6 +720,18 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     |        }
                     |    }
                     """.trimMargin()
+                ).appendLine().appendLine()
+
+                invokeAsVarargTest.append(
+                    """
+                |    @Test
+                |    fun invokeAsVararg_${receiver}_of_${type}() {
+                |        val arr: $receiver<$type> = ${factory}($value1, $value2)
+                |        val list = ::expect$type.invokeAsVararg(arr)
+                |
+                |        expect(list).toContainExactly($value1, $value2)
+                |    }
+                """.trimMargin()
                 ).appendLine().appendLine()
             }
         }
@@ -941,6 +1036,10 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         toVarargTest.append("}")
         val toVarargTestFile = packageDir.resolve("ToVarargTest.kt")
         toVarargTestFile.writeText(toVarargTest.toString())
+
+        invokeAsVarargTest.append("}")
+        val invokeAsVarargTestFile = packageDir.resolve("InvokeAsVarargTest.kt")
+        invokeAsVarargTestFile.writeText(invokeAsVarargTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)
