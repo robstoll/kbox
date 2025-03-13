@@ -2,7 +2,7 @@
 // automatically generated, don't modify here but in:
 // gradle/code-generation/src/main/kotlin/code-generation.generate.gradle.kts
 // --------------------------------------------------------------------------------------------------------------------
-@file:Suppress("MethodOverloading", "FunctionName")
+@file:Suppress("MethodOverloading")
 package ch.tutteli.kbox
 
 /**

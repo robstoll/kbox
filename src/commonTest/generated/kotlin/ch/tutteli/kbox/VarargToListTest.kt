@@ -12,7 +12,7 @@ import kotlin.test.Test
 class VarargToListTest {
 
     @Test
-    fun varArgToList_array_of_strings() {
+    fun varargToList_array_of_strings() {
         val arr = arrayOf("a", "b")
         val list = varargToList("c", arr)
 
@@ -28,7 +28,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_booleanArray() {
+    fun varargToList_booleanArray() {
         val arr = booleanArrayOf(true)
         val list = varargToList(false, arr)
 
@@ -44,7 +44,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_byteArray() {
+    fun varargToList_byteArray() {
         val arr = byteArrayOf(2.toByte())
         val list = varargToList(1.toByte(), arr)
 
@@ -60,7 +60,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_charArray() {
+    fun varargToList_charArray() {
         val arr = charArrayOf('b', 'c', 'd')
         val list = varargToList('a', arr)
 
@@ -76,7 +76,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_shortArray() {
+    fun varargToList_shortArray() {
         val arr = shortArrayOf(2.toShort())
         val list = varargToList(1.toShort(), arr)
 
@@ -92,7 +92,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_intArray() {
+    fun varargToList_intArray() {
         val arr = intArrayOf(2, 3, 4, 5, 6, 7)
         val list = varargToList(1, arr)
 
@@ -108,7 +108,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_longArray() {
+    fun varargToList_longArray() {
         val arr = longArrayOf(2L)
         val list = varargToList(1L, arr)
 
@@ -124,7 +124,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_floatArray() {
+    fun varargToList_floatArray() {
         val arr = floatArrayOf(2.0f)
         val list = varargToList(1.0f, arr)
 
@@ -140,7 +140,7 @@ class VarargToListTest {
     }
 
     @Test
-    fun varArgToList_doubleArray() {
+    fun varargToList_doubleArray() {
         val arr = doubleArrayOf(2.0, 3.0)
         val list = varargToList(1.0, arr)
 

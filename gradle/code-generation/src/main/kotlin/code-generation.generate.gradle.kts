@@ -76,10 +76,17 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             .append("import kotlin.jvm.JvmName\n\n")
 
         val varargToList = StringBuilder(dontModifyNotice)
-            .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
+            .append("@file:Suppress(\"MethodOverloading\")\n")
             .append("package ").append(packageName).append("\n\n")
 
         val toVararg = createStringBuilder(packageName)
+            .append("import kotlin.jvm.JvmName\n\n")
+
+        val mapVararg = StringBuilder(dontModifyNotice)
+            .append("@file:Suppress(\"MethodOverloading\")\n")
+            .append("@file:OptIn(ExperimentalTypeInference::class)\n")
+            .append("package ").append(packageName).append("\n\n")
+            .append("import kotlin.experimental.ExperimentalTypeInference\n\n")
             .append("import kotlin.jvm.JvmName\n\n")
 
         (2..numOfArgs).forEach { upperNumber ->
@@ -357,6 +364,28 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             """.trimMargin()
         ).appendLine()
 
+        mapVararg.append(
+            """
+            |/**
+            | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper].
+            | *
+            | * This function is intended for API functions which expect `x: T, vararg otherX: T` and want to pass
+            | * the arguments to another function expecting `x: R, vararg otherX: R`.
+            | *
+            | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+            | *
+            | * @since 3.1.0
+            | */
+            |@OverloadResolutionByLambdaReturnType
+            |inline fun <T, reified R> mapVararg(
+            |    arg: T,
+            |    otherArgs: Array<out T>,
+            |    mapper: (T) -> R
+            |): Pair<R, Array<out R>> = mapper(arg) to otherArgs.map(mapper).toTypedArray()
+            |
+            """.trimMargin()
+        ).appendLine()
+
         listOf("Array", "Iterable", "Sequence").forEach { receiver ->
             toVararg.append(
                 """
@@ -447,6 +476,76 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 |
                 """.trimMargin()
             ).appendLine()
+
+            mapVararg.append(
+                """
+                |/**
+                | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper] to [$type].
+                | *
+                | * This function is intended for API functions which expect `x: T, vararg otherX: T` and
+                | * want to pass the arguments to another function expecting `x: $type, vararg otherX: $type`.
+                | *
+                | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+                | *
+                | * @since 3.1.0
+                | */${if (type != "Int") "\n@OverloadResolutionByLambdaReturnType" else ""}
+                |@JvmName("mapVarargTo$type")
+                |inline fun <T> mapVararg(
+                |    arg: T,
+                |    otherArgs: Array<out T>,
+                |    mapper: (T) -> $type
+                |): Pair<$type, $arrayType> = mapper(arg) to otherArgs.map(mapper).to$arrayType()
+                |
+                """.trimMargin()
+            ).appendLine()
+
+            mapVararg.append(
+                """
+                |/**
+                | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper].
+                | *
+                | * This function is intended for API functions which expect `x: $type, vararg otherX: $type` and
+                | * want to pass the arguments to another function expecting `x: R, vararg otherX: R`.
+                | *
+                | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+                | *
+                | * @since 3.1.0
+                | */
+                |@OverloadResolutionByLambdaReturnType
+                |@JvmName("map${type}Vararg")
+                |inline fun <reified R> mapVararg(
+                |    arg: $type,
+                |    otherArgs: $arrayType,
+                |    mapper: ($type) -> R
+                |): Pair<R, Array<out R>> = mapper(arg) to otherArgs.map(mapper).toTypedArray()
+                |
+                """.trimMargin()
+            ).appendLine()
+
+            primitiveTypes.forEach { (returnType, returnArrayType) ->
+                mapVararg.append(
+                    """
+                    |/**
+                    | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper] to [$returnType].
+                    | *
+                    | * This function is intended for API functions which expect `x: $type, vararg otherX: $type` and
+                    | * want to pass the arguments to another function expecting `x: $returnType, vararg otherX: $returnType`.
+                    | *
+                    | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+                    | *
+                    | * @since 3.1.0
+                    | */
+                    |@OverloadResolutionByLambdaReturnType
+                    |@JvmName("map${type}VarargTo$returnType")
+                    |inline fun mapVararg(
+                    |    arg: $type,
+                    |    otherArgs: $arrayType,
+                    |    mapper: ($type) -> $returnType
+                    |): Pair<$returnType, $returnArrayType> = mapper(arg) to otherArgs.map(mapper).to$returnArrayType()
+                    |
+                    """.trimMargin()
+                ).appendLine()
+            }
         }
 
 
@@ -476,6 +575,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val toVarargFile = packageDir.resolve("toVararg.kt")
         toVarargFile.writeText(toVararg.toString())
+
+        val mapVarargFile = packageDir.resolve("mapVararg.kt")
+        mapVarargFile.writeText(mapVararg.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -521,24 +623,43 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         val toVarargTest = createStringBuilder(packageName)
             .appendTest("ToVarargTest")
 
+        val mapVarargTest = createStringBuilder(packageName)
+            .appendTest("MapVarargTest")
+
+
         varargToListTest.append(
             """
-                |    @Test
-                |    fun varArgToList_array_of_strings() {
-                |        val arr = arrayOf("a", "b")
-                |        val list = varargToList("c", arr)
-                |
-                |        expect(list).toContainExactly("c", "a", "b")
-                |    }
-                |
-                |    @Test
-                |    fun glue_array_of_strings() {
-                |        val arr = arrayOf("a", "b")
-                |        val list = "c" glue arr
-                |
-                |        expect(list).toContainExactly("c", "a", "b")
-                |    }
-                """.trimMargin()
+            |    @Test
+            |    fun varargToList_array_of_strings() {
+            |        val arr = arrayOf("a", "b")
+            |        val list = varargToList("c", arr)
+            |
+            |        expect(list).toContainExactly("c", "a", "b")
+            |    }
+            |
+            |    @Test
+            |    fun glue_array_of_strings() {
+            |        val arr = arrayOf("a", "b")
+            |        val list = "c" glue arr
+            |
+            |        expect(list).toContainExactly("c", "a", "b")
+            |    }
+            """.trimMargin()
+        ).appendLine().appendLine()
+
+        mapVarargTest.append(
+            """
+            |    @Test
+            |    fun mapVararg_strings_to_strings() {
+            |        val arr = arrayOf("a", "b")
+            |        val pair = mapVararg("c", arr) { "_${'$'}it" }
+            |
+            |        expect(pair) {
+            |           first.toEqual("_c")
+            |           second.asList().toContainExactly("_a", "_b")
+            |        }
+            |    }
+            """.trimMargin()
         ).appendLine().appendLine()
 
         listOf(
@@ -565,35 +686,47 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             ).appendLine().appendLine()
         }
 
+        fun toValues(type: String) = when (type) {
+            "Boolean" -> "false" to arrayOf("true")
+            "Byte" -> "1.toByte()" to arrayOf("2.toByte()")
+            "Char" -> "'a'" to arrayOf("'b'", "'c'", "'d'")
+            "Short" -> "1.toShort()" to arrayOf("2.toShort()")
+            "Int" -> "1" to arrayOf("2", "3", "4", "5", "6", "7")
+            "Long" -> "1L" to arrayOf("2L")
+            "Float" -> "1.0f" to arrayOf("2.0f")
+            "Double" -> "1.0" to arrayOf("2.0", "3.0")
+            else -> throw IllegalStateException("not all primitiveTypes cases covered: $type")
+        }
+
+        fun toValuesOfSize(type: String, size: Int): String {
+            val (value1, rest) = toValues(type)
+            val values = rest + arrayOf(value1)
+            val valuesSize = values.size
+            return arrayOfNulls<String>(size).mapIndexed { index, _ -> values[index % valuesSize] }.joinToString(", ")
+        }
+
         primitiveTypes.forEach { (type, arrayTypeUpper) ->
             val arrayType = arrayTypeUpper.first().lowercase() + arrayTypeUpper.drop(1)
-            val (value1, value2) = when (type) {
-                "Boolean" -> "false" to "true"
-                "Byte" -> "1.toByte()" to "2.toByte()"
-                "Char" -> "'a'" to "'b', 'c', 'd'"
-                "Short" -> "1.toShort()" to "2.toShort()"
-                "Int" -> "1" to "2, 3, 4, 5, 6, 7"
-                "Long" -> "1L" to "2L"
-                "Float" -> "1.0f" to "2.0f"
-                "Double" -> "1.0" to "2.0, 3.0"
-                else -> throw IllegalStateException("not all primitiveTypes cases covered: $type")
-            }
+
+
+            val (value1, values) = toValues(type)
+            val valuesAsString = values.joinToString(", ")
             varargToListTest.append(
                 """
                 |    @Test
-                |    fun varArgToList_$arrayType() {
-                |        val arr = ${arrayType}Of($value2)
+                |    fun varargToList_$arrayType() {
+                |        val arr = ${arrayType}Of($valuesAsString)
                 |        val list = varargToList($value1, arr)
                 |
-                |        expect(list).toContainExactly($value1, $value2)
+                |        expect(list).toContainExactly($value1, $valuesAsString)
                 |    }
                 |
                 |    @Test
                 |    fun glue_$arrayType() {
-                |        val arr = ${arrayType}Of($value2)
+                |        val arr = ${arrayType}Of($valuesAsString)
                 |        val list = $value1 glue arr
                 |
-                |        expect(list).toContainExactly($value1, $value2)
+                |        expect(list).toContainExactly($value1, $valuesAsString)
                 |    }
                 """.trimMargin()
             ).appendLine().appendLine()
@@ -602,7 +735,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 """
                 |    @Test
                 |    fun toVararg_$arrayType() {
-                |        val arr = ${arrayType}Of($value1, $value2)
+                |        val arr = ${arrayType}Of($value1, $valuesAsString)
                 |        val pair = arr.toVararg()
                 |
                 |        val (first, rest) = pair
@@ -610,7 +743,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 |
                 |        expect(pair) {
                 |            this.first.toEqual($value1)
-                |            second.asList().toContainExactly($value2)
+                |            second.asList().toContainExactly($valuesAsString)
                 |        }
                 |    }
                 """.trimMargin()
@@ -625,7 +758,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     """
                     |    @Test
                     |    fun toVararg_${receiver}_of_${type}_returns_$arrayType() {
-                    |        val arr: $receiver<$type> = ${factory}($value1, $value2)
+                    |        val arr: $receiver<$type> = ${factory}($value1, $valuesAsString)
                     |        val pair = arr.toVararg()
                     |
                     |        val (first, rest) = pair
@@ -633,7 +766,53 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     |
                     |        expect(pair) {
                     |            this.first.toEqual($value1)
-                    |            second.asList().toContainExactly($value2)
+                    |            second.asList().toContainExactly($valuesAsString)
+                    |        }
+                    |    }
+                    """.trimMargin()
+                ).appendLine().appendLine()
+            }
+
+            mapVarargTest.append(
+                """
+                |    @Test
+                |    fun mapVararg_strings_to_$type() {
+                |        val targetTypeArr = arrayOf(${toValuesOfSize(type, 3)})
+                |        var i = 0
+                |        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+                |
+                |        expect(pair) {
+                |           first.toEqual(targetTypeArr[0])
+                |           second.asList().toContainExactlyElementsOf(targetTypeArr.drop(1))
+                |        }
+                |    }
+                |
+                |    @Test
+                |    fun mapVararg_strings_to_single_$type() {
+                |        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
+                |        val pair = mapVararg("c", arrayOf("a", "b")) { $value1 }
+                |
+                |        expect(pair) {
+                |           first.toEqual($value1)
+                |           second.asList().toContainExactly($value1, $value1)
+                |        }
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+
+            primitiveTypes.forEach { (toType, _) ->
+
+                mapVarargTest.append(
+                    """
+                    |    @Test
+                    |    fun mapVararg_${type}_to_$toType() {
+                    |        val targetTypeArr = arrayOf(${toValuesOfSize(type, values.size + 1)})
+                    |        var i = 0
+                    |        val pair = mapVararg($value1, arrayOf($valuesAsString)) { targetTypeArr[i++] }
+                    |
+                    |        expect(pair) {
+                    |           first.toEqual(targetTypeArr[0])
+                    |           second.asList().toContainExactlyElementsOf(targetTypeArr.drop(1))
                     |        }
                     |    }
                     """.trimMargin()
@@ -941,6 +1120,11 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         toVarargTest.append("}")
         val toVarargTestFile = packageDir.resolve("ToVarargTest.kt")
         toVarargTestFile.writeText(toVarargTest.toString())
+
+
+        mapVarargTest.append("}")
+        val mapVarargTestFile = packageDir.resolve("MapVarargTest.kt")
+        mapVarargTestFile.writeText(mapVarargTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)
