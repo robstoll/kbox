@@ -9,24 +9,23 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class MapVarargTest {
+class MapVarargIndexedTest {
 
     @Test
-    fun mapVararg_strings_to_strings() {
+    fun mapVarargIndexed_strings_to_strings() {
         val arr = arrayOf("a", "b")
-        val pair = mapVararg("c", arr) { "_$it" }
+        val pair = mapVarargIndexed("c", arr) { index, s -> "${index}_$s" }
 
         expect(pair) {
-           first.toEqual("_c")
-           second.asList().toContainExactly("_a", "_b")
+           first.toEqual("0_c")
+           second.asList().toContainExactly("1_a", "2_b")
         }
     }
 
     @Test
-    fun mapVararg_strings_to_Boolean() {
+    fun mapVarargIndexed_strings_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true)
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -35,20 +34,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Boolean() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { false }
-
-        expect(pair) {
-           first.toEqual(false)
-           second.asList().toContainExactly(false, false)
-        }
-    }
-
-    @Test
-    fun mapVararg_Boolean_to_string() {
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { "${i++}_" }
+    fun mapVarargIndexed_Boolean_to_string() {
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -57,9 +44,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_string() {
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { "${i++}_" }
+    fun mapBooleanVarargIndexed_Boolean_to_string() {
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -68,10 +54,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Boolean() {
+    fun mapVarargIndexed_Boolean_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -80,10 +65,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Boolean() {
+    fun mapBooleanVarargIndexed_Boolean_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -92,10 +76,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Byte() {
+    fun mapVarargIndexed_Boolean_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -104,10 +87,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Byte() {
+    fun mapBooleanVarargIndexed_Boolean_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -116,10 +98,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Char() {
+    fun mapVarargIndexed_Boolean_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -128,10 +109,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Char() {
+    fun mapBooleanVarargIndexed_Boolean_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -140,10 +120,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Short() {
+    fun mapVarargIndexed_Boolean_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -152,10 +131,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Short() {
+    fun mapBooleanVarargIndexed_Boolean_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -164,10 +142,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Int() {
+    fun mapVarargIndexed_Boolean_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -176,10 +153,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Int() {
+    fun mapBooleanVarargIndexed_Boolean_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -188,10 +164,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Long() {
+    fun mapVarargIndexed_Boolean_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -200,10 +175,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Long() {
+    fun mapBooleanVarargIndexed_Boolean_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -212,10 +186,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Float() {
+    fun mapVarargIndexed_Boolean_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -224,10 +197,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Float() {
+    fun mapBooleanVarargIndexed_Boolean_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -236,10 +208,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Boolean_to_Double() {
+    fun mapVarargIndexed_Boolean_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(false, arrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, arrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -248,10 +219,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapBooleanVararg_Boolean_to_Double() {
+    fun mapBooleanVarargIndexed_Boolean_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(false, booleanArrayOf(true)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(false, booleanArrayOf(true)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -260,10 +230,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Byte() {
+    fun mapVarargIndexed_strings_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte())
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -272,20 +241,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Byte() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 1.toByte() }
-
-        expect(pair) {
-           first.toEqual(1.toByte())
-           second.asList().toContainExactly(1.toByte(), 1.toByte())
-        }
-    }
-
-    @Test
-    fun mapVararg_Byte_to_string() {
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { "${i++}_" }
+    fun mapVarargIndexed_Byte_to_string() {
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -294,9 +251,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_string() {
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { "${i++}_" }
+    fun mapByteVarargIndexed_Byte_to_string() {
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -305,10 +261,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Boolean() {
+    fun mapVarargIndexed_Byte_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -317,10 +272,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Boolean() {
+    fun mapByteVarargIndexed_Byte_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -329,10 +283,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Byte() {
+    fun mapVarargIndexed_Byte_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -341,10 +294,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Byte() {
+    fun mapByteVarargIndexed_Byte_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -353,10 +305,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Char() {
+    fun mapVarargIndexed_Byte_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -365,10 +316,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Char() {
+    fun mapByteVarargIndexed_Byte_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -377,10 +327,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Short() {
+    fun mapVarargIndexed_Byte_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -389,10 +338,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Short() {
+    fun mapByteVarargIndexed_Byte_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -401,10 +349,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Int() {
+    fun mapVarargIndexed_Byte_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -413,10 +360,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Int() {
+    fun mapByteVarargIndexed_Byte_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -425,10 +371,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Long() {
+    fun mapVarargIndexed_Byte_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -437,10 +382,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Long() {
+    fun mapByteVarargIndexed_Byte_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -449,10 +393,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Float() {
+    fun mapVarargIndexed_Byte_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -461,10 +404,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Float() {
+    fun mapByteVarargIndexed_Byte_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -473,10 +415,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Byte_to_Double() {
+    fun mapVarargIndexed_Byte_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1.toByte(), arrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), arrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -485,10 +426,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapByteVararg_Byte_to_Double() {
+    fun mapByteVarargIndexed_Byte_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1.toByte(), byteArrayOf(2.toByte())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toByte(), byteArrayOf(2.toByte())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -497,10 +437,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Char() {
+    fun mapVarargIndexed_strings_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd')
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -509,20 +448,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Char() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 'a' }
-
-        expect(pair) {
-           first.toEqual('a')
-           second.asList().toContainExactly('a', 'a')
-        }
-    }
-
-    @Test
-    fun mapVararg_Char_to_string() {
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { "${i++}_" }
+    fun mapVarargIndexed_Char_to_string() {
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -531,9 +458,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_string() {
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { "${i++}_" }
+    fun mapCharVarargIndexed_Char_to_string() {
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -542,10 +468,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Boolean() {
+    fun mapVarargIndexed_Char_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true, false)
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -554,10 +479,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Boolean() {
+    fun mapCharVarargIndexed_Char_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true, false)
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -566,10 +490,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Byte() {
+    fun mapVarargIndexed_Char_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -578,10 +501,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Byte() {
+    fun mapCharVarargIndexed_Char_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -590,10 +512,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Char() {
+    fun mapVarargIndexed_Char_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd', 'a')
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -602,10 +523,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Char() {
+    fun mapCharVarargIndexed_Char_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd', 'a')
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -614,10 +534,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Short() {
+    fun mapVarargIndexed_Char_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -626,10 +545,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Short() {
+    fun mapCharVarargIndexed_Char_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -638,10 +556,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Int() {
+    fun mapVarargIndexed_Char_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4, 5)
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -650,10 +567,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Int() {
+    fun mapCharVarargIndexed_Char_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4, 5)
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -662,10 +578,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Long() {
+    fun mapVarargIndexed_Char_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L, 1L)
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -674,10 +589,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Long() {
+    fun mapCharVarargIndexed_Char_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L, 1L)
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -686,10 +600,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Float() {
+    fun mapVarargIndexed_Char_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -698,10 +611,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Float() {
+    fun mapCharVarargIndexed_Char_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -710,10 +622,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Char_to_Double() {
+    fun mapVarargIndexed_Char_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0, 2.0)
-        var i = 0
-        val pair = mapVararg('a', arrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', arrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -722,10 +633,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapCharVararg_Char_to_Double() {
+    fun mapCharVarargIndexed_Char_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0, 2.0)
-        var i = 0
-        val pair = mapVararg('a', charArrayOf('b', 'c', 'd')) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed('a', charArrayOf('b', 'c', 'd')) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -734,10 +644,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Short() {
+    fun mapVarargIndexed_strings_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort())
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -746,20 +655,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Short() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 1.toShort() }
-
-        expect(pair) {
-           first.toEqual(1.toShort())
-           second.asList().toContainExactly(1.toShort(), 1.toShort())
-        }
-    }
-
-    @Test
-    fun mapVararg_Short_to_string() {
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { "${i++}_" }
+    fun mapVarargIndexed_Short_to_string() {
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -768,9 +665,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_string() {
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { "${i++}_" }
+    fun mapShortVarargIndexed_Short_to_string() {
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -779,10 +675,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Boolean() {
+    fun mapVarargIndexed_Short_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -791,10 +686,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Boolean() {
+    fun mapShortVarargIndexed_Short_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -803,10 +697,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Byte() {
+    fun mapVarargIndexed_Short_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -815,10 +708,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Byte() {
+    fun mapShortVarargIndexed_Short_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -827,10 +719,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Char() {
+    fun mapVarargIndexed_Short_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -839,10 +730,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Char() {
+    fun mapShortVarargIndexed_Short_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -851,10 +741,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Short() {
+    fun mapVarargIndexed_Short_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -863,10 +752,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Short() {
+    fun mapShortVarargIndexed_Short_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -875,10 +763,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Int() {
+    fun mapVarargIndexed_Short_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -887,10 +774,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Int() {
+    fun mapShortVarargIndexed_Short_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -899,10 +785,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Long() {
+    fun mapVarargIndexed_Short_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -911,10 +796,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Long() {
+    fun mapShortVarargIndexed_Short_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -923,10 +807,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Float() {
+    fun mapVarargIndexed_Short_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -935,10 +818,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Float() {
+    fun mapShortVarargIndexed_Short_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -947,10 +829,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Short_to_Double() {
+    fun mapVarargIndexed_Short_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1.toShort(), arrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), arrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -959,10 +840,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapShortVararg_Short_to_Double() {
+    fun mapShortVarargIndexed_Short_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1.toShort(), shortArrayOf(2.toShort())) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.toShort(), shortArrayOf(2.toShort())) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -971,10 +851,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Int() {
+    fun mapVarargIndexed_strings_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4)
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -983,20 +862,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Int() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 1 }
-
-        expect(pair) {
-           first.toEqual(1)
-           second.asList().toContainExactly(1, 1)
-        }
-    }
-
-    @Test
-    fun mapVararg_Int_to_string() {
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { "${i++}_" }
+    fun mapVarargIndexed_Int_to_string() {
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1005,9 +872,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_string() {
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { "${i++}_" }
+    fun mapIntVarargIndexed_Int_to_string() {
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1016,10 +882,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Boolean() {
+    fun mapVarargIndexed_Int_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true, false, true, false, true)
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1028,10 +893,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Boolean() {
+    fun mapIntVarargIndexed_Int_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true, false, true, false, true)
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1040,10 +904,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Byte() {
+    fun mapVarargIndexed_Int_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte(), 1.toByte(), 2.toByte(), 1.toByte(), 2.toByte())
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1052,10 +915,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Byte() {
+    fun mapIntVarargIndexed_Int_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte(), 1.toByte(), 2.toByte(), 1.toByte(), 2.toByte())
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1064,10 +926,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Char() {
+    fun mapVarargIndexed_Int_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd', 'a', 'b', 'c', 'd')
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1076,10 +937,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Char() {
+    fun mapIntVarargIndexed_Int_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd', 'a', 'b', 'c', 'd')
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1088,10 +948,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Short() {
+    fun mapVarargIndexed_Int_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort(), 1.toShort(), 2.toShort(), 1.toShort(), 2.toShort())
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1100,10 +959,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Short() {
+    fun mapIntVarargIndexed_Int_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort(), 1.toShort(), 2.toShort(), 1.toShort(), 2.toShort())
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1112,10 +970,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Int() {
+    fun mapVarargIndexed_Int_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4, 5, 6, 7, 1)
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1124,10 +981,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Int() {
+    fun mapIntVarargIndexed_Int_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4, 5, 6, 7, 1)
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1136,10 +992,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Long() {
+    fun mapVarargIndexed_Int_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L, 1L, 2L, 1L, 2L)
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1148,10 +1003,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Long() {
+    fun mapIntVarargIndexed_Int_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L, 1L, 2L, 1L, 2L)
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1160,10 +1014,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Float() {
+    fun mapVarargIndexed_Int_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f, 1.0f, 2.0f, 1.0f, 2.0f)
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1172,10 +1025,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Float() {
+    fun mapIntVarargIndexed_Int_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f, 1.0f, 2.0f, 1.0f, 2.0f)
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1184,10 +1036,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Int_to_Double() {
+    fun mapVarargIndexed_Int_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0, 2.0, 3.0, 1.0, 2.0)
-        var i = 0
-        val pair = mapVararg(1, arrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, arrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1196,10 +1047,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapIntVararg_Int_to_Double() {
+    fun mapIntVarargIndexed_Int_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0, 2.0, 3.0, 1.0, 2.0)
-        var i = 0
-        val pair = mapVararg(1, intArrayOf(2, 3, 4, 5, 6, 7)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1, intArrayOf(2, 3, 4, 5, 6, 7)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1208,10 +1058,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Long() {
+    fun mapVarargIndexed_strings_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L)
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1220,20 +1069,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Long() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 1L }
-
-        expect(pair) {
-           first.toEqual(1L)
-           second.asList().toContainExactly(1L, 1L)
-        }
-    }
-
-    @Test
-    fun mapVararg_Long_to_string() {
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { "${i++}_" }
+    fun mapVarargIndexed_Long_to_string() {
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1242,9 +1079,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_string() {
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { "${i++}_" }
+    fun mapLongVarargIndexed_Long_to_string() {
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1253,10 +1089,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Boolean() {
+    fun mapVarargIndexed_Long_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1265,10 +1100,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Boolean() {
+    fun mapLongVarargIndexed_Long_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1277,10 +1111,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Byte() {
+    fun mapVarargIndexed_Long_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1289,10 +1122,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Byte() {
+    fun mapLongVarargIndexed_Long_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1301,10 +1133,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Char() {
+    fun mapVarargIndexed_Long_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1313,10 +1144,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Char() {
+    fun mapLongVarargIndexed_Long_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1325,10 +1155,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Short() {
+    fun mapVarargIndexed_Long_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1337,10 +1166,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Short() {
+    fun mapLongVarargIndexed_Long_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1349,10 +1177,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Int() {
+    fun mapVarargIndexed_Long_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1361,10 +1188,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Int() {
+    fun mapLongVarargIndexed_Long_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1373,10 +1199,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Long() {
+    fun mapVarargIndexed_Long_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1385,10 +1210,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Long() {
+    fun mapLongVarargIndexed_Long_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1397,10 +1221,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Float() {
+    fun mapVarargIndexed_Long_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1409,10 +1232,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Float() {
+    fun mapLongVarargIndexed_Long_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1421,10 +1243,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Long_to_Double() {
+    fun mapVarargIndexed_Long_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1L, arrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, arrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1433,10 +1254,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapLongVararg_Long_to_Double() {
+    fun mapLongVarargIndexed_Long_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1L, longArrayOf(2L)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1L, longArrayOf(2L)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1445,10 +1265,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Float() {
+    fun mapVarargIndexed_strings_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f)
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1457,20 +1276,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Float() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 1.0f }
-
-        expect(pair) {
-           first.toEqual(1.0f)
-           second.asList().toContainExactly(1.0f, 1.0f)
-        }
-    }
-
-    @Test
-    fun mapVararg_Float_to_string() {
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { "${i++}_" }
+    fun mapVarargIndexed_Float_to_string() {
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1479,9 +1286,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_string() {
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { "${i++}_" }
+    fun mapFloatVarargIndexed_Float_to_string() {
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1490,10 +1296,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Boolean() {
+    fun mapVarargIndexed_Float_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1502,10 +1307,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Boolean() {
+    fun mapFloatVarargIndexed_Float_to_Boolean() {
         val targetTypeArr = arrayOf(true, false)
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1514,10 +1318,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Byte() {
+    fun mapVarargIndexed_Float_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1526,10 +1329,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Byte() {
+    fun mapFloatVarargIndexed_Float_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte())
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1538,10 +1340,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Char() {
+    fun mapVarargIndexed_Float_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1550,10 +1351,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Char() {
+    fun mapFloatVarargIndexed_Float_to_Char() {
         val targetTypeArr = arrayOf('b', 'c')
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1562,10 +1362,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Short() {
+    fun mapVarargIndexed_Float_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1574,10 +1373,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Short() {
+    fun mapFloatVarargIndexed_Float_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort())
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1586,10 +1384,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Int() {
+    fun mapVarargIndexed_Float_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1598,10 +1395,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Int() {
+    fun mapFloatVarargIndexed_Float_to_Int() {
         val targetTypeArr = arrayOf(2, 3)
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1610,10 +1406,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Long() {
+    fun mapVarargIndexed_Float_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1622,10 +1417,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Long() {
+    fun mapFloatVarargIndexed_Float_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L)
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1634,10 +1428,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Float() {
+    fun mapVarargIndexed_Float_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1646,10 +1439,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Float() {
+    fun mapFloatVarargIndexed_Float_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f)
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1658,10 +1450,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Float_to_Double() {
+    fun mapVarargIndexed_Float_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1.0f, arrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, arrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1670,10 +1461,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapFloatVararg_Float_to_Double() {
+    fun mapFloatVarargIndexed_Float_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0)
-        var i = 0
-        val pair = mapVararg(1.0f, floatArrayOf(2.0f)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0f, floatArrayOf(2.0f)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1682,10 +1472,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_Double() {
+    fun mapVarargIndexed_strings_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0)
-        var i = 0
-        val pair = mapVararg("c", arrayOf("a", "b")) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1694,20 +1483,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_strings_to_single_Double() {
-        // we use this test mainly to be sure we don't hit https://youtrack.jetbrains.com/issue/KT-75935
-        val pair = mapVararg("c", arrayOf("a", "b")) { 1.0 }
-
-        expect(pair) {
-           first.toEqual(1.0)
-           second.asList().toContainExactly(1.0, 1.0)
-        }
-    }
-
-    @Test
-    fun mapVararg_Double_to_string() {
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { "${i++}_" }
+    fun mapVarargIndexed_Double_to_string() {
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1716,9 +1493,8 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_string() {
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { "${i++}_" }
+    fun mapDoubleVarargIndexed_Double_to_string() {
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> "${index}_" }
 
         expect(pair) {
            first.toEqual("0_")
@@ -1727,10 +1503,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Boolean() {
+    fun mapVarargIndexed_Double_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true)
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1739,10 +1514,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Boolean() {
+    fun mapDoubleVarargIndexed_Double_to_Boolean() {
         val targetTypeArr = arrayOf(true, false, true)
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1751,10 +1525,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Byte() {
+    fun mapVarargIndexed_Double_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte())
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1763,10 +1536,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Byte() {
+    fun mapDoubleVarargIndexed_Double_to_Byte() {
         val targetTypeArr = arrayOf(2.toByte(), 1.toByte(), 2.toByte())
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1775,10 +1547,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Char() {
+    fun mapVarargIndexed_Double_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd')
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1787,10 +1558,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Char() {
+    fun mapDoubleVarargIndexed_Double_to_Char() {
         val targetTypeArr = arrayOf('b', 'c', 'd')
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1799,10 +1569,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Short() {
+    fun mapVarargIndexed_Double_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort())
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1811,10 +1580,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Short() {
+    fun mapDoubleVarargIndexed_Double_to_Short() {
         val targetTypeArr = arrayOf(2.toShort(), 1.toShort(), 2.toShort())
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1823,10 +1591,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Int() {
+    fun mapVarargIndexed_Double_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4)
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1835,10 +1602,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Int() {
+    fun mapDoubleVarargIndexed_Double_to_Int() {
         val targetTypeArr = arrayOf(2, 3, 4)
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1847,10 +1613,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Long() {
+    fun mapVarargIndexed_Double_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L)
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1859,10 +1624,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Long() {
+    fun mapDoubleVarargIndexed_Double_to_Long() {
         val targetTypeArr = arrayOf(2L, 1L, 2L)
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1871,10 +1635,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Float() {
+    fun mapVarargIndexed_Double_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f)
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1883,10 +1646,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Float() {
+    fun mapDoubleVarargIndexed_Double_to_Float() {
         val targetTypeArr = arrayOf(2.0f, 1.0f, 2.0f)
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1895,10 +1657,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapVararg_Double_to_Double() {
+    fun mapVarargIndexed_Double_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0)
-        var i = 0
-        val pair = mapVararg(1.0, arrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, arrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])
@@ -1907,10 +1668,9 @@ class MapVarargTest {
     }
 
     @Test
-    fun mapDoubleVararg_Double_to_Double() {
+    fun mapDoubleVarargIndexed_Double_to_Double() {
         val targetTypeArr = arrayOf(2.0, 3.0, 1.0)
-        var i = 0
-        val pair = mapVararg(1.0, doubleArrayOf(2.0, 3.0)) { targetTypeArr[i++] }
+        val pair = mapVarargIndexed(1.0, doubleArrayOf(2.0, 3.0)) { index, _ -> targetTypeArr[index] }
 
         expect(pair) {
            first.toEqual(targetTypeArr[0])

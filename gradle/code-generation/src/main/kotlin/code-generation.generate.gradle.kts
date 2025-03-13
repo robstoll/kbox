@@ -89,6 +89,13 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             .append("import kotlin.experimental.ExperimentalTypeInference\n\n")
             .append("import kotlin.jvm.JvmName\n\n")
 
+        val mapVarargIndexed = StringBuilder(dontModifyNotice)
+            .append("@file:Suppress(\"MethodOverloading\")\n")
+            .append("@file:OptIn(ExperimentalTypeInference::class)\n")
+            .append("package ").append(packageName).append("\n\n")
+            .append("import kotlin.experimental.ExperimentalTypeInference\n\n")
+            .append("import kotlin.jvm.JvmName\n\n")
+
         (2..numOfArgs).forEach { upperNumber ->
             val numbers = (1..upperNumber).toList()
             val typeArgs = numbers.joinToString(", ") { "A$it" }
@@ -386,6 +393,29 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             """.trimMargin()
         ).appendLine()
 
+        mapVarargIndexed.append(
+            """
+            |/**
+            | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper].
+            | *
+            | * This function is intended for API functions which expect `x: T, vararg otherX: T` and want to pass
+            | * the arguments to another function expecting `x: R, vararg otherX: R`.
+            | *
+            | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+            | *
+            | * @since 3.1.0
+            | */
+            |@OverloadResolutionByLambdaReturnType
+            |inline fun <T, reified R> mapVarargIndexed(
+            |    arg: T,
+            |    otherArgs: Array<out T>,
+            |    mapper: (Int, T) -> R
+            |): Pair<R, Array<out R>> =
+            |   mapper(0, arg) to otherArgs.mapIndexed { index, e -> mapper(index + 1, e) }.toTypedArray()
+            |
+            """.trimMargin()
+        ).appendLine()
+
         listOf("Array", "Iterable", "Sequence").forEach { receiver ->
             toVararg.append(
                 """
@@ -499,6 +529,29 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 """.trimMargin()
             ).appendLine()
 
+            mapVarargIndexed.append(
+                """
+                |/**
+                | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper] to [$type].
+                | *
+                | * This function is intended for API functions which expect `x: T, vararg otherX: T` and
+                | * want to pass the arguments to another function expecting `x: $type, vararg otherX: $type`.
+                | *
+                | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+                | *
+                | * @since 3.1.0
+                | */${if (type != "Int") "\n@OverloadResolutionByLambdaReturnType" else ""}
+                |@JvmName("mapVarargIndexedTo$type")
+                |inline fun <T> mapVarargIndexed(
+                |    arg: T,
+                |    otherArgs: Array<out T>,
+                |    mapper: (Int, T) -> $type
+                |): Pair<$type, $arrayType> =
+                |   mapper(0, arg) to otherArgs.mapIndexed { index, e -> mapper(index + 1, e) }.to$arrayType()
+                |
+                """.trimMargin()
+            ).appendLine()
+
             mapVararg.append(
                 """
                 |/**
@@ -518,6 +571,30 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 |    otherArgs: $arrayType,
                 |    mapper: ($type) -> R
                 |): Pair<R, Array<out R>> = mapper(arg) to otherArgs.map(mapper).toTypedArray()
+                |
+                """.trimMargin()
+            ).appendLine()
+
+            mapVarargIndexed.append(
+                """
+                |/**
+                | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper].
+                | *
+                | * This function is intended for API functions which expect `x: $type, vararg otherX: $type` and
+                | * want to pass the arguments to another function expecting `x: R, vararg otherX: R`.
+                | *
+                | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+                | *
+                | * @since 3.1.0
+                | */
+                |@OverloadResolutionByLambdaReturnType
+                |@JvmName("map${type}VarargIndexed")
+                |inline fun <reified R> mapVarargIndexed(
+                |    arg: $type,
+                |    otherArgs: $arrayType,
+                |    mapper: (Int, $type) -> R
+                |): Pair<R, Array<out R>> =
+                |   mapper(0, arg) to otherArgs.mapIndexed { index, e -> mapper(index + 1, e) }.toTypedArray()
                 |
                 """.trimMargin()
             ).appendLine()
@@ -542,6 +619,30 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     |    otherArgs: $arrayType,
                     |    mapper: ($type) -> $returnType
                     |): Pair<$returnType, $returnArrayType> = mapper(arg) to otherArgs.map(mapper).to$returnArrayType()
+                    |
+                    """.trimMargin()
+                ).appendLine()
+
+                mapVarargIndexed.append(
+                    """
+                    |/**
+                    | * Maps the given [arg] and all elements in [otherArgs] by the given [mapper] to [$returnType].
+                    | *
+                    | * This function is intended for API functions which expect `x: $type, vararg otherX: $type` and
+                    | * want to pass the arguments to another function expecting `x: $returnType, vararg otherX: $returnType`.
+                    | *
+                    | * @return a [Pair] containing the mapped [arg] as first and the mapped [otherArgs] as second element.
+                    | *
+                    | * @since 3.1.0
+                    | */
+                    |@OverloadResolutionByLambdaReturnType
+                    |@JvmName("map${type}VarargIndexedTo$returnType")
+                    |inline fun mapVarargIndexed(
+                    |    arg: $type,
+                    |    otherArgs: $arrayType,
+                    |    mapper: (Int, $type) -> $returnType
+                    |): Pair<$returnType, $returnArrayType> =
+                    |   mapper(0, arg) to otherArgs.mapIndexed { index, e -> mapper(index + 1, e) }.to$returnArrayType()
                     |
                     """.trimMargin()
                 ).appendLine()
@@ -578,6 +679,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val mapVarargFile = packageDir.resolve("mapVararg.kt")
         mapVarargFile.writeText(mapVararg.toString())
+
+        val mapVarargIndexedFile = packageDir.resolve("mapVarargIndexed.kt")
+        mapVarargIndexedFile.writeText(mapVarargIndexed.toString())
     }
 }
 generationFolder.builtBy(generate)
@@ -626,6 +730,8 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         val mapVarargTest = createStringBuilder(packageName)
             .appendTest("MapVarargTest")
 
+        val mapVarargIndexedTest = createStringBuilder(packageName)
+            .appendTest("MapVarargIndexedTest")
 
         varargToListTest.append(
             """
@@ -657,6 +763,21 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             |        expect(pair) {
             |           first.toEqual("_c")
             |           second.asList().toContainExactly("_a", "_b")
+            |        }
+            |    }
+            """.trimMargin()
+        ).appendLine().appendLine()
+
+        mapVarargIndexedTest.append(
+            """
+            |    @Test
+            |    fun mapVarargIndexed_strings_to_strings() {
+            |        val arr = arrayOf("a", "b")
+            |        val pair = mapVarargIndexed("c", arr) { index, s -> "${'$'}{index}_${'$'}s" }
+            |
+            |        expect(pair) {
+            |           first.toEqual("0_c")
+            |           second.asList().toContainExactly("1_a", "2_b")
             |        }
             |    }
             """.trimMargin()
@@ -711,6 +832,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
             val (value1, values) = toValues(type)
             val valuesAsString = values.joinToString(", ")
+            val valuesAsIndex = values.mapIndexed { index, _ -> "\"${index + 1}_\"" }.joinToString(", ")
             varargToListTest.append(
                 """
                 |    @Test
@@ -797,6 +919,63 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 |           second.asList().toContainExactly($value1, $value1)
                 |        }
                 |    }
+                |
+                |    @Test
+                |    fun mapVararg_${type}_to_string() {
+                |        var i = 0
+                |        val pair = mapVararg($value1, arrayOf($valuesAsString)) { "${'$'}{i++}_" }
+                |
+                |        expect(pair) {
+                |           first.toEqual("0_")
+                |           second.asList().toContainExactly($valuesAsIndex)
+                |        }
+                |    }
+                |
+                |    @Test
+                |    fun map${type}Vararg_${type}_to_string() {
+                |        var i = 0
+                |        val pair = mapVararg($value1, ${arrayType}Of($valuesAsString)) { "${'$'}{i++}_" }
+                |
+                |        expect(pair) {
+                |           first.toEqual("0_")
+                |           second.asList().toContainExactly($valuesAsIndex)
+                |        }
+                |    }
+                """.trimMargin()
+            ).appendLine().appendLine()
+
+            mapVarargIndexedTest.append(
+                """
+                |    @Test
+                |    fun mapVarargIndexed_strings_to_$type() {
+                |        val targetTypeArr = arrayOf(${toValuesOfSize(type, 3)})
+                |        val pair = mapVarargIndexed("c", arrayOf("a", "b")) { index, _ -> targetTypeArr[index] }
+                |
+                |        expect(pair) {
+                |           first.toEqual(targetTypeArr[0])
+                |           second.asList().toContainExactlyElementsOf(targetTypeArr.drop(1))
+                |        }
+                |    }
+                |
+                |    @Test
+                |    fun mapVarargIndexed_${type}_to_string() {
+                |        val pair = mapVarargIndexed($value1, arrayOf($valuesAsString)) { index, _ -> "${'$'}{index}_" }
+                |
+                |        expect(pair) {
+                |           first.toEqual("0_")
+                |           second.asList().toContainExactly($valuesAsIndex)
+                |        }
+                |    }
+                |
+                |    @Test
+                |    fun map${type}VarargIndexed_${type}_to_string() {
+                |        val pair = mapVarargIndexed($value1, ${arrayType}Of($valuesAsString)) { index, _ -> "${'$'}{index}_" }
+                |
+                |        expect(pair) {
+                |           first.toEqual("0_")
+                |           second.asList().toContainExactly($valuesAsIndex)
+                |        }
+                |    }
                 """.trimMargin()
             ).appendLine().appendLine()
 
@@ -806,9 +985,47 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     """
                     |    @Test
                     |    fun mapVararg_${type}_to_$toType() {
-                    |        val targetTypeArr = arrayOf(${toValuesOfSize(type, values.size + 1)})
+                    |        val targetTypeArr = arrayOf(${toValuesOfSize(toType, values.size + 1)})
                     |        var i = 0
                     |        val pair = mapVararg($value1, arrayOf($valuesAsString)) { targetTypeArr[i++] }
+                    |
+                    |        expect(pair) {
+                    |           first.toEqual(targetTypeArr[0])
+                    |           second.asList().toContainExactlyElementsOf(targetTypeArr.drop(1))
+                    |        }
+                    |    }
+                    |
+                    |    @Test
+                    |    fun map${type}Vararg_${type}_to_$toType() {
+                    |        val targetTypeArr = arrayOf(${toValuesOfSize(toType, values.size + 1)})
+                    |        var i = 0
+                    |        val pair = mapVararg($value1, ${arrayType}Of($valuesAsString)) { targetTypeArr[i++] }
+                    |
+                    |        expect(pair) {
+                    |           first.toEqual(targetTypeArr[0])
+                    |           second.asList().toContainExactlyElementsOf(targetTypeArr.drop(1))
+                    |        }
+                    |    }
+                    """.trimMargin()
+                ).appendLine().appendLine()
+
+                mapVarargIndexedTest.append(
+                    """
+                    |    @Test
+                    |    fun mapVarargIndexed_${type}_to_$toType() {
+                    |        val targetTypeArr = arrayOf(${toValuesOfSize(toType, values.size + 1)})
+                    |        val pair = mapVarargIndexed($value1, arrayOf($valuesAsString)) { index, _ -> targetTypeArr[index] }
+                    |
+                    |        expect(pair) {
+                    |           first.toEqual(targetTypeArr[0])
+                    |           second.asList().toContainExactlyElementsOf(targetTypeArr.drop(1))
+                    |        }
+                    |    }
+                    |
+                    |    @Test
+                    |    fun map${type}VarargIndexed_${type}_to_$toType() {
+                    |        val targetTypeArr = arrayOf(${toValuesOfSize(toType, values.size + 1)})
+                    |        val pair = mapVarargIndexed($value1, ${arrayType}Of($valuesAsString)) { index, _ -> targetTypeArr[index] }
                     |
                     |        expect(pair) {
                     |           first.toEqual(targetTypeArr[0])
@@ -1125,6 +1342,11 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
         mapVarargTest.append("}")
         val mapVarargTestFile = packageDir.resolve("MapVarargTest.kt")
         mapVarargTestFile.writeText(mapVarargTest.toString())
+
+
+        mapVarargIndexedTest.append("}")
+        val mapVarargIndexedTestFile = packageDir.resolve("MapVarargIndexedTest.kt")
+        mapVarargIndexedTestFile.writeText(mapVarargIndexedTest.toString())
     }
 }
 generationTestFolder.builtBy(generateTest)
