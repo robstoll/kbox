@@ -23,6 +23,7 @@ in the stdlib such as:
 - [Tuple4(Like) - Tuple9(Like)](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox)  
   (including functions mapComponentX, append, glue)
 - [Triple/Pair.mapFirst/Second/Third](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/tupleMap.kt#L12)
+- [toVararg](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/toVararg.kt), [mapVararg](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/mapVararg.kt), [varargToList (glue)]((https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/varargToList.kt))
 
 and more, see the [Documentation](https://robstoll.github.io/kbox/kdoc/) for a full list.
 
