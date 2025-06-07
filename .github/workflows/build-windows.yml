@@ -8,14 +8,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        java_version: [ 11, 17 ]
+        java_version: [ 11, 17, 21 ]
 
     steps:
       - uses: actions/checkout@v4
       - name: "Set up JDK ${{ matrix.java_version }}"
         uses: actions/setup-java@v4
         with:
-          distribution: 'adopt'
+          distribution: 'dragonwell'
           java-version: ${{ matrix.java_version }}
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3.5.0
