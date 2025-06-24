@@ -4,7 +4,7 @@ jacocoTool = "0.8.9"
 kotlin = "2.0.21"
 task-tree = "4.0.1"
 tutteli = "5.0.3"
-vlsi = "1.90"
+vlsi = "2.0.0"
 
 [libraries]
 dokka-plugin = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
