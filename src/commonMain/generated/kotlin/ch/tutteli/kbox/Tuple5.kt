@@ -13,11 +13,11 @@ package ch.tutteli.kbox
  * @param A4 The type of the 4th component of this Tuple5.
  * @param A5 The type of the 5th component of this Tuple5.
  *
- * @param a1 the 1st component of this Tuple5.
- * @param a2 the 2nd component of this Tuple5.
- * @param a3 the 3rd component of this Tuple5.
- * @param a4 the 4th component of this Tuple5.
- * @param a5 the 5th component of this Tuple5.
+ * @property a1 the 1st component of this Tuple5.
+ * @property a2 the 2nd component of this Tuple5.
+ * @property a3 the 3rd component of this Tuple5.
+ * @property a4 the 4th component of this Tuple5.
+ * @property a5 the 5th component of this Tuple5.
  *
  * @since 2.0.0
  */

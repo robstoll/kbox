@@ -14,12 +14,12 @@ package ch.tutteli.kbox
  * @param A5 The type of the 5th component of this Tuple6.
  * @param A6 The type of the 6th component of this Tuple6.
  *
- * @param a1 the 1st component of this Tuple6.
- * @param a2 the 2nd component of this Tuple6.
- * @param a3 the 3rd component of this Tuple6.
- * @param a4 the 4th component of this Tuple6.
- * @param a5 the 5th component of this Tuple6.
- * @param a6 the 6th component of this Tuple6.
+ * @property a1 the 1st component of this Tuple6.
+ * @property a2 the 2nd component of this Tuple6.
+ * @property a3 the 3rd component of this Tuple6.
+ * @property a4 the 4th component of this Tuple6.
+ * @property a5 the 5th component of this Tuple6.
+ * @property a6 the 6th component of this Tuple6.
  *
  * @since 2.0.0
  */

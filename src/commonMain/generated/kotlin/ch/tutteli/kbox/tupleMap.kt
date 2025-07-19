@@ -5,6 +5,16 @@
 package ch.tutteli.kbox
 
 /**
+* Maps [Pair.a1] with the given [transform] function and returns a new [Pair].
+*
+* @since 2.0.0
+*/
+fun <A1, A2, A1New> Pair<A1, A2>.mapA1(
+    transform: (A1) -> A1New
+): Pair<A1New, A2> =
+    Pair(transform(a1), a2)
+
+/**
 * Maps [Pair.first] with the given [transform] function and returns a new [Pair].
 *
 * @since 2.0.0
@@ -12,7 +22,17 @@ package ch.tutteli.kbox
 fun <A1, A2, A1New> Pair<A1, A2>.mapFirst(
     transform: (A1) -> A1New
 ): Pair<A1New, A2> =
-    Pair(transform(first), second)
+    Pair(transform(a1), a2)
+
+/**
+* Maps [Pair.a2] with the given [transform] function and returns a new [Pair].
+*
+* @since 2.0.0
+*/
+fun <A1, A2, A2New> Pair<A1, A2>.mapA2(
+    transform: (A2) -> A2New
+): Pair<A1, A2New> =
+    Pair(a1, transform(a2))
 
 /**
 * Maps [Pair.second] with the given [transform] function and returns a new [Pair].
@@ -22,7 +42,17 @@ fun <A1, A2, A1New> Pair<A1, A2>.mapFirst(
 fun <A1, A2, A2New> Pair<A1, A2>.mapSecond(
     transform: (A2) -> A2New
 ): Pair<A1, A2New> =
-    Pair(first, transform(second))
+    Pair(a1, transform(a2))
+
+/**
+* Maps [Triple.a1] with the given [transform] function and returns a new [Triple].
+*
+* @since 2.0.0
+*/
+fun <A1, A2, A3, A1New> Triple<A1, A2, A3>.mapA1(
+    transform: (A1) -> A1New
+): Triple<A1New, A2, A3> =
+    Triple(transform(a1), a2, a3)
 
 /**
 * Maps [Triple.first] with the given [transform] function and returns a new [Triple].
@@ -32,7 +62,17 @@ fun <A1, A2, A2New> Pair<A1, A2>.mapSecond(
 fun <A1, A2, A3, A1New> Triple<A1, A2, A3>.mapFirst(
     transform: (A1) -> A1New
 ): Triple<A1New, A2, A3> =
-    Triple(transform(first), second, third)
+    Triple(transform(a1), a2, a3)
+
+/**
+* Maps [Triple.a2] with the given [transform] function and returns a new [Triple].
+*
+* @since 2.0.0
+*/
+fun <A1, A2, A3, A2New> Triple<A1, A2, A3>.mapA2(
+    transform: (A2) -> A2New
+): Triple<A1, A2New, A3> =
+    Triple(a1, transform(a2), a3)
 
 /**
 * Maps [Triple.second] with the given [transform] function and returns a new [Triple].
@@ -42,7 +82,17 @@ fun <A1, A2, A3, A1New> Triple<A1, A2, A3>.mapFirst(
 fun <A1, A2, A3, A2New> Triple<A1, A2, A3>.mapSecond(
     transform: (A2) -> A2New
 ): Triple<A1, A2New, A3> =
-    Triple(first, transform(second), third)
+    Triple(a1, transform(a2), a3)
+
+/**
+* Maps [Triple.a3] with the given [transform] function and returns a new [Triple].
+*
+* @since 2.0.0
+*/
+fun <A1, A2, A3, A3New> Triple<A1, A2, A3>.mapA3(
+    transform: (A3) -> A3New
+): Triple<A1, A2, A3New> =
+    Triple(a1, a2, transform(a3))
 
 /**
 * Maps [Triple.third] with the given [transform] function and returns a new [Triple].
@@ -52,7 +102,7 @@ fun <A1, A2, A3, A2New> Triple<A1, A2, A3>.mapSecond(
 fun <A1, A2, A3, A3New> Triple<A1, A2, A3>.mapThird(
     transform: (A3) -> A3New
 ): Triple<A1, A2, A3New> =
-    Triple(first, second, transform(third))
+    Triple(a1, a2, transform(a3))
 
 /**
 * Maps [Tuple4.a1] with the given [transform] function and returns a new [Tuple4].
