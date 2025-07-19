@@ -21,7 +21,7 @@ in the stdlib such as:
 - [isNotNullAndNotEmpty/Blank](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt)
 - [identity](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/identity.kt)
 - [Tuple4(Like) - Tuple9(Like)](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox)  
-  (including functions mapComponentX, append, glue)
+  (including functions mapA1 - mapA9, append, glue)
 - [Triple/Pair.mapFirst/Second/Third](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/tupleMap.kt#L12)
 - [toVararg](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/toVararg.kt), [mapVararg](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/mapVararg.kt), [varargToList (glue)](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox/varargToList.kt)
 
