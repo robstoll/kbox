@@ -16,14 +16,14 @@ package ch.tutteli.kbox
  * @param A7 The type of the 7th component of this Tuple8.
  * @param A8 The type of the 8th component of this Tuple8.
  *
- * @param a1 the 1st component of this Tuple8.
- * @param a2 the 2nd component of this Tuple8.
- * @param a3 the 3rd component of this Tuple8.
- * @param a4 the 4th component of this Tuple8.
- * @param a5 the 5th component of this Tuple8.
- * @param a6 the 6th component of this Tuple8.
- * @param a7 the 7th component of this Tuple8.
- * @param a8 the 8th component of this Tuple8.
+ * @property a1 the 1st component of this Tuple8.
+ * @property a2 the 2nd component of this Tuple8.
+ * @property a3 the 3rd component of this Tuple8.
+ * @property a4 the 4th component of this Tuple8.
+ * @property a5 the 5th component of this Tuple8.
+ * @property a6 the 6th component of this Tuple8.
+ * @property a7 the 7th component of this Tuple8.
+ * @property a8 the 8th component of this Tuple8.
  *
  * @since 2.0.0
  */

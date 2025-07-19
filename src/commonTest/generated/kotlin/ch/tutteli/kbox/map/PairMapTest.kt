@@ -12,6 +12,34 @@ import kotlin.test.Test
 class PairMapTest {
 
     @Test
+    fun mapA1__identity__returns_equal_Pair() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+
+        expect(
+            Pair(a1, a2)
+                .mapA1(::identity)
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+        }
+    }
+
+    @Test
+    fun mapA1__transformation_does_not_touch_other_properties() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+
+        expect(
+            Pair(a1, a2)
+                .mapA1 { it.first() }
+        ) {
+            toEqual(Pair("string", a2))
+            feature { f(it::a2) }.toBeTheInstance(a2)
+        }
+    }
+
+    @Test
     fun mapFirst__identity__returns_equal_Pair() {
         val a1 = listOf("string")
         val a2 = listOf(1)
@@ -20,8 +48,8 @@ class PairMapTest {
             Pair(a1, a2)
                 .mapFirst(::identity)
         ) {
-            feature { f(it::first) }.toBeTheInstance(a1)
-            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
         }
     }
 
@@ -35,7 +63,35 @@ class PairMapTest {
                 .mapFirst { it.first() }
         ) {
             toEqual(Pair("string", a2))
-            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+        }
+    }
+
+    @Test
+    fun mapA2__identity__returns_equal_Pair() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+
+        expect(
+            Pair(a1, a2)
+                .mapA2(::identity)
+        ) {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+        }
+    }
+
+    @Test
+    fun mapA2__transformation_does_not_touch_other_properties() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+
+        expect(
+            Pair(a1, a2)
+                .mapA2 { it.first() }
+        ) {
+            toEqual(Pair(a1, 1))
+            feature { f(it::a1) }.toBeTheInstance(a1)
         }
     }
 
@@ -48,8 +104,8 @@ class PairMapTest {
             Pair(a1, a2)
                 .mapSecond(::identity)
         ) {
-            feature { f(it::first) }.toBeTheInstance(a1)
-            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
         }
     }
 
@@ -63,7 +119,7 @@ class PairMapTest {
                 .mapSecond { it.first() }
         ) {
             toEqual(Pair(a1, 1))
-            feature { f(it::first) }.toBeTheInstance(a1)
+            feature { f(it::a1) }.toBeTheInstance(a1)
         }
     }
 

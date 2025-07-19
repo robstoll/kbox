@@ -10,7 +10,7 @@ package ch.tutteli.kbox
 * @since 3.0.0
 */
 fun <T> Pair<T, T>.toSequence(): Sequence<T> =
-    sequenceOf(first, second)
+    sequenceOf(a1, a2)
 
 /**
 * Converts this [Triple] into a [Sequence].
@@ -18,7 +18,7 @@ fun <T> Pair<T, T>.toSequence(): Sequence<T> =
 * @since 3.0.0
 */
 fun <T> Triple<T, T, T>.toSequence(): Sequence<T> =
-    sequenceOf(first, second, third)
+    sequenceOf(a1, a2, a3)
 
 /**
 * Converts this [Tuple4] into a [Sequence].

@@ -17,8 +17,8 @@ class TupleFactoryTest {
         val a2 = listOf(1)
         expect(Tuple(a1, a2))
             .toBeAnInstanceOf<Pair<List<String>, List<Int>>> {
-                feature { f(it::first) }.toBeTheInstance(a1)
-                feature { f(it::second) }.toBeTheInstance(a2)
+                feature { f(it::a1) }.toBeTheInstance(a1)
+                feature { f(it::a2) }.toBeTheInstance(a2)
           }
     }
 
@@ -29,9 +29,9 @@ class TupleFactoryTest {
         val a3 = listOf(2L)
         expect(Tuple(a1, a2, a3))
             .toBeAnInstanceOf<Triple<List<String>, List<Int>, List<Long>>> {
-                feature { f(it::first) }.toBeTheInstance(a1)
-                feature { f(it::second) }.toBeTheInstance(a2)
-                feature { f(it::third) }.toBeTheInstance(a3)
+                feature { f(it::a1) }.toBeTheInstance(a1)
+                feature { f(it::a2) }.toBeTheInstance(a2)
+                feature { f(it::a3) }.toBeTheInstance(a3)
           }
     }
 

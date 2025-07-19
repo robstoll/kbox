@@ -15,13 +15,13 @@ package ch.tutteli.kbox
  * @param A6 The type of the 6th component of this Tuple7.
  * @param A7 The type of the 7th component of this Tuple7.
  *
- * @param a1 the 1st component of this Tuple7.
- * @param a2 the 2nd component of this Tuple7.
- * @param a3 the 3rd component of this Tuple7.
- * @param a4 the 4th component of this Tuple7.
- * @param a5 the 5th component of this Tuple7.
- * @param a6 the 6th component of this Tuple7.
- * @param a7 the 7th component of this Tuple7.
+ * @property a1 the 1st component of this Tuple7.
+ * @property a2 the 2nd component of this Tuple7.
+ * @property a3 the 3rd component of this Tuple7.
+ * @property a4 the 4th component of this Tuple7.
+ * @property a5 the 5th component of this Tuple7.
+ * @property a6 the 6th component of this Tuple7.
+ * @property a7 the 7th component of this Tuple7.
  *
  * @since 2.0.0
  */

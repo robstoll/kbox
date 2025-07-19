@@ -17,15 +17,15 @@ package ch.tutteli.kbox
  * @param A8 The type of the 8th component of this Tuple9.
  * @param A9 The type of the 9th component of this Tuple9.
  *
- * @param a1 the 1st component of this Tuple9.
- * @param a2 the 2nd component of this Tuple9.
- * @param a3 the 3rd component of this Tuple9.
- * @param a4 the 4th component of this Tuple9.
- * @param a5 the 5th component of this Tuple9.
- * @param a6 the 6th component of this Tuple9.
- * @param a7 the 7th component of this Tuple9.
- * @param a8 the 8th component of this Tuple9.
- * @param a9 the 9th component of this Tuple9.
+ * @property a1 the 1st component of this Tuple9.
+ * @property a2 the 2nd component of this Tuple9.
+ * @property a3 the 3rd component of this Tuple9.
+ * @property a4 the 4th component of this Tuple9.
+ * @property a5 the 5th component of this Tuple9.
+ * @property a6 the 6th component of this Tuple9.
+ * @property a7 the 7th component of this Tuple9.
+ * @property a8 the 8th component of this Tuple9.
+ * @property a9 the 9th component of this Tuple9.
  *
  * @since 2.0.0
  */

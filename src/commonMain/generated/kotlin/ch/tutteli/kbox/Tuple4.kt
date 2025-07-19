@@ -12,10 +12,10 @@ package ch.tutteli.kbox
  * @param A3 The type of the 3rd component of this Tuple4.
  * @param A4 The type of the 4th component of this Tuple4.
  *
- * @param a1 the 1st component of this Tuple4.
- * @param a2 the 2nd component of this Tuple4.
- * @param a3 the 3rd component of this Tuple4.
- * @param a4 the 4th component of this Tuple4.
+ * @property a1 the 1st component of this Tuple4.
+ * @property a2 the 2nd component of this Tuple4.
+ * @property a3 the 3rd component of this Tuple4.
+ * @property a4 the 4th component of this Tuple4.
  *
  * @since 2.0.0
  */

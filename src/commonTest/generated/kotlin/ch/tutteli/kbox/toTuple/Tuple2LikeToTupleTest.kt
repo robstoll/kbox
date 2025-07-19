@@ -18,8 +18,8 @@ class Tuple2LikeToTupleTest {
         val dataClass = Dummy2(a1, a2)
 
         expect(dataClass.toTuple()).toBeAnInstanceOf<Pair<List<String>, List<Int>>> {
-            feature { f(it::first) }.toBeTheInstance(a1)
-            feature { f(it::second) }.toBeTheInstance(a2)
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
         }
     }
 

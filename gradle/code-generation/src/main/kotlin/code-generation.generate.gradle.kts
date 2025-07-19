@@ -28,12 +28,13 @@ fun getTupleName(numOfValues: Int) = when (numOfValues) {
     else -> "Tuple$numOfValues"
 }
 
-fun getArgName(numOfValues: Int, index: Int) = when (index) {
-    1 -> if (numOfValues <= 3) "first" else "a$index"
-    2 -> if (numOfValues <= 3) "second" else "a$index"
-    3 -> if (numOfValues <= 3) "third" else "a$index"
-    else -> "a$index"
+fun getArgName(argNum: Int) = when (argNum) {
+    1 -> "first"
+    2 -> "second"
+    3 -> "third"
+    else -> error("should only be used for Pair and Triple")
 }
+
 
 fun withOrdinalIndicator(index: Int) = index.toString() + when (index) {
     1 -> "st"
@@ -106,7 +107,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             val tupleName = getTupleName(upperNumber)
             val tupleLike = createStringBuilder(packageName)
             val tuple = createStringBuilder(packageName)
-            val properties = numbers.joinToString(", ") { getArgName(upperNumber, it) }
+            val properties = numbers.joinToString(", ") { "a$it" }
 
             tupleLike.append(
                 """
@@ -154,7 +155,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     | *
                     | * ${numbers.joinToString("\n * ") { "@param A$it The type of the ${withOrdinalIndicator(it)} component of this $tupleName." }}
                     | *
-                    | * ${numbers.joinToString("\n * ") { "@param a$it the ${withOrdinalIndicator(it)} component of this $tupleName." }}
+                    | * ${numbers.joinToString("\n * ") { "@property a$it the ${withOrdinalIndicator(it)} component of this $tupleName." }}
                     | *
                     | * @since 2.0.0
                     | */
@@ -294,7 +295,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
                 if (upperNumber2 > 1) {
                     val properties2 = numbers2.joinToString(", ") {
-                        "$tupleNameParamLowercase.${getArgName(upperNumber2, it)}"
+                        "$tupleNameParamLowercase.a$it"
                     }
 
                     tupleGlue.append(
@@ -319,29 +320,36 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             numbers.forEach { argNum ->
                 val modifiedTypeArgs = numbers.joinToString(", ") { "A$it" + if (it == argNum) "New" else "" }
                 val args = numbers.joinToString(", ") { arg ->
-                    getArgName(upperNumber, arg).let {
+                    "a$arg".let {
                         if (arg == argNum) "transform($it)" else it
                     }
                 }
 
-                val argNameToMap = getArgName(upperNumber, argNum)
-                val argNameCapitalized = argNameToMap.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                fun appendMap(argNameToMap: String, argNameCapitalized: String) =
+                    tupleMap.append(
+                        """
+                        |/**
+                        |* Maps [$tupleName.$argNameToMap] with the given [transform] function and returns a new [$tupleName].
+                        |*
+                        |* @since 2.0.0
+                        |*/
+                        |fun <$typeArgs, A${argNum}New> $tupleName<$typeArgs>.map$argNameCapitalized(
+                        |    transform: (A$argNum) -> A${argNum}New
+                        |): $tupleName<$modifiedTypeArgs> =
+                        |    $tupleName($args)
+                        |
+                        """.trimMargin()
+                    ).appendLine()
+
+                appendMap("a$argNum", "A$argNum")
+
+                if (upperNumber <= 3) {
+                    val argNameToMap = getArgName(argNum)
+                    val argNameCapitalized = argNameToMap.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                    }
+                    appendMap(argNameToMap, argNameCapitalized)
                 }
-                tupleMap.append(
-                    """
-                    |/**
-                    |* Maps [$tupleName.$argNameToMap] with the given [transform] function and returns a new [$tupleName].
-                    |*
-                    |* @since 2.0.0
-                    |*/
-                    |fun <$typeArgs, A${argNum}New> $tupleName<$typeArgs>.map$argNameCapitalized(
-                    |    transform: (A$argNum) -> A${argNum}New
-                    |): $tupleName<$modifiedTypeArgs> =
-                    |    $tupleName($args)
-                    |
-                    """.trimMargin()
-                ).appendLine()
             }
         }
 
@@ -1052,7 +1060,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val valsAsArgs = numbers.joinToString(", ") { "a$it" }
             val tupleCreation = """$tupleName($valsAsArgs)"""
             fun sameFeatureCheck(num: Int, indent: String) = (1..num).joinToString("\n$indent") {
-                "feature { f(it::${getArgName(num, it)}) }.toBeTheInstance(a${it})"
+                "feature { f(it::a$it) }.toBeTheInstance(a${it})"
             }
 
             val tupleMapTest = createStringBuilder("$packageName.map")
@@ -1090,11 +1098,6 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             ).appendLine().appendLine()
 
             numbers.forEach { argNum ->
-                val argNameToMap = getArgName(upperNumber, argNum)
-                val argNameCapitalized = argNameToMap.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                }
-                listOf(1, 2, 3).withIndex()
 
                 val tupleListResult = "$tupleName(${
                     argValuesNotMapped.take(upperNumber).withIndex().joinToString(", ") { (index, value) ->
@@ -1102,8 +1105,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     }
                 })"
 
-                tupleMapTest.append(
-                    """
+                fun appendMapTest(argNameCapitalized: String) =
+                    tupleMapTest.append(
+                        """
                     |    @Test
                     |    fun map${argNameCapitalized}__identity__returns_equal_$tupleName() {
                     |        $vals
@@ -1126,14 +1130,29 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     |        ) {
                     |            toEqual($tupleListResult)
                     |            ${
-                        numbers.filter { it != argNum }.joinToString("\n            ") {
-                            "feature { f(it::${getArgName(upperNumber, it)}) }.toBeTheInstance(a${it})"
+                            numbers.filter { it != argNum }.joinToString("\n            ") {
+                                "feature { f(it::a$it) }.toBeTheInstance(a${it})"
+                            }
                         }
-                    }
                     |        }
                     |    }
                      """.trimMargin()
-                ).appendLine().appendLine()
+                    ).appendLine().appendLine()
+
+                appendMapTest("A$argNum")
+
+                if(upperNumber <= 3){
+                    val argNameToMap = getArgName(argNum)
+                    val argNameCapitalized = argNameToMap.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                    }
+                    appendMapTest(argNameCapitalized)
+                }
+
+
+
+
+
             }
 
             toTupleTest.append(

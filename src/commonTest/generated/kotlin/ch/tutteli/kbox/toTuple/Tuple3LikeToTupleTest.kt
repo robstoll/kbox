@@ -19,9 +19,9 @@ class Tuple3LikeToTupleTest {
         val dataClass = Dummy3(a1, a2, a3)
 
         expect(dataClass.toTuple()).toBeAnInstanceOf<Triple<List<String>, List<Int>, List<Long>>> {
-            feature { f(it::first) }.toBeTheInstance(a1)
-            feature { f(it::second) }.toBeTheInstance(a2)
-            feature { f(it::third) }.toBeTheInstance(a3)
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
         }
     }
 

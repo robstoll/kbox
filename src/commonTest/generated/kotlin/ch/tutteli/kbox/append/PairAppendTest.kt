@@ -21,9 +21,9 @@ class PairAppendTest {
             Pair(a1, a2)
                 .append(a3)
         ).toBeAnInstanceOf<Triple<List<String>, List<Int>, List<Long>>> {
-            feature { f(it::first) }.toBeTheInstance(a1)
-            feature { f(it::second) }.toBeTheInstance(a2)
-            feature { f(it::third) }.toBeTheInstance(a3)
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
         }
     }
 
