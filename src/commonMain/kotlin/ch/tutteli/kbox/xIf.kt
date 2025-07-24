@@ -16,6 +16,7 @@ import kotlin.contracts.contract
 inline fun <T : U, R : U, U> T.letIf(predicate: Boolean, block: (T) -> R): U {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+        //TODO add `predicate holds in block` once we use Kotlin 2.2.20
     }
     return if (predicate) let(block) else this
 }
