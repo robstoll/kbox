@@ -103,13 +103,22 @@ Release & deploy a commit
     e) git tag vX.Y.Z
     f) git push origin vX.Y.Z
 4. deploy to maven-central:
-    a) echo "enter the sonatype user token"
-	   read SONATYPE_PW
-       java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
-    b) Log into https://oss.sonatype.org/#stagingRepositories
-    c) check if staging repo is ok
-    d) close repo
-    e) release repo
+
+    a) export KBOX_VERSION=v3.2.0 &&
+       export DIR_IN_M2="~/.m2/repository/ch/tutteli/kbox" &&
+       java -version 2>&1 | grep "version \"11" && rm -r "$DIR_IN_M2" &&
+       PUB=true CI=true gr clean pubToMaLo &&
+       find "$DIR_IN_M2" -name maven-metadata-local.xml -exec rm -f {} \; &&
+       find "$DIR_IN_M2" -type f -not -name "*.md5" -not -name "*.sha1" -not -name "*.asc" -print0 | while read -r -d $'\0' file; do
+         base=$(basename "$file");
+         md5sum "$file" | awk '{ print $1 }' > "${file}.md5"
+         sha1sum "$file" | awk '{ print $1 }' > "$file.sha1"
+       done && zip -r "~/Downloads/kbox-$KBOX_VERSION.zip" "$DIR_IN_M2"
+    b) goto https://central.sonatype.com/publishing
+    c) click on Publish component button
+    d) upload zip which was put into ~/Download/kbox-vX.Y.Z.zip
+    e) wait for validation to end and check that it contains all components
+    f) click on publish
 5. create release on github
 
 Prepare next dev cycle
