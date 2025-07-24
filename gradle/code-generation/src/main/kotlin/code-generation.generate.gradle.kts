@@ -67,6 +67,8 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 
         val tupleMap = createStringBuilder(packageName)
 
+        val tupleDrop = createStringBuilder(packageName)
+
         val tupleFactory = StringBuilder(dontModifyNotice)
             .append("@file:Suppress(\"MethodOverloading\", \"FunctionName\")\n")
             .append("package ").append(packageName).append("\n\n")
@@ -342,13 +344,47 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     ).appendLine()
 
                 appendMap("a$argNum", "A$argNum")
-
                 if (upperNumber <= 3) {
-                    val argNameToMap = getArgName(argNum)
-                    val argNameCapitalized = argNameToMap.replaceFirstChar {
+                    val argName = getArgName(argNum)
+                    val argNameCapitalized = argName.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                     }
-                    appendMap(argNameToMap, argNameCapitalized)
+                    appendMap(argName, argNameCapitalized)
+                }
+
+                if (upperNumber >= 3) {
+                    val numberWithoutDrop = numbers.toMutableList()
+                    numberWithoutDrop.remove(argNum)
+                    val typeArgsWithoutDrop = numberWithoutDrop.joinToString(", ") { "A${it}" }
+                    val upperNumberOneLower = upperNumber - 1
+                    val tupleNameOneLower = getTupleName(upperNumberOneLower)
+
+                    fun appendDrop(argNameToDrop: String, argNameCapitalized: String) =
+                        tupleDrop.append(
+                            """
+		                |/**
+						| * Creates a new [$tupleNameOneLower] by copying `this` [$tupleName] but dropping its ${
+                                withOrdinalIndicator(argNum)
+                            } component ([$tupleName.$argNameToDrop]).
+						| *
+						| * @return The newly created [$tupleNameOneLower].
+						| *
+						| * @since 3.2.0
+						| */
+						|fun <$typeArgs> $tupleName<$typeArgs>.drop$argNameCapitalized(): $tupleNameOneLower<$typeArgsWithoutDrop> =
+						|	Tuple(${numberWithoutDrop.joinToString(", ") { "a$it" }})
+						|
+						""".trimMargin()
+                        ).appendLine()
+
+                    appendDrop("a$argNum", "A$argNum")
+                    if (upperNumber <= 3) {
+                        val argName = getArgName(argNum)
+                        val argNameCapitalized = argName.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                        }
+                        appendDrop(argName, argNameCapitalized)
+                    }
                 }
             }
         }
@@ -667,6 +703,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleMapFile = packageDir.resolve("tupleMap.kt")
         tupleMapFile.writeText(tupleMap.toString())
 
+        val tupleDropFile = packageDir.resolve("tupleDrop.kt")
+        tupleDropFile.writeText(tupleDrop.toString())
+
         val tupleFactoryFile = packageDir.resolve("tupleFactory.kt")
         tupleFactoryFile.writeText(tupleFactory.toString())
 
@@ -831,7 +870,8 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val (value1, rest) = toValues(type)
             val values = rest + arrayOf(value1)
             val valuesSize = values.size
-            return arrayOfNulls<String>(size).mapIndexed { index, _ -> values[index % valuesSize] }.joinToString(", ")
+            return arrayOfNulls<String>(size).mapIndexed { index, _ -> values[index % valuesSize] }
+                .joinToString(", ")
         }
 
         primitiveTypes.forEach { (type, arrayTypeUpper) ->
@@ -1066,6 +1106,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val tupleMapTest = createStringBuilder("$packageName.map")
                 .appendTest("${tupleName}MapTest")
 
+            val tupleDropTest = createStringBuilder("$packageName.drop")
+                .appendTest("${tupleName}DropTest")
+
             val toTupleTest = createStringBuilder("$packageName.toTuple")
                 .appendTest("Tuple${upperNumber}LikeToTupleTest")
 
@@ -1141,7 +1184,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
                 appendMapTest("A$argNum")
 
-                if(upperNumber <= 3){
+                if (upperNumber <= 3) {
                     val argNameToMap = getArgName(argNum)
                     val argNameCapitalized = argNameToMap.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
@@ -1149,10 +1192,37 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     appendMapTest(argNameCapitalized)
                 }
 
+                if (upperNumber >= 3) {
 
+                    fun appendDropTest(argNameCapitalized: String) {
+                        tupleDropTest.append(
+                            """
+                            |    @Test
+                            |    fun drop${argNameCapitalized}() {
+                            |        $vals
+                            |        val tuple = $tupleCreation
+                            |
+                            |        expect(tuple.drop${argNameCapitalized}()) {
+                            |            ${
+                                (1..upperNumber - 1).joinToString("\n            ") {
+                                    "feature { f(it::a${it}) }.toBeTheInstance(a${if (it < argNum) it else it + 1})"
+                                }
+                            }
+                            |        }
+                            |    }
 
+		    				""".trimMargin()
+                        ).appendLine()
+                    }
 
-
+                    if (upperNumber <= 3) {
+                        val argNameToDrop = getArgName(argNum)
+                        val argNameCapitalized = argNameToDrop.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                        }
+                        appendDropTest(argNameCapitalized)
+                    }
+                }
             }
 
             toTupleTest.append(
@@ -1299,6 +1369,12 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             tupleMapTest.append("}")
             val mapTestFile = packageDir.resolve("map/${tupleName}MapTest.kt")
             mapTestFile.writeText(tupleMapTest.toString())
+
+            tupleDropTest.append("}")
+            if (upperNumber >= 3) {
+                val dropTestFile = packageDir.resolve("drop/${tupleName}DropTest.kt")
+                dropTestFile.writeText(tupleDropTest.toString())
+            }
 
             toTupleTest
                 .append(
