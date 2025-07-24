@@ -18,6 +18,7 @@ import kotlin.contracts.contract
 inline fun <R> takeIf(predicate: Boolean, provider: () -> R): R? {
     contract {
         callsInPlace(provider, InvocationKind.AT_MOST_ONCE)
+        //TODO add `predicate holds in block` once we use Kotlin 2.2.20
     }
     return if (predicate) provider() else null
 }

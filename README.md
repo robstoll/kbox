@@ -13,10 +13,13 @@
 -->
 
 # KBox
+
 KBox is a very small but useful utility library for Kotlin (JVM, Android and JS) providing functions which are missing
 in the stdlib such as:
+
 - [failIf](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/failIf.kt)
-- [takeIf](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/takeIf.kt)
+- [prefix takeIf/takeUnless](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/takeIf.kt)
+- [letIf/runIf/alsoIf/applyIf](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/xyzIf.kt)
 - [blankToNull](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/blankToNull.kt)
 - [isNotNullAndNotEmpty/Blank](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt)
 - [identity](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/identity.kt)
@@ -42,6 +45,6 @@ dependencies {
 
 Visit [https://robstoll.github.io/kbox/kdoc](https://robstoll.github.io/kbox/kdoc/).
 
-
 # License
+
 KBox is licensed under [Apache 2.0](http://opensource.org/licenses/Apache2.0).
