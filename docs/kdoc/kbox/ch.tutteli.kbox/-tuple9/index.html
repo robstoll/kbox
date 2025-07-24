@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Tuple9</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            kbox
+                    </a>
+            </div>
+            <div class="library-version">
+3.2.0            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kbox::ch.tutteli.kbox/Tuple9///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../index.html">kbox</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.kbox</a><span class="delimiter">/</span><span class="current">Tuple9</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Tuple9</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="index.html">A1</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A2</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A3</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A4</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A5</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A6</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A7</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A8</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="index.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>a1<span class="token operator">: </span><a href="index.html">A1</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a2<span class="token operator">: </span><a href="index.html">A2</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a3<span class="token operator">: </span><a href="index.html">A3</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a4<span class="token operator">: </span><a href="index.html">A4</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a5<span class="token operator">: </span><a href="index.html">A5</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a6<span class="token operator">: </span><a href="index.html">A6</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a7<span class="token operator">: </span><a href="index.html">A7</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a8<span class="token operator">: </span><a href="index.html">A8</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>a9<span class="token operator">: </span><a href="index.html">A9</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Represents a simple data structure to hold 9 values.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.0.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A1</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 1st component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A2</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 2nd component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A3</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 3rd component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A4</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 4th component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A5</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 5th component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A6</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 6th component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A7</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 7th component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A8</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 8th component of this Tuple9.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>A9</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the 9th component of this Tuple9.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-562298609%2FConstructors%2F788909594" anchor-label="Tuple9" id="-562298609%2FConstructors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tuple9.html"><span><span>Tuple9</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-562298609%2FConstructors%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">a1<span class="token operator">: </span><a href="index.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="index.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="index.html">A3</a><span class="token punctuation">, </span></span><span class="parameter ">a4<span class="token operator">: </span><a href="index.html">A4</a><span class="token punctuation">, </span></span><span class="parameter ">a5<span class="token operator">: </span><a href="index.html">A5</a><span class="token punctuation">, </span></span><span class="parameter ">a6<span class="token operator">: </span><a href="index.html">A6</a><span class="token punctuation">, </span></span><span class="parameter ">a7<span class="token operator">: </span><a href="index.html">A7</a><span class="token punctuation">, </span></span><span class="parameter ">a8<span class="token operator">: </span><a href="index.html">A8</a><span class="token punctuation">, </span></span><span class="parameter ">a9<span class="token operator">: </span><a href="index.html">A9</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="896993544%2FProperties%2F788909594" anchor-label="a1" id="896993544%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a1.html"><span><span>a1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="896993544%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a1.html">a1</a><span class="token operator">: </span><a href="index.html">A1</a></div><div class="brief "><p class="paragraph">the 1st component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="928013351%2FProperties%2F788909594" anchor-label="a2" id="928013351%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a2.html"><span><span>a2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="928013351%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a2.html">a2</a><span class="token operator">: </span><a href="index.html">A2</a></div><div class="brief "><p class="paragraph">the 2nd component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="959033158%2FProperties%2F788909594" anchor-label="a3" id="959033158%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a3.html"><span><span>a3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="959033158%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a3.html">a3</a><span class="token operator">: </span><a href="index.html">A3</a></div><div class="brief "><p class="paragraph">the 3rd component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="990052965%2FProperties%2F788909594" anchor-label="a4" id="990052965%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a4.html"><span><span>a4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="990052965%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a4.html">a4</a><span class="token operator">: </span><a href="index.html">A4</a></div><div class="brief "><p class="paragraph">the 4th component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1021072772%2FProperties%2F788909594" anchor-label="a5" id="1021072772%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a5.html"><span><span>a5</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1021072772%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a5.html">a5</a><span class="token operator">: </span><a href="index.html">A5</a></div><div class="brief "><p class="paragraph">the 5th component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1052092579%2FProperties%2F788909594" anchor-label="a6" id="1052092579%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a6.html"><span><span>a6</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1052092579%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a6.html">a6</a><span class="token operator">: </span><a href="index.html">A6</a></div><div class="brief "><p class="paragraph">the 6th component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1083112386%2FProperties%2F788909594" anchor-label="a7" id="1083112386%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a7.html"><span><span>a7</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1083112386%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a7.html">a7</a><span class="token operator">: </span><a href="index.html">A7</a></div><div class="brief "><p class="paragraph">the 7th component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1114132193%2FProperties%2F788909594" anchor-label="a8" id="1114132193%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a8.html"><span><span>a8</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1114132193%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a8.html">a8</a><span class="token operator">: </span><a href="index.html">A8</a></div><div class="brief "><p class="paragraph">the 8th component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1145152000%2FProperties%2F788909594" anchor-label="a9" id="1145152000%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="a9.html"><span><span>a9</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1145152000%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="a9.html">a9</a><span class="token operator">: </span><a href="index.html">A9</a></div><div class="brief "><p class="paragraph">the 9th component of this Tuple9.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="929334239%2FFunctions%2F788909594" anchor-label="dropA1" id="929334239%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a1.html"><span>drop</span><wbr></wbr><span><span>A1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="929334239%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a1.html">A1</a><span class="token punctuation">, </span><a href="../drop-a1.html">A2</a><span class="token punctuation">, </span><a href="../drop-a1.html">A3</a><span class="token punctuation">, </span><a href="../drop-a1.html">A4</a><span class="token punctuation">, </span><a href="../drop-a1.html">A5</a><span class="token punctuation">, </span><a href="../drop-a1.html">A6</a><span class="token punctuation">, </span><a href="../drop-a1.html">A7</a><span class="token punctuation">, </span><a href="../drop-a1.html">A8</a><span class="token punctuation">, </span><a href="../drop-a1.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a1.html">A1</a><span class="token punctuation">, </span><a href="../drop-a1.html">A2</a><span class="token punctuation">, </span><a href="../drop-a1.html">A3</a><span class="token punctuation">, </span><a href="../drop-a1.html">A4</a><span class="token punctuation">, </span><a href="../drop-a1.html">A5</a><span class="token punctuation">, </span><a href="../drop-a1.html">A6</a><span class="token punctuation">, </span><a href="../drop-a1.html">A7</a><span class="token punctuation">, </span><a href="../drop-a1.html">A8</a><span class="token punctuation">, </span><a href="../drop-a1.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a1.html"><span class="token function">dropA1</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a1.html">A2</a><span class="token punctuation">, </span><a href="../drop-a1.html">A3</a><span class="token punctuation">, </span><a href="../drop-a1.html">A4</a><span class="token punctuation">, </span><a href="../drop-a1.html">A5</a><span class="token punctuation">, </span><a href="../drop-a1.html">A6</a><span class="token punctuation">, </span><a href="../drop-a1.html">A7</a><span class="token punctuation">, </span><a href="../drop-a1.html">A8</a><span class="token punctuation">, </span><a href="../drop-a1.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 1st component (<a href="a1.html">Tuple9.a1</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="698071520%2FFunctions%2F788909594" anchor-label="dropA2" id="698071520%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a2.html"><span>drop</span><wbr></wbr><span><span>A2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="698071520%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a2.html">A1</a><span class="token punctuation">, </span><a href="../drop-a2.html">A2</a><span class="token punctuation">, </span><a href="../drop-a2.html">A3</a><span class="token punctuation">, </span><a href="../drop-a2.html">A4</a><span class="token punctuation">, </span><a href="../drop-a2.html">A5</a><span class="token punctuation">, </span><a href="../drop-a2.html">A6</a><span class="token punctuation">, </span><a href="../drop-a2.html">A7</a><span class="token punctuation">, </span><a href="../drop-a2.html">A8</a><span class="token punctuation">, </span><a href="../drop-a2.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a2.html">A1</a><span class="token punctuation">, </span><a href="../drop-a2.html">A2</a><span class="token punctuation">, </span><a href="../drop-a2.html">A3</a><span class="token punctuation">, </span><a href="../drop-a2.html">A4</a><span class="token punctuation">, </span><a href="../drop-a2.html">A5</a><span class="token punctuation">, </span><a href="../drop-a2.html">A6</a><span class="token punctuation">, </span><a href="../drop-a2.html">A7</a><span class="token punctuation">, </span><a href="../drop-a2.html">A8</a><span class="token punctuation">, </span><a href="../drop-a2.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a2.html"><span class="token function">dropA2</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a2.html">A1</a><span class="token punctuation">, </span><a href="../drop-a2.html">A3</a><span class="token punctuation">, </span><a href="../drop-a2.html">A4</a><span class="token punctuation">, </span><a href="../drop-a2.html">A5</a><span class="token punctuation">, </span><a href="../drop-a2.html">A6</a><span class="token punctuation">, </span><a href="../drop-a2.html">A7</a><span class="token punctuation">, </span><a href="../drop-a2.html">A8</a><span class="token punctuation">, </span><a href="../drop-a2.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 2nd component (<a href="a2.html">Tuple9.a2</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="466808801%2FFunctions%2F788909594" anchor-label="dropA3" id="466808801%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a3.html"><span>drop</span><wbr></wbr><span><span>A3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="466808801%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a3.html">A1</a><span class="token punctuation">, </span><a href="../drop-a3.html">A2</a><span class="token punctuation">, </span><a href="../drop-a3.html">A3</a><span class="token punctuation">, </span><a href="../drop-a3.html">A4</a><span class="token punctuation">, </span><a href="../drop-a3.html">A5</a><span class="token punctuation">, </span><a href="../drop-a3.html">A6</a><span class="token punctuation">, </span><a href="../drop-a3.html">A7</a><span class="token punctuation">, </span><a href="../drop-a3.html">A8</a><span class="token punctuation">, </span><a href="../drop-a3.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a3.html">A1</a><span class="token punctuation">, </span><a href="../drop-a3.html">A2</a><span class="token punctuation">, </span><a href="../drop-a3.html">A3</a><span class="token punctuation">, </span><a href="../drop-a3.html">A4</a><span class="token punctuation">, </span><a href="../drop-a3.html">A5</a><span class="token punctuation">, </span><a href="../drop-a3.html">A6</a><span class="token punctuation">, </span><a href="../drop-a3.html">A7</a><span class="token punctuation">, </span><a href="../drop-a3.html">A8</a><span class="token punctuation">, </span><a href="../drop-a3.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a3.html"><span class="token function">dropA3</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a3.html">A1</a><span class="token punctuation">, </span><a href="../drop-a3.html">A2</a><span class="token punctuation">, </span><a href="../drop-a3.html">A4</a><span class="token punctuation">, </span><a href="../drop-a3.html">A5</a><span class="token punctuation">, </span><a href="../drop-a3.html">A6</a><span class="token punctuation">, </span><a href="../drop-a3.html">A7</a><span class="token punctuation">, </span><a href="../drop-a3.html">A8</a><span class="token punctuation">, </span><a href="../drop-a3.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 3rd component (<a href="a3.html">Tuple9.a3</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="235546082%2FFunctions%2F788909594" anchor-label="dropA4" id="235546082%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a4.html"><span>drop</span><wbr></wbr><span><span>A4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="235546082%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a4.html">A1</a><span class="token punctuation">, </span><a href="../drop-a4.html">A2</a><span class="token punctuation">, </span><a href="../drop-a4.html">A3</a><span class="token punctuation">, </span><a href="../drop-a4.html">A4</a><span class="token punctuation">, </span><a href="../drop-a4.html">A5</a><span class="token punctuation">, </span><a href="../drop-a4.html">A6</a><span class="token punctuation">, </span><a href="../drop-a4.html">A7</a><span class="token punctuation">, </span><a href="../drop-a4.html">A8</a><span class="token punctuation">, </span><a href="../drop-a4.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a4.html">A1</a><span class="token punctuation">, </span><a href="../drop-a4.html">A2</a><span class="token punctuation">, </span><a href="../drop-a4.html">A3</a><span class="token punctuation">, </span><a href="../drop-a4.html">A4</a><span class="token punctuation">, </span><a href="../drop-a4.html">A5</a><span class="token punctuation">, </span><a href="../drop-a4.html">A6</a><span class="token punctuation">, </span><a href="../drop-a4.html">A7</a><span class="token punctuation">, </span><a href="../drop-a4.html">A8</a><span class="token punctuation">, </span><a href="../drop-a4.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a4.html"><span class="token function">dropA4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a4.html">A1</a><span class="token punctuation">, </span><a href="../drop-a4.html">A2</a><span class="token punctuation">, </span><a href="../drop-a4.html">A3</a><span class="token punctuation">, </span><a href="../drop-a4.html">A5</a><span class="token punctuation">, </span><a href="../drop-a4.html">A6</a><span class="token punctuation">, </span><a href="../drop-a4.html">A7</a><span class="token punctuation">, </span><a href="../drop-a4.html">A8</a><span class="token punctuation">, </span><a href="../drop-a4.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 4th component (<a href="a4.html">Tuple9.a4</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="4283363%2FFunctions%2F788909594" anchor-label="dropA5" id="4283363%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a5.html"><span>drop</span><wbr></wbr><span><span>A5</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="4283363%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a5.html">A1</a><span class="token punctuation">, </span><a href="../drop-a5.html">A2</a><span class="token punctuation">, </span><a href="../drop-a5.html">A3</a><span class="token punctuation">, </span><a href="../drop-a5.html">A4</a><span class="token punctuation">, </span><a href="../drop-a5.html">A5</a><span class="token punctuation">, </span><a href="../drop-a5.html">A6</a><span class="token punctuation">, </span><a href="../drop-a5.html">A7</a><span class="token punctuation">, </span><a href="../drop-a5.html">A8</a><span class="token punctuation">, </span><a href="../drop-a5.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a5.html">A1</a><span class="token punctuation">, </span><a href="../drop-a5.html">A2</a><span class="token punctuation">, </span><a href="../drop-a5.html">A3</a><span class="token punctuation">, </span><a href="../drop-a5.html">A4</a><span class="token punctuation">, </span><a href="../drop-a5.html">A5</a><span class="token punctuation">, </span><a href="../drop-a5.html">A6</a><span class="token punctuation">, </span><a href="../drop-a5.html">A7</a><span class="token punctuation">, </span><a href="../drop-a5.html">A8</a><span class="token punctuation">, </span><a href="../drop-a5.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a5.html"><span class="token function">dropA5</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a5.html">A1</a><span class="token punctuation">, </span><a href="../drop-a5.html">A2</a><span class="token punctuation">, </span><a href="../drop-a5.html">A3</a><span class="token punctuation">, </span><a href="../drop-a5.html">A4</a><span class="token punctuation">, </span><a href="../drop-a5.html">A6</a><span class="token punctuation">, </span><a href="../drop-a5.html">A7</a><span class="token punctuation">, </span><a href="../drop-a5.html">A8</a><span class="token punctuation">, </span><a href="../drop-a5.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 5th component (<a href="a5.html">Tuple9.a5</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-226979356%2FFunctions%2F788909594" anchor-label="dropA6" id="-226979356%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a6.html"><span>drop</span><wbr></wbr><span><span>A6</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-226979356%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a6.html">A1</a><span class="token punctuation">, </span><a href="../drop-a6.html">A2</a><span class="token punctuation">, </span><a href="../drop-a6.html">A3</a><span class="token punctuation">, </span><a href="../drop-a6.html">A4</a><span class="token punctuation">, </span><a href="../drop-a6.html">A5</a><span class="token punctuation">, </span><a href="../drop-a6.html">A6</a><span class="token punctuation">, </span><a href="../drop-a6.html">A7</a><span class="token punctuation">, </span><a href="../drop-a6.html">A8</a><span class="token punctuation">, </span><a href="../drop-a6.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a6.html">A1</a><span class="token punctuation">, </span><a href="../drop-a6.html">A2</a><span class="token punctuation">, </span><a href="../drop-a6.html">A3</a><span class="token punctuation">, </span><a href="../drop-a6.html">A4</a><span class="token punctuation">, </span><a href="../drop-a6.html">A5</a><span class="token punctuation">, </span><a href="../drop-a6.html">A6</a><span class="token punctuation">, </span><a href="../drop-a6.html">A7</a><span class="token punctuation">, </span><a href="../drop-a6.html">A8</a><span class="token punctuation">, </span><a href="../drop-a6.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a6.html"><span class="token function">dropA6</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a6.html">A1</a><span class="token punctuation">, </span><a href="../drop-a6.html">A2</a><span class="token punctuation">, </span><a href="../drop-a6.html">A3</a><span class="token punctuation">, </span><a href="../drop-a6.html">A4</a><span class="token punctuation">, </span><a href="../drop-a6.html">A5</a><span class="token punctuation">, </span><a href="../drop-a6.html">A7</a><span class="token punctuation">, </span><a href="../drop-a6.html">A8</a><span class="token punctuation">, </span><a href="../drop-a6.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 6th component (<a href="a6.html">Tuple9.a6</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-458242075%2FFunctions%2F788909594" anchor-label="dropA7" id="-458242075%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a7.html"><span>drop</span><wbr></wbr><span><span>A7</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-458242075%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a7.html">A1</a><span class="token punctuation">, </span><a href="../drop-a7.html">A2</a><span class="token punctuation">, </span><a href="../drop-a7.html">A3</a><span class="token punctuation">, </span><a href="../drop-a7.html">A4</a><span class="token punctuation">, </span><a href="../drop-a7.html">A5</a><span class="token punctuation">, </span><a href="../drop-a7.html">A6</a><span class="token punctuation">, </span><a href="../drop-a7.html">A7</a><span class="token punctuation">, </span><a href="../drop-a7.html">A8</a><span class="token punctuation">, </span><a href="../drop-a7.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a7.html">A1</a><span class="token punctuation">, </span><a href="../drop-a7.html">A2</a><span class="token punctuation">, </span><a href="../drop-a7.html">A3</a><span class="token punctuation">, </span><a href="../drop-a7.html">A4</a><span class="token punctuation">, </span><a href="../drop-a7.html">A5</a><span class="token punctuation">, </span><a href="../drop-a7.html">A6</a><span class="token punctuation">, </span><a href="../drop-a7.html">A7</a><span class="token punctuation">, </span><a href="../drop-a7.html">A8</a><span class="token punctuation">, </span><a href="../drop-a7.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a7.html"><span class="token function">dropA7</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a7.html">A1</a><span class="token punctuation">, </span><a href="../drop-a7.html">A2</a><span class="token punctuation">, </span><a href="../drop-a7.html">A3</a><span class="token punctuation">, </span><a href="../drop-a7.html">A4</a><span class="token punctuation">, </span><a href="../drop-a7.html">A5</a><span class="token punctuation">, </span><a href="../drop-a7.html">A6</a><span class="token punctuation">, </span><a href="../drop-a7.html">A8</a><span class="token punctuation">, </span><a href="../drop-a7.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 7th component (<a href="a7.html">Tuple9.a7</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-689504794%2FFunctions%2F788909594" anchor-label="dropA8" id="-689504794%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a8.html"><span>drop</span><wbr></wbr><span><span>A8</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-689504794%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a8.html">A1</a><span class="token punctuation">, </span><a href="../drop-a8.html">A2</a><span class="token punctuation">, </span><a href="../drop-a8.html">A3</a><span class="token punctuation">, </span><a href="../drop-a8.html">A4</a><span class="token punctuation">, </span><a href="../drop-a8.html">A5</a><span class="token punctuation">, </span><a href="../drop-a8.html">A6</a><span class="token punctuation">, </span><a href="../drop-a8.html">A7</a><span class="token punctuation">, </span><a href="../drop-a8.html">A8</a><span class="token punctuation">, </span><a href="../drop-a8.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a8.html">A1</a><span class="token punctuation">, </span><a href="../drop-a8.html">A2</a><span class="token punctuation">, </span><a href="../drop-a8.html">A3</a><span class="token punctuation">, </span><a href="../drop-a8.html">A4</a><span class="token punctuation">, </span><a href="../drop-a8.html">A5</a><span class="token punctuation">, </span><a href="../drop-a8.html">A6</a><span class="token punctuation">, </span><a href="../drop-a8.html">A7</a><span class="token punctuation">, </span><a href="../drop-a8.html">A8</a><span class="token punctuation">, </span><a href="../drop-a8.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a8.html"><span class="token function">dropA8</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a8.html">A1</a><span class="token punctuation">, </span><a href="../drop-a8.html">A2</a><span class="token punctuation">, </span><a href="../drop-a8.html">A3</a><span class="token punctuation">, </span><a href="../drop-a8.html">A4</a><span class="token punctuation">, </span><a href="../drop-a8.html">A5</a><span class="token punctuation">, </span><a href="../drop-a8.html">A6</a><span class="token punctuation">, </span><a href="../drop-a8.html">A7</a><span class="token punctuation">, </span><a href="../drop-a8.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 8th component (<a href="a8.html">Tuple9.a8</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-920767513%2FFunctions%2F788909594" anchor-label="dropA9" id="-920767513%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../drop-a9.html"><span>drop</span><wbr></wbr><span><span>A9</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-920767513%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../drop-a9.html">A1</a><span class="token punctuation">, </span><a href="../drop-a9.html">A2</a><span class="token punctuation">, </span><a href="../drop-a9.html">A3</a><span class="token punctuation">, </span><a href="../drop-a9.html">A4</a><span class="token punctuation">, </span><a href="../drop-a9.html">A5</a><span class="token punctuation">, </span><a href="../drop-a9.html">A6</a><span class="token punctuation">, </span><a href="../drop-a9.html">A7</a><span class="token punctuation">, </span><a href="../drop-a9.html">A8</a><span class="token punctuation">, </span><a href="../drop-a9.html">A9</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../drop-a9.html">A1</a><span class="token punctuation">, </span><a href="../drop-a9.html">A2</a><span class="token punctuation">, </span><a href="../drop-a9.html">A3</a><span class="token punctuation">, </span><a href="../drop-a9.html">A4</a><span class="token punctuation">, </span><a href="../drop-a9.html">A5</a><span class="token punctuation">, </span><a href="../drop-a9.html">A6</a><span class="token punctuation">, </span><a href="../drop-a9.html">A7</a><span class="token punctuation">, </span><a href="../drop-a9.html">A8</a><span class="token punctuation">, </span><a href="../drop-a9.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../drop-a9.html"><span class="token function">dropA9</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tuple8/index.html">Tuple8</a><span class="token operator">&lt;</span><a href="../drop-a9.html">A1</a><span class="token punctuation">, </span><a href="../drop-a9.html">A2</a><span class="token punctuation">, </span><a href="../drop-a9.html">A3</a><span class="token punctuation">, </span><a href="../drop-a9.html">A4</a><span class="token punctuation">, </span><a href="../drop-a9.html">A5</a><span class="token punctuation">, </span><a href="../drop-a9.html">A6</a><span class="token punctuation">, </span><a href="../drop-a9.html">A7</a><span class="token punctuation">, </span><a href="../drop-a9.html">A8</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <a href="../-tuple8/index.html">Tuple8</a> by copying <code class="lang-kotlin">this</code> <a href="index.html">Tuple9</a> but dropping its 9th component (<a href="a9.html">Tuple9.a9</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1271634414%2FFunctions%2F788909594" anchor-label="mapA1" id="-1271634414%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a1.html"><span>map</span><wbr></wbr><span><span>A1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1271634414%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a1.html">A1</a><span class="token punctuation">, </span><a href="../map-a1.html">A2</a><span class="token punctuation">, </span><a href="../map-a1.html">A3</a><span class="token punctuation">, </span><a href="../map-a1.html">A4</a><span class="token punctuation">, </span><a href="../map-a1.html">A5</a><span class="token punctuation">, </span><a href="../map-a1.html">A6</a><span class="token punctuation">, </span><a href="../map-a1.html">A7</a><span class="token punctuation">, </span><a href="../map-a1.html">A8</a><span class="token punctuation">, </span><a href="../map-a1.html">A9</a><span class="token punctuation">, </span><a href="../map-a1.html">A1New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a1.html">A1</a><span class="token punctuation">, </span><a href="../map-a1.html">A2</a><span class="token punctuation">, </span><a href="../map-a1.html">A3</a><span class="token punctuation">, </span><a href="../map-a1.html">A4</a><span class="token punctuation">, </span><a href="../map-a1.html">A5</a><span class="token punctuation">, </span><a href="../map-a1.html">A6</a><span class="token punctuation">, </span><a href="../map-a1.html">A7</a><span class="token punctuation">, </span><a href="../map-a1.html">A8</a><span class="token punctuation">, </span><a href="../map-a1.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a1.html"><span class="token function">mapA1</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a1.html">A1</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a1.html">A1New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a1.html">A1New</a><span class="token punctuation">, </span><a href="../map-a1.html">A2</a><span class="token punctuation">, </span><a href="../map-a1.html">A3</a><span class="token punctuation">, </span><a href="../map-a1.html">A4</a><span class="token punctuation">, </span><a href="../map-a1.html">A5</a><span class="token punctuation">, </span><a href="../map-a1.html">A6</a><span class="token punctuation">, </span><a href="../map-a1.html">A7</a><span class="token punctuation">, </span><a href="../map-a1.html">A8</a><span class="token punctuation">, </span><a href="../map-a1.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a1.html">Tuple9.a1</a> with the given <a href="../map-a1.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1777424945%2FFunctions%2F788909594" anchor-label="mapA2" id="1777424945%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a2.html"><span>map</span><wbr></wbr><span><span>A2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1777424945%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a2.html">A1</a><span class="token punctuation">, </span><a href="../map-a2.html">A2</a><span class="token punctuation">, </span><a href="../map-a2.html">A3</a><span class="token punctuation">, </span><a href="../map-a2.html">A4</a><span class="token punctuation">, </span><a href="../map-a2.html">A5</a><span class="token punctuation">, </span><a href="../map-a2.html">A6</a><span class="token punctuation">, </span><a href="../map-a2.html">A7</a><span class="token punctuation">, </span><a href="../map-a2.html">A8</a><span class="token punctuation">, </span><a href="../map-a2.html">A9</a><span class="token punctuation">, </span><a href="../map-a2.html">A2New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a2.html">A1</a><span class="token punctuation">, </span><a href="../map-a2.html">A2</a><span class="token punctuation">, </span><a href="../map-a2.html">A3</a><span class="token punctuation">, </span><a href="../map-a2.html">A4</a><span class="token punctuation">, </span><a href="../map-a2.html">A5</a><span class="token punctuation">, </span><a href="../map-a2.html">A6</a><span class="token punctuation">, </span><a href="../map-a2.html">A7</a><span class="token punctuation">, </span><a href="../map-a2.html">A8</a><span class="token punctuation">, </span><a href="../map-a2.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a2.html"><span class="token function">mapA2</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a2.html">A2</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a2.html">A2New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a2.html">A1</a><span class="token punctuation">, </span><a href="../map-a2.html">A2New</a><span class="token punctuation">, </span><a href="../map-a2.html">A3</a><span class="token punctuation">, </span><a href="../map-a2.html">A4</a><span class="token punctuation">, </span><a href="../map-a2.html">A5</a><span class="token punctuation">, </span><a href="../map-a2.html">A6</a><span class="token punctuation">, </span><a href="../map-a2.html">A7</a><span class="token punctuation">, </span><a href="../map-a2.html">A8</a><span class="token punctuation">, </span><a href="../map-a2.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a2.html">Tuple9.a2</a> with the given <a href="../map-a2.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="531517008%2FFunctions%2F788909594" anchor-label="mapA3" id="531517008%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a3.html"><span>map</span><wbr></wbr><span><span>A3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="531517008%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a3.html">A1</a><span class="token punctuation">, </span><a href="../map-a3.html">A2</a><span class="token punctuation">, </span><a href="../map-a3.html">A3</a><span class="token punctuation">, </span><a href="../map-a3.html">A4</a><span class="token punctuation">, </span><a href="../map-a3.html">A5</a><span class="token punctuation">, </span><a href="../map-a3.html">A6</a><span class="token punctuation">, </span><a href="../map-a3.html">A7</a><span class="token punctuation">, </span><a href="../map-a3.html">A8</a><span class="token punctuation">, </span><a href="../map-a3.html">A9</a><span class="token punctuation">, </span><a href="../map-a3.html">A3New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a3.html">A1</a><span class="token punctuation">, </span><a href="../map-a3.html">A2</a><span class="token punctuation">, </span><a href="../map-a3.html">A3</a><span class="token punctuation">, </span><a href="../map-a3.html">A4</a><span class="token punctuation">, </span><a href="../map-a3.html">A5</a><span class="token punctuation">, </span><a href="../map-a3.html">A6</a><span class="token punctuation">, </span><a href="../map-a3.html">A7</a><span class="token punctuation">, </span><a href="../map-a3.html">A8</a><span class="token punctuation">, </span><a href="../map-a3.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a3.html"><span class="token function">mapA3</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a3.html">A3</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a3.html">A3New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a3.html">A1</a><span class="token punctuation">, </span><a href="../map-a3.html">A2</a><span class="token punctuation">, </span><a href="../map-a3.html">A3New</a><span class="token punctuation">, </span><a href="../map-a3.html">A4</a><span class="token punctuation">, </span><a href="../map-a3.html">A5</a><span class="token punctuation">, </span><a href="../map-a3.html">A6</a><span class="token punctuation">, </span><a href="../map-a3.html">A7</a><span class="token punctuation">, </span><a href="../map-a3.html">A8</a><span class="token punctuation">, </span><a href="../map-a3.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a3.html">Tuple9.a3</a> with the given <a href="../map-a3.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-714390929%2FFunctions%2F788909594" anchor-label="mapA4" id="-714390929%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a4.html"><span>map</span><wbr></wbr><span><span>A4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-714390929%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a4.html">A1</a><span class="token punctuation">, </span><a href="../map-a4.html">A2</a><span class="token punctuation">, </span><a href="../map-a4.html">A3</a><span class="token punctuation">, </span><a href="../map-a4.html">A4</a><span class="token punctuation">, </span><a href="../map-a4.html">A5</a><span class="token punctuation">, </span><a href="../map-a4.html">A6</a><span class="token punctuation">, </span><a href="../map-a4.html">A7</a><span class="token punctuation">, </span><a href="../map-a4.html">A8</a><span class="token punctuation">, </span><a href="../map-a4.html">A9</a><span class="token punctuation">, </span><a href="../map-a4.html">A4New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a4.html">A1</a><span class="token punctuation">, </span><a href="../map-a4.html">A2</a><span class="token punctuation">, </span><a href="../map-a4.html">A3</a><span class="token punctuation">, </span><a href="../map-a4.html">A4</a><span class="token punctuation">, </span><a href="../map-a4.html">A5</a><span class="token punctuation">, </span><a href="../map-a4.html">A6</a><span class="token punctuation">, </span><a href="../map-a4.html">A7</a><span class="token punctuation">, </span><a href="../map-a4.html">A8</a><span class="token punctuation">, </span><a href="../map-a4.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a4.html"><span class="token function">mapA4</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a4.html">A4</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a4.html">A4New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a4.html">A1</a><span class="token punctuation">, </span><a href="../map-a4.html">A2</a><span class="token punctuation">, </span><a href="../map-a4.html">A3</a><span class="token punctuation">, </span><a href="../map-a4.html">A4New</a><span class="token punctuation">, </span><a href="../map-a4.html">A5</a><span class="token punctuation">, </span><a href="../map-a4.html">A6</a><span class="token punctuation">, </span><a href="../map-a4.html">A7</a><span class="token punctuation">, </span><a href="../map-a4.html">A8</a><span class="token punctuation">, </span><a href="../map-a4.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a4.html">Tuple9.a4</a> with the given <a href="../map-a4.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1960298866%2FFunctions%2F788909594" anchor-label="mapA5" id="-1960298866%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a5.html"><span>map</span><wbr></wbr><span><span>A5</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1960298866%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a5.html">A1</a><span class="token punctuation">, </span><a href="../map-a5.html">A2</a><span class="token punctuation">, </span><a href="../map-a5.html">A3</a><span class="token punctuation">, </span><a href="../map-a5.html">A4</a><span class="token punctuation">, </span><a href="../map-a5.html">A5</a><span class="token punctuation">, </span><a href="../map-a5.html">A6</a><span class="token punctuation">, </span><a href="../map-a5.html">A7</a><span class="token punctuation">, </span><a href="../map-a5.html">A8</a><span class="token punctuation">, </span><a href="../map-a5.html">A9</a><span class="token punctuation">, </span><a href="../map-a5.html">A5New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a5.html">A1</a><span class="token punctuation">, </span><a href="../map-a5.html">A2</a><span class="token punctuation">, </span><a href="../map-a5.html">A3</a><span class="token punctuation">, </span><a href="../map-a5.html">A4</a><span class="token punctuation">, </span><a href="../map-a5.html">A5</a><span class="token punctuation">, </span><a href="../map-a5.html">A6</a><span class="token punctuation">, </span><a href="../map-a5.html">A7</a><span class="token punctuation">, </span><a href="../map-a5.html">A8</a><span class="token punctuation">, </span><a href="../map-a5.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a5.html"><span class="token function">mapA5</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a5.html">A5</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a5.html">A5New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a5.html">A1</a><span class="token punctuation">, </span><a href="../map-a5.html">A2</a><span class="token punctuation">, </span><a href="../map-a5.html">A3</a><span class="token punctuation">, </span><a href="../map-a5.html">A4</a><span class="token punctuation">, </span><a href="../map-a5.html">A5New</a><span class="token punctuation">, </span><a href="../map-a5.html">A6</a><span class="token punctuation">, </span><a href="../map-a5.html">A7</a><span class="token punctuation">, </span><a href="../map-a5.html">A8</a><span class="token punctuation">, </span><a href="../map-a5.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a5.html">Tuple9.a5</a> with the given <a href="../map-a5.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1088760493%2FFunctions%2F788909594" anchor-label="mapA6" id="1088760493%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a6.html"><span>map</span><wbr></wbr><span><span>A6</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1088760493%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a6.html">A1</a><span class="token punctuation">, </span><a href="../map-a6.html">A2</a><span class="token punctuation">, </span><a href="../map-a6.html">A3</a><span class="token punctuation">, </span><a href="../map-a6.html">A4</a><span class="token punctuation">, </span><a href="../map-a6.html">A5</a><span class="token punctuation">, </span><a href="../map-a6.html">A6</a><span class="token punctuation">, </span><a href="../map-a6.html">A7</a><span class="token punctuation">, </span><a href="../map-a6.html">A8</a><span class="token punctuation">, </span><a href="../map-a6.html">A9</a><span class="token punctuation">, </span><a href="../map-a6.html">A6New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a6.html">A1</a><span class="token punctuation">, </span><a href="../map-a6.html">A2</a><span class="token punctuation">, </span><a href="../map-a6.html">A3</a><span class="token punctuation">, </span><a href="../map-a6.html">A4</a><span class="token punctuation">, </span><a href="../map-a6.html">A5</a><span class="token punctuation">, </span><a href="../map-a6.html">A6</a><span class="token punctuation">, </span><a href="../map-a6.html">A7</a><span class="token punctuation">, </span><a href="../map-a6.html">A8</a><span class="token punctuation">, </span><a href="../map-a6.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a6.html"><span class="token function">mapA6</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a6.html">A6</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a6.html">A6New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a6.html">A1</a><span class="token punctuation">, </span><a href="../map-a6.html">A2</a><span class="token punctuation">, </span><a href="../map-a6.html">A3</a><span class="token punctuation">, </span><a href="../map-a6.html">A4</a><span class="token punctuation">, </span><a href="../map-a6.html">A5</a><span class="token punctuation">, </span><a href="../map-a6.html">A6New</a><span class="token punctuation">, </span><a href="../map-a6.html">A7</a><span class="token punctuation">, </span><a href="../map-a6.html">A8</a><span class="token punctuation">, </span><a href="../map-a6.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a6.html">Tuple9.a6</a> with the given <a href="../map-a6.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-157147444%2FFunctions%2F788909594" anchor-label="mapA7" id="-157147444%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a7.html"><span>map</span><wbr></wbr><span><span>A7</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-157147444%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a7.html">A1</a><span class="token punctuation">, </span><a href="../map-a7.html">A2</a><span class="token punctuation">, </span><a href="../map-a7.html">A3</a><span class="token punctuation">, </span><a href="../map-a7.html">A4</a><span class="token punctuation">, </span><a href="../map-a7.html">A5</a><span class="token punctuation">, </span><a href="../map-a7.html">A6</a><span class="token punctuation">, </span><a href="../map-a7.html">A7</a><span class="token punctuation">, </span><a href="../map-a7.html">A8</a><span class="token punctuation">, </span><a href="../map-a7.html">A9</a><span class="token punctuation">, </span><a href="../map-a7.html">A7New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a7.html">A1</a><span class="token punctuation">, </span><a href="../map-a7.html">A2</a><span class="token punctuation">, </span><a href="../map-a7.html">A3</a><span class="token punctuation">, </span><a href="../map-a7.html">A4</a><span class="token punctuation">, </span><a href="../map-a7.html">A5</a><span class="token punctuation">, </span><a href="../map-a7.html">A6</a><span class="token punctuation">, </span><a href="../map-a7.html">A7</a><span class="token punctuation">, </span><a href="../map-a7.html">A8</a><span class="token punctuation">, </span><a href="../map-a7.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a7.html"><span class="token function">mapA7</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a7.html">A7</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a7.html">A7New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a7.html">A1</a><span class="token punctuation">, </span><a href="../map-a7.html">A2</a><span class="token punctuation">, </span><a href="../map-a7.html">A3</a><span class="token punctuation">, </span><a href="../map-a7.html">A4</a><span class="token punctuation">, </span><a href="../map-a7.html">A5</a><span class="token punctuation">, </span><a href="../map-a7.html">A6</a><span class="token punctuation">, </span><a href="../map-a7.html">A7New</a><span class="token punctuation">, </span><a href="../map-a7.html">A8</a><span class="token punctuation">, </span><a href="../map-a7.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a7.html">Tuple9.a7</a> with the given <a href="../map-a7.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1403055381%2FFunctions%2F788909594" anchor-label="mapA8" id="-1403055381%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a8.html"><span>map</span><wbr></wbr><span><span>A8</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1403055381%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a8.html">A1</a><span class="token punctuation">, </span><a href="../map-a8.html">A2</a><span class="token punctuation">, </span><a href="../map-a8.html">A3</a><span class="token punctuation">, </span><a href="../map-a8.html">A4</a><span class="token punctuation">, </span><a href="../map-a8.html">A5</a><span class="token punctuation">, </span><a href="../map-a8.html">A6</a><span class="token punctuation">, </span><a href="../map-a8.html">A7</a><span class="token punctuation">, </span><a href="../map-a8.html">A8</a><span class="token punctuation">, </span><a href="../map-a8.html">A9</a><span class="token punctuation">, </span><a href="../map-a8.html">A8New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a8.html">A1</a><span class="token punctuation">, </span><a href="../map-a8.html">A2</a><span class="token punctuation">, </span><a href="../map-a8.html">A3</a><span class="token punctuation">, </span><a href="../map-a8.html">A4</a><span class="token punctuation">, </span><a href="../map-a8.html">A5</a><span class="token punctuation">, </span><a href="../map-a8.html">A6</a><span class="token punctuation">, </span><a href="../map-a8.html">A7</a><span class="token punctuation">, </span><a href="../map-a8.html">A8</a><span class="token punctuation">, </span><a href="../map-a8.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a8.html"><span class="token function">mapA8</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a8.html">A8</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a8.html">A8New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a8.html">A1</a><span class="token punctuation">, </span><a href="../map-a8.html">A2</a><span class="token punctuation">, </span><a href="../map-a8.html">A3</a><span class="token punctuation">, </span><a href="../map-a8.html">A4</a><span class="token punctuation">, </span><a href="../map-a8.html">A5</a><span class="token punctuation">, </span><a href="../map-a8.html">A6</a><span class="token punctuation">, </span><a href="../map-a8.html">A7</a><span class="token punctuation">, </span><a href="../map-a8.html">A8New</a><span class="token punctuation">, </span><a href="../map-a8.html">A9</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a8.html">Tuple9.a8</a> with the given <a href="../map-a8.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1646003978%2FFunctions%2F788909594" anchor-label="mapA9" id="1646003978%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-a9.html"><span>map</span><wbr></wbr><span><span>A9</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1646003978%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-a9.html">A1</a><span class="token punctuation">, </span><a href="../map-a9.html">A2</a><span class="token punctuation">, </span><a href="../map-a9.html">A3</a><span class="token punctuation">, </span><a href="../map-a9.html">A4</a><span class="token punctuation">, </span><a href="../map-a9.html">A5</a><span class="token punctuation">, </span><a href="../map-a9.html">A6</a><span class="token punctuation">, </span><a href="../map-a9.html">A7</a><span class="token punctuation">, </span><a href="../map-a9.html">A8</a><span class="token punctuation">, </span><a href="../map-a9.html">A9</a><span class="token punctuation">, </span><a href="../map-a9.html">A9New</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a9.html">A1</a><span class="token punctuation">, </span><a href="../map-a9.html">A2</a><span class="token punctuation">, </span><a href="../map-a9.html">A3</a><span class="token punctuation">, </span><a href="../map-a9.html">A4</a><span class="token punctuation">, </span><a href="../map-a9.html">A5</a><span class="token punctuation">, </span><a href="../map-a9.html">A6</a><span class="token punctuation">, </span><a href="../map-a9.html">A7</a><span class="token punctuation">, </span><a href="../map-a9.html">A8</a><span class="token punctuation">, </span><a href="../map-a9.html">A9</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-a9.html"><span class="token function">mapA9</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-a9.html">A9</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-a9.html">A9New</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../map-a9.html">A1</a><span class="token punctuation">, </span><a href="../map-a9.html">A2</a><span class="token punctuation">, </span><a href="../map-a9.html">A3</a><span class="token punctuation">, </span><a href="../map-a9.html">A4</a><span class="token punctuation">, </span><a href="../map-a9.html">A5</a><span class="token punctuation">, </span><a href="../map-a9.html">A6</a><span class="token punctuation">, </span><a href="../map-a9.html">A7</a><span class="token punctuation">, </span><a href="../map-a9.html">A8</a><span class="token punctuation">, </span><a href="../map-a9.html">A9New</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Maps <a href="a9.html">Tuple9.a9</a> with the given <a href="../map-a9.html">transform</a> function and returns a new <a href="index.html">Tuple9</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-611613095%2FFunctions%2F788909594" anchor-label="toList" id="-611613095%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../to-list.html"><span>to</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-611613095%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../to-list.html">T</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token punctuation">, </span><a href="../to-list.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../to-list.html"><span class="token function">toList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../to-list.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts this <a href="index.html">Tuple9</a> into a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="333303548%2FFunctions%2F788909594" anchor-label="toSequence" id="333303548%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../to-sequence.html"><span>to</span><wbr></wbr><span><span>Sequence</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="333303548%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../to-sequence.html">T</a><span class="token operator">&gt; </span><a href="index.html">Tuple9</a><span class="token operator">&lt;</span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token punctuation">, </span><a href="../to-sequence.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../to-sequence.html"><span class="token function">toSequence</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><a href="../to-sequence.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts this <a href="index.html">Tuple9</a> into a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.sequences/-sequence/index.html">Sequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>KBox &copy; Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

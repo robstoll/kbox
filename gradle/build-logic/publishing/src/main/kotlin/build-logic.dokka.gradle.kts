@@ -1,4 +1,3 @@
-import ch.tutteli.gradle.plugins.dokka.GhPages
 import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
 
 plugins {
@@ -7,7 +6,7 @@ plugins {
 }
 
 tasks.configureEach<AbstractDokkaLeafTask> {
-	moduleName.set("KBox")
+	moduleName.set("kbox")
     dokkaSourceSets.configureEach {
 		reportUndocumented.set(true)
         jdkVersion.set(buildParameters.defaultJdkVersion)
