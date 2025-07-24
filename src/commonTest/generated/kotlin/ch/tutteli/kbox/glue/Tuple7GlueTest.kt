@@ -12,7 +12,7 @@ import kotlin.test.Test
 class Tuple7GlueTest {
 
     @Test
-    fun glue_Pair__results_in_a_Tuple9() {
+    fun glue_Tuple2__results_in_a_Tuple9() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -25,7 +25,7 @@ class Tuple7GlueTest {
 
         expect(
             Tuple7(a1, a2, a3, a4, a5, a6, a7)
-                .glue(Pair(a8, a9))
+                .glue(Tuple2(a8, a9))
         ).toBeAnInstanceOf<Tuple9<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>, List<List<Int>>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)

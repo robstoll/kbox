@@ -9,16 +9,16 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class TripleMapTest {
+class Tuple3MapTest {
 
     @Test
-    fun mapA1__identity__returns_equal_Triple() {
+    fun mapA1__identity__returns_equal_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapA1(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -34,23 +34,23 @@ class TripleMapTest {
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapA1 { it.first() }
         ) {
-            toEqual(Triple("string", a2, a3))
+            toEqual(Tuple3("string", a2, a3))
             feature { f(it::a2) }.toBeTheInstance(a2)
             feature { f(it::a3) }.toBeTheInstance(a3)
         }
     }
 
     @Test
-    fun mapFirst__identity__returns_equal_Triple() {
+    fun mapFirst__identity__returns_equal_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapFirst(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -66,23 +66,23 @@ class TripleMapTest {
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapFirst { it.first() }
         ) {
-            toEqual(Triple("string", a2, a3))
+            toEqual(Tuple3("string", a2, a3))
             feature { f(it::a2) }.toBeTheInstance(a2)
             feature { f(it::a3) }.toBeTheInstance(a3)
         }
     }
 
     @Test
-    fun mapA2__identity__returns_equal_Triple() {
+    fun mapA2__identity__returns_equal_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapA2(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -98,23 +98,23 @@ class TripleMapTest {
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapA2 { it.first() }
         ) {
-            toEqual(Triple(a1, 1, a3))
+            toEqual(Tuple3(a1, 1, a3))
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a3) }.toBeTheInstance(a3)
         }
     }
 
     @Test
-    fun mapSecond__identity__returns_equal_Triple() {
+    fun mapSecond__identity__returns_equal_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapSecond(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -130,23 +130,23 @@ class TripleMapTest {
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapSecond { it.first() }
         ) {
-            toEqual(Triple(a1, 1, a3))
+            toEqual(Tuple3(a1, 1, a3))
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a3) }.toBeTheInstance(a3)
         }
     }
 
     @Test
-    fun mapA3__identity__returns_equal_Triple() {
+    fun mapA3__identity__returns_equal_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapA3(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -162,23 +162,23 @@ class TripleMapTest {
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapA3 { it.first() }
         ) {
-            toEqual(Triple(a1, a2, 2L))
+            toEqual(Tuple3(a1, a2, 2L))
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
         }
     }
 
     @Test
-    fun mapThird__identity__returns_equal_Triple() {
+    fun mapThird__identity__returns_equal_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapThird(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -194,10 +194,10 @@ class TripleMapTest {
         val a3 = listOf(2L)
 
         expect(
-            Triple(a1, a2, a3)
+            Tuple3(a1, a2, a3)
                 .mapThird { it.first() }
         ) {
-            toEqual(Triple(a1, a2, 2L))
+            toEqual(Tuple3(a1, a2, 2L))
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
         }

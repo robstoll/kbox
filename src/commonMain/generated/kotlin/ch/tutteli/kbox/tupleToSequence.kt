@@ -5,19 +5,19 @@
 package ch.tutteli.kbox
 
 /**
-* Converts this [Pair] into a [Sequence].
+* Converts this [Tuple2] into a [Sequence].
 *
 * @since 3.0.0
 */
-fun <T> Pair<T, T>.toSequence(): Sequence<T> =
+fun <T> Tuple2<T, T>.toSequence(): Sequence<T> =
     sequenceOf(a1, a2)
 
 /**
-* Converts this [Triple] into a [Sequence].
+* Converts this [Tuple3] into a [Sequence].
 *
 * @since 3.0.0
 */
-fun <T> Triple<T, T, T>.toSequence(): Sequence<T> =
+fun <T> Tuple3<T, T, T>.toSequence(): Sequence<T> =
     sequenceOf(a1, a2, a3)
 
 /**

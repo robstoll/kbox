@@ -12,23 +12,23 @@ import kotlin.test.Test
 class TupleFactoryTest {
 
     @Test
-    fun factory_for_Pair() {
+    fun factory_for_Tuple2() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         expect(Tuple(a1, a2))
-            .toBeAnInstanceOf<Pair<List<String>, List<Int>>> {
+            .toBeAnInstanceOf<Tuple2<List<String>, List<Int>>> {
                 feature { f(it::a1) }.toBeTheInstance(a1)
                 feature { f(it::a2) }.toBeTheInstance(a2)
           }
     }
 
     @Test
-    fun factory_for_Triple() {
+    fun factory_for_Tuple3() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
         expect(Tuple(a1, a2, a3))
-            .toBeAnInstanceOf<Triple<List<String>, List<Int>, List<Long>>> {
+            .toBeAnInstanceOf<Tuple3<List<String>, List<Int>, List<Long>>> {
                 feature { f(it::a1) }.toBeTheInstance(a1)
                 feature { f(it::a2) }.toBeTheInstance(a2)
                 feature { f(it::a3) }.toBeTheInstance(a3)

@@ -7,7 +7,7 @@ package ch.tutteli.kbox
 import kotlin.jvm.JvmName
 
 /**
- * Flattens a [List] of [Pair]<T, T> into a `List<T>`.
+ * Flattens a [List] of [Tuple2]<T, T> into a `List<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
  * are not all the same.
@@ -15,11 +15,11 @@ import kotlin.jvm.JvmName
  * @since 3.0.0
  */
 @JvmName("flatten2")
-fun <T> List<Pair<T, T>>.flatten(): List<T> =
+fun <T> List<Tuple2<T, T>>.flatten(): List<T> =
     asSequence().flatten().toList()
 
 /**
- * Flattens an [Iterable] of [Pair]<T, T> into a `List<T>`.
+ * Flattens an [Iterable] of [Tuple2]<T, T> into a `List<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
  * are not all the same.
@@ -27,11 +27,11 @@ fun <T> List<Pair<T, T>>.flatten(): List<T> =
  * @since 3.1.0
  */
 @JvmName("flatten2")
-fun <T> Iterable<Pair<T, T>>.flatten(): List<T> =
+fun <T> Iterable<Tuple2<T, T>>.flatten(): List<T> =
     asSequence().flatten().toList()
 
 /**
- * Flattens a [Sequence] of [Pair]<T, T> into a `Sequence<T>`.
+ * Flattens a [Sequence] of [Tuple2]<T, T> into a `Sequence<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
  * are not all the same.
@@ -39,11 +39,11 @@ fun <T> Iterable<Pair<T, T>>.flatten(): List<T> =
  * @since 3.0.0
  */
 @JvmName("flatten2")
-fun <T> Sequence<Pair<T, T>>.flatten(): Sequence<T> =
+fun <T> Sequence<Tuple2<T, T>>.flatten(): Sequence<T> =
     flatMap { it.toSequence() }
 
 /**
- * Flattens a [List] of [Triple]<T, T, ...> into a `List<T>`.
+ * Flattens a [List] of [Tuple3]<T, T, ...> into a `List<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
  * are not all the same.
@@ -51,11 +51,11 @@ fun <T> Sequence<Pair<T, T>>.flatten(): Sequence<T> =
  * @since 3.0.0
  */
 @JvmName("flatten3")
-fun <T> List<Triple<T, T, T>>.flatten(): List<T> =
+fun <T> List<Tuple3<T, T, T>>.flatten(): List<T> =
     asSequence().flatten().toList()
 
 /**
- * Flattens an [Iterable] of [Triple]<T, T, ...> into a `List<T>`.
+ * Flattens an [Iterable] of [Tuple3]<T, T, ...> into a `List<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
  * are not all the same.
@@ -63,11 +63,11 @@ fun <T> List<Triple<T, T, T>>.flatten(): List<T> =
  * @since 3.1.0
  */
 @JvmName("flatten3")
-fun <T> Iterable<Triple<T, T, T>>.flatten(): List<T> =
+fun <T> Iterable<Tuple3<T, T, T>>.flatten(): List<T> =
     asSequence().flatten().toList()
 
 /**
- * Flattens a [Sequence] of [Triple]<T, T, ...> into a `Sequence<T>`.
+ * Flattens a [Sequence] of [Tuple3]<T, T, ...> into a `Sequence<T>`.
  *
  * Kotlin will automatically infer the least upper bound type in case your component type A1, A2, ...
  * are not all the same.
@@ -75,7 +75,7 @@ fun <T> Iterable<Triple<T, T, T>>.flatten(): List<T> =
  * @since 3.0.0
  */
 @JvmName("flatten3")
-fun <T> Sequence<Triple<T, T, T>>.flatten(): Sequence<T> =
+fun <T> Sequence<Tuple3<T, T, T>>.flatten(): Sequence<T> =
     flatMap { it.toSequence() }
 
 /**

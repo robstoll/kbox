@@ -32,11 +32,11 @@ interface Tuple3Like<A1, A2, A3> {
     operator fun component3(): A3
 
     /**
-     * Turns this class into a [Triple].
+     * Turns this class into a [Tuple3].
      *
      * @since 2.1.0
      */
-    fun toTuple(): Triple<A1, A2, A3> = Triple(
+    fun toTuple(): Tuple3<A1, A2, A3> = Tuple3(
         component1(),
         component2(),
         component3()

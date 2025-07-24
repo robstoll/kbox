@@ -2,17 +2,35 @@
 // automatically generated, don't modify here but in:
 // gradle/code-generation/src/main/kotlin/code-generation.generate.gradle.kts
 // --------------------------------------------------------------------------------------------------------------------
-package ch.tutteli.kbox.glue
+package ch.tutteli.kbox.append
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class TripleGlueTest {
+class Tuple3AppendTest {
 
     @Test
-    fun glue_Pair__results_in_a_Tuple5() {
+    fun append_1_values__results_in_a_Tuple4() {
+        val a1 = listOf("string")
+        val a2 = listOf(1)
+        val a3 = listOf(2L)
+        val a4 = listOf(3F)
+
+        expect(
+            Tuple3(a1, a2, a3)
+                .append(a4)
+        ).toBeAnInstanceOf<Tuple4<List<String>, List<Int>, List<Long>, List<Float>>> {
+            feature { f(it::a1) }.toBeTheInstance(a1)
+            feature { f(it::a2) }.toBeTheInstance(a2)
+            feature { f(it::a3) }.toBeTheInstance(a3)
+            feature { f(it::a4) }.toBeTheInstance(a4)
+        }
+    }
+
+    @Test
+    fun append_2_values__results_in_a_Tuple5() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -20,8 +38,8 @@ class TripleGlueTest {
         val a5 = listOf(4.0)
 
         expect(
-            Triple(a1, a2, a3)
-                .glue(Pair(a4, a5))
+            Tuple3(a1, a2, a3)
+                .append(a4, a5)
         ).toBeAnInstanceOf<Tuple5<List<String>, List<Int>, List<Long>, List<Float>, List<Double>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
@@ -32,7 +50,7 @@ class TripleGlueTest {
     }
 
     @Test
-    fun glue_Triple__results_in_a_Tuple6() {
+    fun append_3_values__results_in_a_Tuple6() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -41,8 +59,8 @@ class TripleGlueTest {
         val a6 = listOf('c')
 
         expect(
-            Triple(a1, a2, a3)
-                .glue(Triple(a4, a5, a6))
+            Tuple3(a1, a2, a3)
+                .append(a4, a5, a6)
         ).toBeAnInstanceOf<Tuple6<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
@@ -54,7 +72,7 @@ class TripleGlueTest {
     }
 
     @Test
-    fun glue_Tuple4__results_in_a_Tuple7() {
+    fun append_4_values__results_in_a_Tuple7() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -64,8 +82,8 @@ class TripleGlueTest {
         val a7 = listOf(1.toShort())
 
         expect(
-            Triple(a1, a2, a3)
-                .glue(Tuple4(a4, a5, a6, a7))
+            Tuple3(a1, a2, a3)
+                .append(a4, a5, a6, a7)
         ).toBeAnInstanceOf<Tuple7<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
@@ -78,7 +96,7 @@ class TripleGlueTest {
     }
 
     @Test
-    fun glue_Tuple5__results_in_a_Tuple8() {
+    fun append_5_values__results_in_a_Tuple8() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -89,8 +107,8 @@ class TripleGlueTest {
         val a8 = listOf(2.toByte())
 
         expect(
-            Triple(a1, a2, a3)
-                .glue(Tuple5(a4, a5, a6, a7, a8))
+            Tuple3(a1, a2, a3)
+                .append(a4, a5, a6, a7, a8)
         ).toBeAnInstanceOf<Tuple8<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
@@ -104,7 +122,7 @@ class TripleGlueTest {
     }
 
     @Test
-    fun glue_Tuple6__results_in_a_Tuple9() {
+    fun append_6_values__results_in_a_Tuple9() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -116,8 +134,8 @@ class TripleGlueTest {
         val a9 = listOf(listOf(1, 2))
 
         expect(
-            Triple(a1, a2, a3)
-                .glue(Tuple6(a4, a5, a6, a7, a8, a9))
+            Tuple3(a1, a2, a3)
+                .append(a4, a5, a6, a7, a8, a9)
         ).toBeAnInstanceOf<Tuple9<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>, List<List<Int>>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)

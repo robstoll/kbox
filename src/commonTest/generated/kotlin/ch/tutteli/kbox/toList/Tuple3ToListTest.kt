@@ -9,22 +9,22 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class PairToListTest {
+class Tuple3ToListTest {
 
     @Test
     fun toList__Ints_returns_int_List_in_correct_order() {
-        val tuple = Pair(0, 1)
+        val tuple = Tuple3(0, 1, 2)
         val l : List<Int> = tuple.toList()
 
-        expect(l).toContainExactly(0, 1)
+        expect(l).toContainExactly(0, 1, 2)
     }
 
     @Test
     fun toList__IntsAndString_returns_Comparable_List_in_correct_order() {
-        val tuple = Pair(0, "a")
+        val tuple = Tuple3(0, 1, "a")
         val l : List<Comparable<*>> = tuple.toList()
 
-        expect(l).toContainExactly(0, "a")
+        expect(l).toContainExactly(0, 1, "a")
     }
 
 }
