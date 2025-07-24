@@ -9,38 +9,38 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class PairFlattenTest {
+class Tuple3FlattenTest {
 
     @Test
     fun flatten__onList_Ints_returns_int_List_in_correct_order() {
-        val tuple = listOf(Pair(0, 1), Pair(0, 1))
+        val tuple = listOf(Tuple3(0, 1, 2), Tuple3(0, 1, 2))
         val l : List<Int> = tuple.flatten()
 
-        expect(l).toContainExactly(0, 1, 0, 1)
+        expect(l).toContainExactly(0, 1, 2, 0, 1, 2)
     }
 
     @Test
     fun flatten__onList_IntsAndString_returns_Comparable_List_in_correct_order() {
-        val tuple = listOf(Pair(0, "a"), Pair(0, "a"))
+        val tuple = listOf(Tuple3(0, 1, "a"), Tuple3(0, 1, "a"))
         val l : List<Comparable<*>> = tuple.flatten()
 
-        expect(l).toContainExactly(0, "a", 0, "a")
+        expect(l).toContainExactly(0, 1, "a", 0, 1, "a")
     }
 
     @Test
     fun flatten__onSequence_Ints_returns_int_List_in_correct_order() {
-        val tuple = sequenceOf(Pair(0, 1), Pair(0, 1))
+        val tuple = sequenceOf(Tuple3(0, 1, 2), Tuple3(0, 1, 2))
         val l : Sequence<Int> = tuple.flatten()
 
-        expect(l).asList().toContainExactly(0, 1, 0, 1)
+        expect(l).asList().toContainExactly(0, 1, 2, 0, 1, 2)
     }
 
     @Test
     fun flatten__onSequence_IntsAndString_returns_Comparable_List_in_correct_order() {
-        val tuple = sequenceOf(Pair(0, "a"), Pair(0, "a"))
+        val tuple = sequenceOf(Tuple3(0, 1, "a"), Tuple3(0, 1, "a"))
         val l : Sequence<Comparable<*>> = tuple.flatten()
 
-        expect(l).asList().toContainExactly(0, "a", 0, "a")
+        expect(l).asList().toContainExactly(0, 1, "a", 0, 1, "a")
     }
 
 }

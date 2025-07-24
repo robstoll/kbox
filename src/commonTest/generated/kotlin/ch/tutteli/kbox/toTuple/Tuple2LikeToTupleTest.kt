@@ -12,12 +12,12 @@ import kotlin.test.Test
 class Tuple2LikeToTupleTest {
 
     @Test
-    fun toTuple__returns_Pair_in_correct_order() {
+    fun toTuple__returns_Tuple2_in_correct_order() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val dataClass = Dummy2(a1, a2)
 
-        expect(dataClass.toTuple()).toBeAnInstanceOf<Pair<List<String>, List<Int>>> {
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple2<List<String>, List<Int>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
         }

@@ -9,15 +9,15 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.kbox.*
 import kotlin.test.Test
 
-class PairMapTest {
+class Tuple2MapTest {
 
     @Test
-    fun mapA1__identity__returns_equal_Pair() {
+    fun mapA1__identity__returns_equal_Tuple2() {
         val a1 = listOf("string")
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapA1(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -31,21 +31,21 @@ class PairMapTest {
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapA1 { it.first() }
         ) {
-            toEqual(Pair("string", a2))
+            toEqual(Tuple2("string", a2))
             feature { f(it::a2) }.toBeTheInstance(a2)
         }
     }
 
     @Test
-    fun mapFirst__identity__returns_equal_Pair() {
+    fun mapFirst__identity__returns_equal_Tuple2() {
         val a1 = listOf("string")
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapFirst(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -59,21 +59,21 @@ class PairMapTest {
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapFirst { it.first() }
         ) {
-            toEqual(Pair("string", a2))
+            toEqual(Tuple2("string", a2))
             feature { f(it::a2) }.toBeTheInstance(a2)
         }
     }
 
     @Test
-    fun mapA2__identity__returns_equal_Pair() {
+    fun mapA2__identity__returns_equal_Tuple2() {
         val a1 = listOf("string")
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapA2(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -87,21 +87,21 @@ class PairMapTest {
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapA2 { it.first() }
         ) {
-            toEqual(Pair(a1, 1))
+            toEqual(Tuple2(a1, 1))
             feature { f(it::a1) }.toBeTheInstance(a1)
         }
     }
 
     @Test
-    fun mapSecond__identity__returns_equal_Pair() {
+    fun mapSecond__identity__returns_equal_Tuple2() {
         val a1 = listOf("string")
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapSecond(::identity)
         ) {
             feature { f(it::a1) }.toBeTheInstance(a1)
@@ -115,10 +115,10 @@ class PairMapTest {
         val a2 = listOf(1)
 
         expect(
-            Pair(a1, a2)
+            Tuple2(a1, a2)
                 .mapSecond { it.first() }
         ) {
-            toEqual(Pair(a1, 1))
+            toEqual(Tuple2(a1, 1))
             feature { f(it::a1) }.toBeTheInstance(a1)
         }
     }

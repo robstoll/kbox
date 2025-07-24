@@ -12,7 +12,7 @@ import kotlin.test.Test
 class Tuple4GlueTest {
 
     @Test
-    fun glue_Pair__results_in_a_Tuple6() {
+    fun glue_Tuple2__results_in_a_Tuple6() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -22,7 +22,7 @@ class Tuple4GlueTest {
 
         expect(
             Tuple4(a1, a2, a3, a4)
-                .glue(Pair(a5, a6))
+                .glue(Tuple2(a5, a6))
         ).toBeAnInstanceOf<Tuple6<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
@@ -34,7 +34,7 @@ class Tuple4GlueTest {
     }
 
     @Test
-    fun glue_Triple__results_in_a_Tuple7() {
+    fun glue_Tuple3__results_in_a_Tuple7() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -45,7 +45,7 @@ class Tuple4GlueTest {
 
         expect(
             Tuple4(a1, a2, a3, a4)
-                .glue(Triple(a5, a6, a7))
+                .glue(Tuple3(a5, a6, a7))
         ).toBeAnInstanceOf<Tuple7<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)

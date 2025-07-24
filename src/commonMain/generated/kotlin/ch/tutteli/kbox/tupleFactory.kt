@@ -6,34 +6,34 @@
 package ch.tutteli.kbox
 
 /**
- * Factory method to create a [Pair].
+ * Factory method to create a [Tuple2].
  *
- * Alternative to `Pair(...)` with the advantage that you can add remove
+ * Alternative to `Tuple2(...)` with the advantage that you can add remove
  * arguments without the need to change function name.
  *
- * @return the newly created [Pair]
+ * @return the newly created [Tuple2]
  *
  * @since 2.1.0
  */
 fun <A1, A2> Tuple(
    a1: A1, a2: A2
-): Pair<A1, A2> =
-    Pair(a1, a2)
+): Tuple2<A1, A2> =
+    Tuple2(a1, a2)
 
 /**
- * Factory method to create a [Triple].
+ * Factory method to create a [Tuple3].
  *
- * Alternative to `Triple(...)` with the advantage that you can add remove
+ * Alternative to `Tuple3(...)` with the advantage that you can add remove
  * arguments without the need to change function name.
  *
- * @return the newly created [Triple]
+ * @return the newly created [Tuple3]
  *
  * @since 2.1.0
  */
 fun <A1, A2, A3> Tuple(
    a1: A1, a2: A2, a3: A3
-): Triple<A1, A2, A3> =
-    Triple(a1, a2, a3)
+): Tuple3<A1, A2, A3> =
+    Tuple3(a1, a2, a3)
 
 /**
  * Factory method to create a [Tuple4].

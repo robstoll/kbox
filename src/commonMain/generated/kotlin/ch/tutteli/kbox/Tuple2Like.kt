@@ -25,11 +25,11 @@ interface Tuple2Like<A1, A2> {
     operator fun component2(): A2
 
     /**
-     * Turns this class into a [Pair].
+     * Turns this class into a [Tuple2].
      *
      * @since 2.1.0
      */
-    fun toTuple(): Pair<A1, A2> = Pair(
+    fun toTuple(): Tuple2<A1, A2> = Tuple2(
         component1(),
         component2()
     )

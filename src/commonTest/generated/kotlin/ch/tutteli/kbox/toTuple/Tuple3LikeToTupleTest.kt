@@ -12,13 +12,13 @@ import kotlin.test.Test
 class Tuple3LikeToTupleTest {
 
     @Test
-    fun toTuple__returns_Triple_in_correct_order() {
+    fun toTuple__returns_Tuple3_in_correct_order() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
         val dataClass = Dummy3(a1, a2, a3)
 
-        expect(dataClass.toTuple()).toBeAnInstanceOf<Triple<List<String>, List<Int>, List<Long>>> {
+        expect(dataClass.toTuple()).toBeAnInstanceOf<Tuple3<List<String>, List<Int>, List<Long>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
             feature { f(it::a3) }.toBeTheInstance(a3)

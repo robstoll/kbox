@@ -22,13 +22,13 @@ fun createStringBuilder(packageName: String): java.lang.StringBuilder = StringBu
 
 val numOfArgs = 9
 
-fun getTupleName(numOfValues: Int) = when (numOfValues) {
+fun getKotlinTupleName(numOfValues: Int) = when (numOfValues) {
     2 -> "Pair"
     3 -> "Triple"
-    else -> "Tuple$numOfValues"
+    else -> error("should only be used for Pair and Triple")
 }
 
-fun getArgName(argNum: Int) = when (argNum) {
+fun getKotlinArgName(argNum: Int) = when (argNum) {
     1 -> "first"
     2 -> "second"
     3 -> "third"
@@ -106,7 +106,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             val constructorProperties = numbers.joinToString(",\n    ") { "val a$it: A$it" }
             val parameters = numbers.joinToString(", ") { "a$it: A$it" }
             val arguments = numbers.joinToString(", ") { "a$it" }
-            val tupleName = getTupleName(upperNumber)
+            val tupleName = "Tuple$upperNumber"
             val tupleLike = createStringBuilder(packageName)
             val tuple = createStringBuilder(packageName)
             val properties = numbers.joinToString(", ") { "a$it" }
@@ -272,8 +272,8 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 val typeArgs2 = numbers2.joinToString(", ") { "A${it + upperNumber}" }
                 val typeArgs3 = numbers3.joinToString(", ") { "A$it" }
 
-                val toTupleName = getTupleName(upperNumber3)
-                val tupleNameParam = getTupleName(upperNumber2)
+                val toTupleName = "Tuple$upperNumber3"
+                val tupleNameParam = "Tuple$upperNumber2"
                 val tupleNameParamLowercase = tupleNameParam.lowercase()
 
                 val params = numbers2.joinToString(", ") { "a${it + upperNumber}: A${it + upperNumber}" }
@@ -327,13 +327,13 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     }
                 }
 
-                fun appendMap(argNameToMap: String, argNameCapitalized: String) =
+                fun appendMap(argNameToMap: String, argNameCapitalized: String, tupleName: String, since: String) =
                     tupleMap.append(
                         """
                         |/**
                         |* Maps [$tupleName.$argNameToMap] with the given [transform] function and returns a new [$tupleName].
                         |*
-                        |* @since 2.0.0
+                        |* @since $since
                         |*/
                         |fun <$typeArgs, A${argNum}New> $tupleName<$typeArgs>.map$argNameCapitalized(
                         |    transform: (A$argNum) -> A${argNum}New
@@ -343,13 +343,13 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                         """.trimMargin()
                     ).appendLine()
 
-                appendMap("a$argNum", "A$argNum")
+                appendMap("a$argNum", "A$argNum", tupleName,   if (upperNumber <= 3) "3.2.0" else "2.0.0")
                 if (upperNumber <= 3) {
-                    val argName = getArgName(argNum)
+                    val argName = getKotlinArgName(argNum)
                     val argNameCapitalized = argName.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                     }
-                    appendMap(argName, argNameCapitalized)
+                    appendMap(argName, argNameCapitalized, getKotlinTupleName(upperNumber), "2.0.0")
                 }
 
                 if (upperNumber >= 3) {
@@ -357,9 +357,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     numberWithoutDrop.remove(argNum)
                     val typeArgsWithoutDrop = numberWithoutDrop.joinToString(", ") { "A${it}" }
                     val upperNumberOneLower = upperNumber - 1
-                    val tupleNameOneLower = getTupleName(upperNumberOneLower)
+                    val tupleNameOneLower = "Tuple$upperNumberOneLower"
 
-                    fun appendDrop(argNameToDrop: String, argNameCapitalized: String) =
+                    fun appendDrop(argNameToDrop: String, argNameCapitalized: String, tupleName: String) =
                         tupleDrop.append(
                             """
 		                |/**
@@ -377,13 +377,13 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
 						""".trimMargin()
                         ).appendLine()
 
-                    appendDrop("a$argNum", "A$argNum")
+                    appendDrop("a$argNum", "A$argNum", tupleName)
                     if (upperNumber <= 3) {
-                        val argName = getArgName(argNum)
+                        val argName = getKotlinArgName(argNum)
                         val argNameCapitalized = argName.replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                         }
-                        appendDrop(argName, argNameCapitalized)
+                        appendDrop(argName, argNameCapitalized, getKotlinTupleName(upperNumber))
                     }
                 }
             }
@@ -1089,7 +1089,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val numbers = (1..upperNumber)
             fun typeArgs(num: Int) = argsTypeParameters.take(num).joinToString(", ")
             val typeArgs = typeArgs(upperNumber)
-            val tupleName = getTupleName(upperNumber)
+            val tupleName = "Tuple$upperNumber"
 
             fun vals(num: Int) = argValues.take(num).withIndex().joinToString("\n        ") { (index, value) ->
                 "val a${index + 1} = $value"
@@ -1185,7 +1185,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 appendMapTest("A$argNum")
 
                 if (upperNumber <= 3) {
-                    val argNameToMap = getArgName(argNum)
+                    val argNameToMap = getKotlinArgName(argNum)
                     val argNameCapitalized = argNameToMap.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                     }
@@ -1216,7 +1216,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                     }
 
                     if (upperNumber <= 3) {
-                        val argNameToDrop = getArgName(argNum)
+                        val argNameToDrop = getKotlinArgName(argNum)
                         val argNameCapitalized = argNameToDrop.replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
                         }
@@ -1324,7 +1324,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
             (1..numOfArgs - upperNumber).forEach { upperNumber2 ->
                 val upperNumber3 = upperNumber + upperNumber2
-                val toTupleName = getTupleName(upperNumber3)
+                val toTupleName = "Tuple$upperNumber3"
                 val vals3AsArgs = (upperNumber + 1..upperNumber3).joinToString(", ") { "a$it" }
 
                 tupleAppendTest.append(
@@ -1344,7 +1344,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 ).appendLine().appendLine()
 
                 if (upperNumber2 > 1) {
-                    val tupleNameParam = getTupleName(upperNumber2)
+                    val tupleNameParam = "Tuple$upperNumber2"
                     val tupleNameParamCreation =
                         """$tupleNameParam($vals3AsArgs)"""
 

@@ -5,103 +5,103 @@
 package ch.tutteli.kbox
 
 /**
- * Creates a new [Pair] by copying `this` [Triple] but dropping its 1st component ([Triple.a1]).
+ * Creates a new [Tuple2] by copying `this` [Tuple3] but dropping its 1st component ([Tuple3.a1]).
  *
- * @return The newly created [Pair].
+ * @return The newly created [Tuple2].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3> Triple<A1, A2, A3>.dropA1(): Pair<A2, A3> =
+fun <A1, A2, A3> Tuple3<A1, A2, A3>.dropA1(): Tuple2<A2, A3> =
 	Tuple(a2, a3)
 
 /**
- * Creates a new [Pair] by copying `this` [Triple] but dropping its 1st component ([Triple.first]).
+ * Creates a new [Tuple2] by copying `this` [Triple] but dropping its 1st component ([Triple.first]).
  *
- * @return The newly created [Pair].
+ * @return The newly created [Tuple2].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3> Triple<A1, A2, A3>.dropFirst(): Pair<A2, A3> =
+fun <A1, A2, A3> Triple<A1, A2, A3>.dropFirst(): Tuple2<A2, A3> =
 	Tuple(a2, a3)
 
 /**
- * Creates a new [Pair] by copying `this` [Triple] but dropping its 2nd component ([Triple.a2]).
+ * Creates a new [Tuple2] by copying `this` [Tuple3] but dropping its 2nd component ([Tuple3.a2]).
  *
- * @return The newly created [Pair].
+ * @return The newly created [Tuple2].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3> Triple<A1, A2, A3>.dropA2(): Pair<A1, A3> =
+fun <A1, A2, A3> Tuple3<A1, A2, A3>.dropA2(): Tuple2<A1, A3> =
 	Tuple(a1, a3)
 
 /**
- * Creates a new [Pair] by copying `this` [Triple] but dropping its 2nd component ([Triple.second]).
+ * Creates a new [Tuple2] by copying `this` [Triple] but dropping its 2nd component ([Triple.second]).
  *
- * @return The newly created [Pair].
+ * @return The newly created [Tuple2].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3> Triple<A1, A2, A3>.dropSecond(): Pair<A1, A3> =
+fun <A1, A2, A3> Triple<A1, A2, A3>.dropSecond(): Tuple2<A1, A3> =
 	Tuple(a1, a3)
 
 /**
- * Creates a new [Pair] by copying `this` [Triple] but dropping its 3rd component ([Triple.a3]).
+ * Creates a new [Tuple2] by copying `this` [Tuple3] but dropping its 3rd component ([Tuple3.a3]).
  *
- * @return The newly created [Pair].
+ * @return The newly created [Tuple2].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3> Triple<A1, A2, A3>.dropA3(): Pair<A1, A2> =
+fun <A1, A2, A3> Tuple3<A1, A2, A3>.dropA3(): Tuple2<A1, A2> =
 	Tuple(a1, a2)
 
 /**
- * Creates a new [Pair] by copying `this` [Triple] but dropping its 3rd component ([Triple.third]).
+ * Creates a new [Tuple2] by copying `this` [Triple] but dropping its 3rd component ([Triple.third]).
  *
- * @return The newly created [Pair].
+ * @return The newly created [Tuple2].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3> Triple<A1, A2, A3>.dropThird(): Pair<A1, A2> =
+fun <A1, A2, A3> Triple<A1, A2, A3>.dropThird(): Tuple2<A1, A2> =
 	Tuple(a1, a2)
 
 /**
- * Creates a new [Triple] by copying `this` [Tuple4] but dropping its 1st component ([Tuple4.a1]).
+ * Creates a new [Tuple3] by copying `this` [Tuple4] but dropping its 1st component ([Tuple4.a1]).
  *
- * @return The newly created [Triple].
+ * @return The newly created [Tuple3].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA1(): Triple<A2, A3, A4> =
+fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA1(): Tuple3<A2, A3, A4> =
 	Tuple(a2, a3, a4)
 
 /**
- * Creates a new [Triple] by copying `this` [Tuple4] but dropping its 2nd component ([Tuple4.a2]).
+ * Creates a new [Tuple3] by copying `this` [Tuple4] but dropping its 2nd component ([Tuple4.a2]).
  *
- * @return The newly created [Triple].
+ * @return The newly created [Tuple3].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA2(): Triple<A1, A3, A4> =
+fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA2(): Tuple3<A1, A3, A4> =
 	Tuple(a1, a3, a4)
 
 /**
- * Creates a new [Triple] by copying `this` [Tuple4] but dropping its 3rd component ([Tuple4.a3]).
+ * Creates a new [Tuple3] by copying `this` [Tuple4] but dropping its 3rd component ([Tuple4.a3]).
  *
- * @return The newly created [Triple].
+ * @return The newly created [Tuple3].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA3(): Triple<A1, A2, A4> =
+fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA3(): Tuple3<A1, A2, A4> =
 	Tuple(a1, a2, a4)
 
 /**
- * Creates a new [Triple] by copying `this` [Tuple4] but dropping its 4th component ([Tuple4.a4]).
+ * Creates a new [Tuple3] by copying `this` [Tuple4] but dropping its 4th component ([Tuple4.a4]).
  *
- * @return The newly created [Triple].
+ * @return The newly created [Tuple3].
  *
  * @since 3.2.0
  */
-fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA4(): Triple<A1, A2, A3> =
+fun <A1, A2, A3, A4> Tuple4<A1, A2, A3, A4>.dropA4(): Tuple3<A1, A2, A3> =
 	Tuple(a1, a2, a3)
 
 /**

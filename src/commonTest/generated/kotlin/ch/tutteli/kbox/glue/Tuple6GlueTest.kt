@@ -12,7 +12,7 @@ import kotlin.test.Test
 class Tuple6GlueTest {
 
     @Test
-    fun glue_Pair__results_in_a_Tuple8() {
+    fun glue_Tuple2__results_in_a_Tuple8() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -24,7 +24,7 @@ class Tuple6GlueTest {
 
         expect(
             Tuple6(a1, a2, a3, a4, a5, a6)
-                .glue(Pair(a7, a8))
+                .glue(Tuple2(a7, a8))
         ).toBeAnInstanceOf<Tuple8<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
@@ -38,7 +38,7 @@ class Tuple6GlueTest {
     }
 
     @Test
-    fun glue_Triple__results_in_a_Tuple9() {
+    fun glue_Tuple3__results_in_a_Tuple9() {
         val a1 = listOf("string")
         val a2 = listOf(1)
         val a3 = listOf(2L)
@@ -51,7 +51,7 @@ class Tuple6GlueTest {
 
         expect(
             Tuple6(a1, a2, a3, a4, a5, a6)
-                .glue(Triple(a7, a8, a9))
+                .glue(Tuple3(a7, a8, a9))
         ).toBeAnInstanceOf<Tuple9<List<String>, List<Int>, List<Long>, List<Float>, List<Double>, List<Char>, List<Short>, List<Byte>, List<List<Int>>>> {
             feature { f(it::a1) }.toBeTheInstance(a1)
             feature { f(it::a2) }.toBeTheInstance(a2)
