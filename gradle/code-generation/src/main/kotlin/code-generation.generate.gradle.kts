@@ -343,7 +343,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                         """.trimMargin()
                     ).appendLine()
 
-                appendMap("a$argNum", "A$argNum", tupleName,   if (upperNumber <= 3) "3.2.0" else "2.0.0")
+                appendMap("a$argNum", "A$argNum", tupleName, if (upperNumber <= 3) "3.2.0" else "2.0.0")
                 if (upperNumber <= 3) {
                     val argName = getKotlinArgName(argNum)
                     val argNameCapitalized = argName.replaceFirstChar {
@@ -362,19 +362,19 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     fun appendDrop(argNameToDrop: String, argNameCapitalized: String, tupleName: String) =
                         tupleDrop.append(
                             """
-		                |/**
-						| * Creates a new [$tupleNameOneLower] by copying `this` [$tupleName] but dropping its ${
+                            |/**
+                            | * Creates a new [$tupleNameOneLower] by copying `this` [$tupleName] but dropping its ${
                                 withOrdinalIndicator(argNum)
                             } component ([$tupleName.$argNameToDrop]).
-						| *
-						| * @return The newly created [$tupleNameOneLower].
-						| *
-						| * @since 3.2.0
-						| */
-						|fun <$typeArgs> $tupleName<$typeArgs>.drop$argNameCapitalized(): $tupleNameOneLower<$typeArgsWithoutDrop> =
-						|	Tuple(${numberWithoutDrop.joinToString(", ") { "a$it" }})
-						|
-						""".trimMargin()
+                            | *
+                            | * @return The newly created [$tupleNameOneLower].
+                            | *
+                            | * @since 3.2.0
+                            | */
+                            |fun <$typeArgs> $tupleName<$typeArgs>.drop$argNameCapitalized(): $tupleNameOneLower<$typeArgsWithoutDrop> =
+                            |	Tuple(${numberWithoutDrop.joinToString(", ") { "a$it" }})
+                            |
+                            """.trimMargin()
                         ).appendLine()
 
                     appendDrop("a$argNum", "A$argNum", tupleName)
@@ -1215,6 +1215,7 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                         ).appendLine()
                     }
 
+                    appendDropTest("A$argNum")
                     if (upperNumber <= 3) {
                         val argNameToDrop = getKotlinArgName(argNum)
                         val argNameCapitalized = argNameToDrop.replaceFirstChar {
