@@ -18,8 +18,8 @@ val generationTestFolder: ConfigurableFileCollection by extra
 plugins {
     id("build-logic.published-kotlin-multiplatform")
     id("code-generation.generate")
-    alias(libs.plugins.detekt)
-    alias(libs.plugins.nexus.publish)
+    id("io.gitlab.arturbosch.detekt") version "1.23.8"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 kotlin {
@@ -32,7 +32,7 @@ kotlin {
 
             kotlin.srcDir(generationTestFolder)
             dependencies {
-                implementation(libs.atrium.fluent.get().let { "${it.module}:${it.version}" }) {
+                implementation("ch.tutteli.atrium:atrium-fluent:1.3.0-alpha-2") {
                     exclude(group = "ch.tutteli.kbox")
                 }
             }
@@ -69,7 +69,6 @@ tasks.named("check").configure {
     dependsOn(allDetekt)
 }
 detektTasks.forEach {
-
     val reportXml = it.reportXml()
     it.doLast {
         // necessary as currently detekt writes main.xml for each platform and overrides when doing so

@@ -2,8 +2,8 @@
 
 [![Download](https://img.shields.io/badge/Download-3.2.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/3.2.0)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status Ubuntu](https://github.com/robstoll/kbox/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/kbox/actions?query=workflow%3AUbuntu+branch%3Amain)
-[![Build Status Windows](https://github.com/robstoll/kbox/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/kbox/actions?query=workflow%3AWindows+branch%3Amain)
+[![Build Status Ubuntu](https://github.com/robstoll/kbox/actions/workflows/build-ubuntu.yml/badge.svg?event=push)](https://github.com/robstoll/kbox/actions/workflows/build-ubuntu.yml)
+[![Build Status Windows](https://github.com/robstoll/kbox/actions/workflows/build-windows.yml/badge.svg?event=push)](https://github.com/robstoll/kbox/actions/workflows/build-windows.yml)
 
 <!-- for a specific release -->
 <!--
@@ -20,7 +20,7 @@ in the stdlib such as:
 - [prefix takeIf/takeUnless](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/takeIf.kt)
 - [letIf/runIf/alsoIf/applyIf](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/xyzIf.kt)
 - [blankToNull](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/blankToNull.kt)
-- [isNotNullAndNotEmpty/Blank](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt)
+- [isNotNullNorEmpty/Blank](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/isNotNullAndNot.kt)
 - [identity](https://github.com/robstoll/kbox/tree/main/src/commonMain/kotlin/ch/tutteli/kbox/identity.kt)
 - [Tuple4(Like) - Tuple9(Like)](https://github.com/robstoll/kbox/tree/main/src/commonMain/generated/kotlin/ch/tutteli/kbox)  
   (including functions mapA1 - mapA9, append, glue)
