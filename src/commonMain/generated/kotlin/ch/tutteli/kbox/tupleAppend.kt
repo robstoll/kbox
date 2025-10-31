@@ -6,7 +6,7 @@
 package ch.tutteli.kbox
 
 /**
-* Transforms this [Tuple2] into a [Tuple3] by appending the given arguments.
+* Transforms this [Tuple2] into a [Tuple3] by appending the given argument.
 *
 * @since 2.0.0
 */
@@ -78,7 +78,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple2<A1, A2>.append(
     Tuple9(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
 /**
-* Transforms this [Tuple3] into a [Tuple4] by appending the given arguments.
+* Transforms this [Tuple3] into a [Tuple4] by appending the given argument.
 *
 * @since 2.0.0
 */
@@ -139,7 +139,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple3<A1, A2, A3>.append(
     Tuple9(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
 /**
-* Transforms this [Tuple4] into a [Tuple5] by appending the given arguments.
+* Transforms this [Tuple4] into a [Tuple5] by appending the given argument.
 *
 * @since 2.0.0
 */
@@ -189,7 +189,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple4<A1, A2, A3, A4>.append(
     Tuple9(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
 /**
-* Transforms this [Tuple5] into a [Tuple6] by appending the given arguments.
+* Transforms this [Tuple5] into a [Tuple6] by appending the given argument.
 *
 * @since 2.0.0
 */
@@ -229,7 +229,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple5<A1, A2, A3, A4, A5>.append(
     Tuple9(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
 /**
-* Transforms this [Tuple6] into a [Tuple7] by appending the given arguments.
+* Transforms this [Tuple6] into a [Tuple7] by appending the given argument.
 *
 * @since 2.0.0
 */
@@ -259,7 +259,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple6<A1, A2, A3, A4, A5, A6>.append(
     Tuple9(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
 /**
-* Transforms this [Tuple7] into a [Tuple8] by appending the given arguments.
+* Transforms this [Tuple7] into a [Tuple8] by appending the given argument.
 *
 * @since 2.0.0
 */
@@ -279,7 +279,7 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> Tuple7<A1, A2, A3, A4, A5, A6, A7>.appe
     Tuple9(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 
 /**
-* Transforms this [Tuple8] into a [Tuple9] by appending the given arguments.
+* Transforms this [Tuple8] into a [Tuple9] by appending the given argument.
 *
 * @since 2.0.0
 */
