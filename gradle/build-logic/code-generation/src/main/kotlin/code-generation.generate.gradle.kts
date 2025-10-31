@@ -61,6 +61,10 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             .append("@file:Suppress(\"MethodOverloading\")\n")
             .append("package ").append(packageName).append("\n\n")
 
+        val tuplePrepend = StringBuilder(dontModifyNotice)
+            .append("@file:Suppress(\"MethodOverloading\")\n")
+            .append("package ").append(packageName).append("\n\n")
+
         val tupleGlue = StringBuilder(dontModifyNotice)
             .append("@file:Suppress(\"MethodOverloading\")\n")
             .append("package ").append(packageName).append("\n\n")
@@ -269,8 +273,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 val upperNumber3 = upperNumber + upperNumber2
                 val numbers2 = (1..upperNumber2)
                 val numbers3 = (1..upperNumber3)
-                val typeArgs2 = numbers2.joinToString(", ") { "A${it + upperNumber}" }
-                val typeArgs3 = numbers3.joinToString(", ") { "A$it" }
+                val typeArgs2 = numbers2.joinToString { "A${it + upperNumber}" }
+                val typeArgs3 = numbers3.joinToString { "A$it" }
+                val typeArgs2AndTypeArgs = (numbers2.map { it + upperNumber } + numbers).joinToString { "A${it}" }
 
                 val toTupleName = "Tuple$upperNumber3"
                 val tupleNameParam = "Tuple$upperNumber2"
@@ -283,7 +288,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                 tupleAppend.append(
                     """
                     |/**
-                    |* Transforms this [$tupleName] into a [$toTupleName] by appending the given arguments.
+                    |* Transforms this [$tupleName] into a [$toTupleName] by appending the given argument${if (upperNumber2 > 1) "s" else ""}.
                     |*
                     |* @since 2.0.0
                     |*/${if (upperNumber2 >= 6) "\n@Suppress(\"LongParameterList\")" else ""}
@@ -291,6 +296,21 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
                     |    $params
                     |): $toTupleName<$typeArgs3> =
                     |    $toTupleName($properties, $args)
+                    |
+                    """.trimMargin()
+                ).appendLine()
+
+                tuplePrepend.append(
+                    """
+                    |/**
+                    |* Transforms this [$tupleName] into a [$toTupleName] by prepending the given argument${if (upperNumber2 > 1) "s" else ""}.
+                    |*
+                    |* @since 2.0.0
+                    |*/${if (upperNumber2 >= 6) "\n@Suppress(\"LongParameterList\")" else ""}
+                    |fun <$typeArgs3> $tupleName<$typeArgs>.prepend(
+                    |    $params
+                    |): $toTupleName<$typeArgs2AndTypeArgs> =
+                    |    $toTupleName($args, $properties)
                     |
                     """.trimMargin()
                 ).appendLine()
@@ -697,6 +717,9 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
         val tupleAppendFile = packageDir.resolve("tupleAppend.kt")
         tupleAppendFile.writeText(tupleAppend.toString())
 
+        val tuplePrependFile = packageDir.resolve("tuplePrepend.kt")
+        tuplePrependFile.writeText(tuplePrepend.toString())
+
         val tupleGlueFile = packageDir.resolve("tupleGlue.kt")
         tupleGlueFile.writeText(tupleGlue.toString())
 
@@ -748,6 +771,7 @@ fun StringBuilder.appendTest(testName: String) = this.append(
 val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
     doFirst {
         val packageDir = File(generationTestFolder.asPath + "/" + packageNameAsPath)
+        //TODO 4.0.0 a bit weired that we test the mapped values are the normal case,
         val argValuesNotMapped = sequenceOf(
             "\"string\"",
             "1",
@@ -1115,6 +1139,9 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
             val tupleAppendTest = createStringBuilder("$packageName.append")
                 .appendTest("${tupleName}AppendTest")
 
+            val tuplePrependTest = createStringBuilder("$packageName.append")
+                .appendTest("${tupleName}PrependTest")
+
             val tupleGlueTest = createStringBuilder("$packageName.glue")
                 .appendTest("${tupleName}GlueTest")
 
@@ -1330,18 +1357,45 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
 
                 tupleAppendTest.append(
                     """
-                        |    @Test
-                        |    fun append_${upperNumber2}_values__results_in_a_$toTupleName() {
-                        |        ${vals(upperNumber3)}
-                        |
-                        |        expect(
-                        |            $tupleCreation
-                        |                .append($vals3AsArgs)
-                        |        ).toBeAnInstanceOf<$toTupleName<${typeArgs(upperNumber3)}>> {
-                        |            ${sameFeatureCheck(upperNumber3, "            ")}
-                        |        }
-                        |    }
-                         """.trimMargin()
+                    |    @Test
+                    |    fun append_${upperNumber2}_values__results_in_a_$toTupleName() {
+                    |        ${vals(upperNumber3)}
+                    |
+                    |        expect(
+                    |            $tupleCreation
+                    |                .append($vals3AsArgs)
+                    |        ).toBeAnInstanceOf<$toTupleName<${typeArgs(upperNumber3)}>> {
+                    |            ${sameFeatureCheck(upperNumber3, "            ")}
+                    |        }
+                    |    }
+                     """.trimMargin()
+                ).appendLine().appendLine()
+
+                tuplePrependTest.append(
+                    """
+                    |    @Test
+                    |    fun prepend_${upperNumber2}_values__results_in_a_$toTupleName() {
+                    |        ${vals(upperNumber3)}
+                    |
+                    |        expect(
+                    |            $tupleCreation
+                    |                .prepend($vals3AsArgs)
+                    |        ).toBeAnInstanceOf<$toTupleName<${
+                        argsTypeParameters.drop(upperNumber).take(upperNumber2).joinToString()
+                    }, ${typeArgs(upperNumber)}>> {
+                    |            ${
+                        (1..upperNumber2).joinToString("\n            ") {
+                            "feature { f(it::a$it) }.toBeTheInstance(a${it + upperNumber})"
+                        }
+                    }
+                    |            ${
+                        (1..upperNumber).joinToString("\n            ") {
+                            "feature { f(it::a${it + upperNumber2}) }.toBeTheInstance(a${it})"
+                        }
+                    }
+                    |        }
+                    |    }
+                     """.trimMargin()
                 ).appendLine().appendLine()
 
                 if (upperNumber2 > 1) {
@@ -1411,6 +1465,10 @@ val generateTest: TaskProvider<Task> = tasks.register("generateTest") {
                 tupleAppendTest.append("}")
                 val appendTestFile = packageDir.resolve("append/${tupleName}AppendTest.kt")
                 appendTestFile.writeText(tupleAppendTest.toString())
+
+                tuplePrependTest.append("}")
+                val prependTestFile = packageDir.resolve("prepend/${tupleName}PrependTest.kt")
+                prependTestFile.writeText(tuplePrependTest.toString())
             }
 
             //cannot glue to tuple of max arity with another, same same for tuple of max arity -1
