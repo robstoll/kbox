@@ -10,7 +10,7 @@ complexity:
 
 performance:
     ArrayPrimitive:
-        excludes: "**/src/test/**"
+        excludes: [ "**/src/test/**" ]
     SpreadOperator:
         active: false
 
@@ -19,11 +19,16 @@ style:
     #        active: false
     OptionalUnit:
         active: false
-#    WildcardImport:
-#        active: false
+    #    WildcardImport:
+    #        active: false
     BracesOnIfStatements:
         active: false
     BracesOnWhenStatements:
+        active: false
+    MaxLineLength:
+        excludes:
+            - "**/tupleDrop.kt"
+    NoTabs:
         active: false
 
 comments:
