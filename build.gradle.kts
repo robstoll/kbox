@@ -5,7 +5,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we use/apply it in the conventions
-    rootProject.version = "3.3.0"
+    rootProject.version = "3.4.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin"
     extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
@@ -102,16 +102,26 @@ Release & deploy a commit
     f) git push origin vX.Y.Z
 4. deploy to maven-central:
 
-    a) export KBOX_VERSION=v3.2.0 &&
-       export DIR_IN_M2="~/.m2/repository/ch/tutteli/kbox" &&
-       java -version 2>&1 | grep "version \"11" && rm -r "$DIR_IN_M2" &&
-       PUB=true CI=true gr clean pubToMaLo &&
-       find "$DIR_IN_M2" -name maven-metadata-local.xml -exec rm -f {} \; &&
-       find "$DIR_IN_M2" -type f -not -name "*.md5" -not -name "*.sha1" -not -name "*.asc" -print0 | while read -r -d $'\0' file; do
-         base=$(basename "$file");
-         md5sum "$file" | awk '{ print $1 }' > "${file}.md5"
-         sha1sum "$file" | awk '{ print $1 }' > "$file.sha1"
-       done && zip -r "~/Downloads/kbox-$KBOX_VERSION.zip" "$DIR_IN_M2"
+    a) export KBOX_VERSION=3.3.0 &&
+       java -version 2>&1 | grep "version \"11" && PUB=true CI=true gr clean pubToMaLo &&
+       tmpDir=$(mktemp -d -t "kbox-release-$KBOX_VERSION-XXXXXXXXXX") &&
+       find "$HOME/.m2/repository/ch/tutteli/kbox" -type d -name "*$KBOX_VERSION" -print0 |
+         while read -r -d $'\0' versionDir; do
+           find "$versionDir" -type f -print0 | while read -r -d $'\0' file; do
+              relPath="${file#"$HOME/.m2/repository/"}"
+              mkdir -p "$tmpDir/$(dirname "$relPath")"
+              cp "$file" "$tmpDir/$relPath"
+           done
+         done &&
+       find "$tmpDir" -type f -not -name "*.md5" -not -name "*.sha1" -not -name "*.asc" -print0 |
+         while read -r -d $'\0' file; do
+           base=$(basename "$file");
+           md5sum "$file" | awk '{ print $1 }' > "${file}.md5"
+           sha1sum "$file" | awk '{ print $1 }' > "$file.sha1"
+       done &&
+       (cd "$tmpDir" && zip -r "kbox-v$KBOX_VERSION.zip" .) &&
+       find "$tmpDir" -name "*.jar" | head -n 1 | xargs -I {} gpg --verify "{}.asc" "{}" &&
+       echo "verify the correct gpg key was used (see above) and you might want to check the release in file://$tmpDir"
     b) goto https://central.sonatype.com/publishing
     c) click on Publish component button
     d) upload zip which was put into ~/Download/kbox-vX.Y.Z.zip
