@@ -1,4 +1,4 @@
-[![Download](https://img.shields.io/badge/Download-3.2.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/3.2.0)
+[![Download](https://img.shields.io/badge/Download-3.3.0-%23007ec6)](https://central.sonatype.com/artifact/ch.tutteli.kbox/kbox/3.3.0)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 
 # KBox
@@ -11,7 +11,7 @@ KBox is published to maven central.
 ```
 repositories { mavenCentral() }
 dependencies {
-    implementation("ch.tutteli.kbox:kbox:3.2.0")
+    implementation("ch.tutteli.kbox:kbox:3.3.0")
 }
 ```
 
