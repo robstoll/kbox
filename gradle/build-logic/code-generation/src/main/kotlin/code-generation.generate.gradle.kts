@@ -227,20 +227,7 @@ val generate: TaskProvider<Task> = tasks.register("generate") {
             ).appendLine()
 
             tupleFlatten.append(
-                //TODO remove with 4.0.0 only here to retain binary backward compatibility
                 """
-                |/**
-                | * Flattens a [List] of [$tupleName]<${if (upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `List<T>`.
-                | *
-                | * Kotlin will automatically infer the least upper bound type in case your component types A1, A2, ...
-                | * are not all the same.
-                | *
-                | * @since 3.0.0
-                | */
-                |@JvmName("flatten$upperNumber")
-                |fun <T> List<$tupleName<${tAsTypeArgs}>>.flatten(): List<T> =
-                |    asSequence().flatten().toList()
-                |
                 |/**
                 | * Flattens an [Iterable] of [$tupleName]<${if (upperNumber > 2) "T, T, ..." else tAsTypeArgs}> into a `List<T>`.
                 | *
