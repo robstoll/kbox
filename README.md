@@ -40,6 +40,10 @@ dependencies {
 }
 ```
 
+Minimum requirements:
+- Kotlin 1.4
+- JDK 11
+
 # Documentation
 
 Visit [https://robstoll.github.io/kbox/kdoc](https://robstoll.github.io/kbox/kdoc/).
