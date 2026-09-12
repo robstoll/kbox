@@ -5,7 +5,7 @@ import java.nio.file.StandardCopyOption
 buildscript {
     // needs to be defined in here because otherwise tutteli-publish plugin does not have this information when applied
     // and we use/apply it in the conventions
-    rootProject.version = "3.4.0-SNAPSHOT"
+    rootProject.version = "3.4.0"
     rootProject.group = "ch.tutteli.kbox"
     rootProject.description = "A utility library for Kotlin"
     extra.set("generationFolder", project.files("src/commonMain/generated/kotlin"))
@@ -102,8 +102,8 @@ Release & deploy a commit
     f) git push origin vX.Y.Z
 4. deploy to maven-central:
 
-    a) export KBOX_VERSION=3.3.0 &&
-       java -version 2>&1 | grep "version \"11" && PUB=true CI=true gr clean pubToMaLo &&
+    a) export KBOX_VERSION=3.4.0 &&
+       java -version 2>&1 | grep "version \"11"  || { echo "please switch the jdk version, is currently not 11 is:"; java --version; return 1; } && PUB=true CI=true gr clean pubToMaLo &&
        tmpDir=$(mktemp -d -t "kbox-release-$KBOX_VERSION-XXXXXXXXXX") &&
        find "$HOME/.m2/repository/ch/tutteli/kbox" -type d -name "*$KBOX_VERSION" -print0 |
          while read -r -d $'\0' versionDir; do
