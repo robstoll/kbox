@@ -71,6 +71,24 @@ inline fun <T> T.applyIf(predicate: Boolean, block: T.() -> Unit): T {
 }
 
 /**
+ * Calls the [provider] only if the [predicate] holds, returns `null` otherwise.
+ *
+ * This function shall complement [kotlin.takeIf] for cases where the cost to call the provider
+ * is high or the code involved to define the provider is long and a postfix `takeIf` is less readable
+ * than stating it at the beginning.
+ *
+ * @since 1.1.0
+ */
+@OptIn(ExperimentalContracts::class)
+inline fun <R> takeIf(predicate: Boolean, provider: () -> R): R? {
+    contract {
+        callsInPlace(provider, InvocationKind.AT_MOST_ONCE)
+        //TODO add `predicate holds in block` once we use Kotlin 2.2.20
+    }
+    return if (predicate) provider() else null
+}
+
+/**
  * Returns `null` if the [predicate] holds, calls the [provider] otherwise.
  *
  * This function shall complement [kotlin.takeUnless] for cases where the cost to call the provider
