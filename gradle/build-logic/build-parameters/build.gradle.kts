@@ -11,7 +11,7 @@ buildParameters {
     // Other plugins can contribute parameters, so below list is not exhaustive, hence we disable the validation
     enableValidation.set(false)
 
-    val defaultJdkVersion = 11
+    val defaultJdkVersion = 17
     integer("defaultJdkVersion") {
         defaultValue.set(defaultJdkVersion)
         mandatory.set(true)

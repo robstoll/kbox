@@ -32,6 +32,11 @@ and more, see the [Documentation](https://robstoll.github.io/kbox/kdoc/) for a f
 # Installation
 
 KBox is published to maven central.
+It has the following minimum requirement:
+- Kotlin: 2.0
+- JDK: 17
+- JS: IR
+
 
 ```
 repositories { mavenCentral() }
