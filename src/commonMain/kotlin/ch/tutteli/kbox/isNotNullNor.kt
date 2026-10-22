@@ -1,4 +1,3 @@
-//TODO 4.0.0 rename file to isNotNullNor.kt and adjust README link
 package ch.tutteli.kbox
 
 import kotlin.contracts.ExperimentalContracts

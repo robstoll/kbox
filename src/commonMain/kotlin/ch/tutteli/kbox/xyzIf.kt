@@ -79,7 +79,6 @@ inline fun <T> T.applyIf(predicate: Boolean, block: T.() -> Unit): T {
  *
  * @since 3.2.0
  */
-//TODO move to xIf with 4.0.0
 @OptIn(ExperimentalContracts::class)
 inline fun <R> takeUnless(predicate: Boolean, provider: () -> R): R? {
     contract {
