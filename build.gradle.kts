@@ -32,7 +32,7 @@ kotlin {
 
             kotlin.srcDir(generationTestFolder)
             dependencies {
-                implementation("ch.tutteli.atrium:atrium-fluent:1.3.0-alpha-2") {
+                implementation("ch.tutteli.atrium:atrium-fluent:1.3.0") {
                     exclude(group = "ch.tutteli.kbox")
                 }
             }
